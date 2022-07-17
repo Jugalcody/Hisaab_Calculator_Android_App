@@ -1,9 +1,376 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".guide">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="UselessParent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="27sp"
+        android:layout_margin="10dp"
+        android:text="@string/about2"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+
+        android:text="@string/what_t_new"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_1_store_total_available_balance"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_2_user_can_check_what_item_he_she_had_brought_at_what_price_on_which_date_even_after_10_year"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_3_user_can_add_money_when_he_she_receive_from_any_source"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_4_user_can_check_their_monthly_spend_receive_total_money_he_she_spent_in_a_particular_month_of_a_particular_year"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+
+
+        android:text="@string/_5_if_user_buys_an_item_and_add_here_in_the_app_then_his_available_balance_will_automatically_updated"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+
+
+        android:text="@string/how_to_use"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_1_user_have_to_login_first_if_he_she_doesn_t_has_an_account_can_register_by_clicking_on_don_t_have_account_option_below_in_the_login_page"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_2_once_user_registers_successfully_he_she_can_login"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_3_there_will_be_4_option"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+
+        android:text="@string/add_item"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="40dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/display_information2"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="40dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/monthly_spend2"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="40dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/balance_enquiry2"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="40dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_4_firstly_the_user_has_0_balance_in_his_her_account_so_he_she_can_t_buy_or_add_any_item_here_in_this_app_it_will_show_insufficient_balance"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_5_so_user_has_to_add_some_balance_only_if_he_has_with_his_in_real_if_user_has_100_ruppee_he_should_add_100_here_by_going_to_the_balance_enquiry_page"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_6_go_to_balance_enquiry_and_add_100_or_any_if_you_really_has_with_you_in_real"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_7_your_balance_is_updated_you_can_now_check_in_monthly_spend"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_8_in_monthly_spend_set_the_month_and_year_collectly_and_press_show_it_will_show_how_much_money_you_have_received_and_spend_in_that_respective_month"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_9_now_according_to_the_process_of_adding_100_it_will_show_rs_100_in_received_option_and_0_in_spend_as_you_haven_t_buy_or_add_any_item_yet"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_10_to_add_item_go_to_add_item_page_enter_what_item_you_bought_and_at_what_price_then_set_the_month_and_year_collectly_and_press_commit"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_12_to_see_your_daily_investment_record_go_to_display_information_set_the_month_and_year_collectly_and_press_show_button_it_will_show_all_your_record_of_that_respective_month"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/_13_if_you_want_to_see_how_much_you_spend_in_a_month_you_can_check_in_the_monthly_spend_page"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/use_it_happily"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp" />
+
+
+</LinearLayout>
+</ScrollView>
+</LinearLayout>
