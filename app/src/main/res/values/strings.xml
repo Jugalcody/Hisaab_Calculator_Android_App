@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">Hisaab Calculator</string>
+    <string name="hisaab">Hisaab</string>
+    <string name="prompt_email">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">login</string>
+    <string name="don_t_have_account">Don\'t have account?</string>
+    <string name="register">Register</string>
+    <string name="buy_item">Add item</string>
+    <string name="balance_enquiry">Balance enquiry</string>
+    <string name="add_money">Add money</string>
+    <string name="display_information">Display Information</string>
+    <string name="item">item</string>
+    <string name="enter_price">Enter price :</string>
+    <string name="price">price</string>
+    <string name="commit">Commit</string>
+    <string name="enter_item">Enter item :</string>
+    <string name="month">month : </string>
+    <string name="display">Show</string>
+    <string name="year">year :   </string>
+    <string name="add">Add</string>
+    <string name="total_balance">Total balance :</string>
+    <string name="clear">clear</string>
+    <string name="available_bal">Available Bal :</string>
+    <string name="daily_investment_record">Daily Investment Record</string>
+    <string name="daily_investment_analysis">Daily Investment Analysis</string>
+    <string name="monthly_spend">Monthly spend</string>
+    <string name="total_money_spend">money spend :</string>
+    <string name="total_money_received">money received :</string>
+    <string name="monthly_analysis">Monthly Analysis</string>
+    <string name="display_data">no data</string>
+    <string name="total_money_available">Total money available :</string>
+    <string name="guide">Guide</string>
+    <string name="about">About</string>
+    <string-array name="month">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>Aug</item>
+        <item>Sept</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item>
+    </string-array>
+    <string-array name="year">
+        <item>2022</item>
+        <item>2023</item>
+        <item>2024</item>
+        <item>2025</item>
+        <item>2026</item>
+        <item>2027</item>
+        <item>2028</item>
+        <item>2029</item>
+        <item>2030</item>
+        <item>2031</item>
+        <item>2032</item>
+        <item>2033</item>
+        <item>2034</item>
+        <item>2035</item>
+        <item>2036</item>
+        <item>2037</item>
+        <item>2038</item>
+        <item>2039</item>
+        <item>2040</item>
+    </string-array>
+</resources>
