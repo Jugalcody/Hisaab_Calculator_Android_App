@@ -1,6 +1,6 @@
 # Hisaab_Calculator_Android_App
 
-### This app is very much useful to those who stores their daily investment(how much spend on what item,etc) record and check often.
+### This app is very much useful to those who stores their daily investment ( i.e how much money spent on what item) record and check often.
 
 ## What's new
             1. Store Total available balance
