@@ -1,6 +1,5 @@
 package com.example.hisaabcalculator;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             Intent gi=new Intent(this,guide.class);
             startActivity(gi);
         }
-       else if(item.getItemId()==R.id.about){
+       else if(item.getItemId()==R.id.contact){
             Intent gi=new Intent(this,about.class);
             startActivity(gi);
         }

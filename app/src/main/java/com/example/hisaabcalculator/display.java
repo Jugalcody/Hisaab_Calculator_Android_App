@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +39,7 @@ String mon,year,head;
             Intent gi=new Intent(this,guide.class);
             startActivity(gi);
         }
-        else if(item.getItemId()==R.id.about){
+        else if(item.getItemId()==R.id.contact){
             Intent gi=new Intent(this,about.class);
             startActivity(gi);
         }

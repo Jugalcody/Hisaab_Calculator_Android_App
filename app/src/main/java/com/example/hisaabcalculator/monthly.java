@@ -38,7 +38,7 @@ Button b;
             Intent gi=new Intent(this,guide.class);
             startActivity(gi);
         }
-        else if(item.getItemId()==R.id.about){
+        else if(item.getItemId()==R.id.contact){
             Intent gi=new Intent(this,about.class);
             startActivity(gi);
         }
