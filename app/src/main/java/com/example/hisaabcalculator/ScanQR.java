@@ -1,11 +1,13 @@
 package com.example.hisaabcalculator;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -21,6 +23,7 @@ import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,12 +31,13 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class ScanQR extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback, DecoratedBarcodeView.TorchListener {
     DecoratedBarcodeView barcodeScannerView;
     Toolbar myToolbar;
     String amt="",head="";
-    SharedPreferences sp;
+    SharedPreferences sp,splogin;
     private static final int CAMERA_PERMISSION_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +45,13 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
         setContentView(R.layout.activity_scan_qr);
         myToolbar = findViewById(R.id.my_toolbar);
         sp=getSharedPreferences("item",MODE_PRIVATE);
+        splogin=getSharedPreferences("login",MODE_PRIVATE);
        setSupportActionBar(myToolbar);
        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         myToolbar.inflateMenu(R.menu.menu);
-        Bundle e=getIntent().getExtras();
-        head=e.getString("head");
+
+        head=sp.getString("user","");
        amt=sp.getString("price","0");
 
         barcodeScannerView = findViewById(R.id.dbar);
@@ -89,8 +94,8 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
         barcodeScannerView.decodeContinuous(result -> {
             String content = result.getText();
             Intent intent = new Intent();
+            intent.setData(Uri.parse(getfilteredUPI(content)+"tn="+"Paying by "+head+" for Items : "+sp.getString("items","")+ "&am="+amtt+ "&cu=INR"));
             intent.setAction(Intent.ACTION_VIEW);
-            Toast.makeText(this, getfilteredUPI(content), Toast.LENGTH_LONG).show();
             Intent chooser = Intent.createChooser(intent, "Pay with...");
             startActivityForResult(chooser, 1, null);
 
@@ -109,6 +114,9 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
                 startActivity(gi);
                 return true;
         }
+        else if(item.getItemId()==R.id.logout_menu){
+            open();
+        }
         return super.onOptionsItemSelected(item);
     }
     @Override
@@ -122,6 +130,8 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 deductMoney(Integer.parseInt(amt));
+                add_data(Objects.requireNonNull(sp.getString("item", "")),amt);
+                monthUpdate(Integer.parseInt(amt));
             }else if (resultCode == RESULT_CANCELED) {
 
                Toast.makeText(getApplicationContext(),"Payment cancelled",Toast.LENGTH_SHORT).show();
@@ -189,6 +199,75 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
         catch(IOException e){
             Toast.makeText(this,"unable to clear",Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void monthUpdate(int p) {
+        File path=getApplicationContext().getFilesDir();
+        try {
+            String date = new SimpleDateFormat("MMyyyy", Locale.getDefault()).format(new Date());
+            int d = Integer.parseInt(date);
+
+            FileInputStream f3 = new FileInputStream(new File(path, head +d+"monthlySpend.txt"));
+
+            InputStreamReader rr = new InputStreamReader(f3);
+            BufferedReader brr = new BufferedReader(rr);
+            String b5 = brr.readLine();
+            if (b5 == null) b5 = "0";
+            f3.close();
+
+
+            int l = Integer.parseInt(b5) + p;
+            String b3 = Integer.toString(l);
+            FileOutputStream f6 = new FileOutputStream(new File(path, head+d+ "monthlySpend.txt"));
+            f6.write((b3).getBytes());
+            f6.close();
+        }catch(IOException e){
+            clear3();
+            String price=sp.getString("price","0");
+            monthUpdate(Integer.parseInt(price));
+            e.printStackTrace();
+        }
+    }
+
+    public void add_data(String item,String price){
+
+        if (!item.equals("") && !price.equals("")){
+            File path = getApplicationContext().getFilesDir();
+            String date=new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+            String k =String.format("%-16s",item)+" Rs."+String.format("%-10s",price)+" "+date+"\n";
+
+
+            try {
+                FileOutputStream f =new FileOutputStream(new File(path,head+sp.getString("mon","")+sp.getString("year","")+".txt"),true);
+                f.write(k.getBytes());
+                f.close();
+            } catch(FileNotFoundException ee) {
+                ee.printStackTrace();
+            } catch(IOException ioException)
+            {
+                ioException.printStackTrace();
+            }
+        }}
+    public void open(){
+        AlertDialog.Builder a=new AlertDialog.Builder(this);
+        a.setMessage("Do you want to logout?");
+        a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent gi=new Intent(ScanQR.this,MainActivity.class);
+                splogin.edit().putBoolean("islogged",false).apply();
+                startActivity(gi);
+            }
+        });
+
+        a.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+        AlertDialog alerts=a.create();
+        alerts.show();
     }
 
 }

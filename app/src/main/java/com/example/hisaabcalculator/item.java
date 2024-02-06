@@ -1,7 +1,9 @@
 package com.example.hisaabcalculator;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,7 +35,8 @@ import java.util.Locale;
 public class item extends AppCompatActivity {
 Button b1;
 EditText e1,e2;
-SharedPreferences sp;
+SharedPreferences sp,splogin;
+
 String mon,year,head;
 TextView t;
     @Override
@@ -54,6 +57,9 @@ TextView t;
             Intent gi=new Intent(this,about.class);
             startActivity(gi);
         }
+        else if(item.getItemId()==R.id.logout_menu){
+          open();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -64,9 +70,11 @@ TextView t;
 
         t=findViewById(R.id.ab);
         Bundle e=getIntent().getExtras();
-        head=e.getString("head");
+
         Spinner s=findViewById(R.id.spin);
         sp=getSharedPreferences("item",MODE_PRIVATE);
+        splogin=getSharedPreferences("login",MODE_PRIVATE);
+        head=sp.getString("user","");
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.month, android.R.layout.simple_spinner_item);
         adapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
@@ -113,11 +121,13 @@ TextView t;
                 if (!item.equals("") && !price.equals("")) {
                     if (isOk(Integer.parseInt(price)) == 1) {
 
-                        add_data(item, price);
-                        monthUpdate(Integer.parseInt(price));
+
                         Intent i=new Intent(item.this,ScanQR.class);
                         sp.edit().putString("price",price).apply();
-                        //t.setText("Available Balance : "+deductMoney(Integer.parseInt(price)));
+                        sp.edit().putString("items",item).apply();
+                        sp.edit().putString("mon",mon).apply();
+                        sp.edit().putString("year",year).apply();
+
                         e1.setText("");
                         e2.setText("");
                         i.putExtra("head",head);
@@ -260,6 +270,27 @@ return bal3;
 
     }
 
+    public void open(){
+        AlertDialog.Builder a=new AlertDialog.Builder(this);
+        a.setMessage("Do you want to logout?");
+        a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent gi=new Intent(item.this,MainActivity.class);
+                splogin.edit().putBoolean("islogged",false).apply();
+                startActivity(gi);
+            }
+        });
+
+        a.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+        AlertDialog alerts=a.create();
+        alerts.show();
+    }
 
 
 }

@@ -1,7 +1,9 @@
 package com.example.hisaabcalculator;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +34,9 @@ SharedPreferences sp;
         else if(item.getItemId()==R.id.contact){
             Intent gi=new Intent(this,about.class);
             startActivity(gi);
+        }
+        else if(item.getItemId()==R.id.logout_menu){
+          open();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -73,10 +78,36 @@ SharedPreferences sp;
         t5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i5=new Intent(first.this, MainActivity.class);
-                sp.edit().putBoolean("islogged",false);
-                startActivity(i5);
+              open();
+
+
             }
         });
+    }
+    public void open(){
+        AlertDialog.Builder a=new AlertDialog.Builder(this);
+        a.setMessage("Do you want to logout?");
+        a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent gi=new Intent(first.this,MainActivity.class);
+                sp.edit().putBoolean("islogged",false).apply();
+                startActivity(gi);
+            }
+        });
+
+        a.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+        AlertDialog alerts=a.create();
+        alerts.show();
+    }
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        super.onBackPressed();
     }
 }

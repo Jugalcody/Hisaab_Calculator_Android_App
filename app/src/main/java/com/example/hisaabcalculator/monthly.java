@@ -1,8 +1,11 @@
 package com.example.hisaabcalculator;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 public class monthly extends AppCompatActivity {
 TextView t1,t2,t3;
+SharedPreferences sp;
 Button b;
     String mon,year,head;
     @Override
@@ -42,6 +46,9 @@ Button b;
             Intent gi=new Intent(this,about.class);
             startActivity(gi);
         }
+        else if(item.getItemId()==R.id.logout_menu){
+          open();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -55,6 +62,7 @@ Button b;
         t1=findViewById(R.id.monrec);
         t2=findViewById(R.id.mons);
         t3=findViewById(R.id.monav);
+        sp=getSharedPreferences("login",MODE_PRIVATE);
         t3.setText("Total money available : Rs."+totalBalance());
         Spinner s=findViewById(R.id.spinm2);
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.month, android.R.layout.simple_spinner_item);
@@ -176,4 +184,26 @@ Button b;
         }
         return b4;
     }
+    public void open(){
+        AlertDialog.Builder a=new AlertDialog.Builder(this);
+        a.setMessage("Do you want to logout?");
+        a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent gi=new Intent(monthly.this,MainActivity.class);
+                sp.edit().putBoolean("islogged",false).apply();
+                startActivity(gi);
+            }
+        });
+
+        a.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+        AlertDialog alerts=a.create();
+        alerts.show();
+    }
+
 }

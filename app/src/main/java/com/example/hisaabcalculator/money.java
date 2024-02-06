@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +29,7 @@ public class money extends AppCompatActivity {
 String n;
 Button b,b2;
 EditText e;
+SharedPreferences sp;
 TextView t;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,6 +49,9 @@ TextView t;
             Intent gi=new Intent(this,about.class);
             startActivity(gi);
         }
+        else if(item.getItemId()==R.id.logout_menu){
+         open();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -60,6 +65,7 @@ TextView t;
         e=findViewById(R.id.me);
         t=findViewById(R.id.mt);
         b2=findViewById(R.id.mb2);
+        sp=getSharedPreferences("login",MODE_PRIVATE);
         File path=getApplicationContext().getFilesDir();
        try{
            File f=new File(path,n+"balance.txt");
@@ -89,16 +95,37 @@ TextView t;
         );
 
     }
-public void open(View v){
+
+    public void open(View v){
+        AlertDialog.Builder a=new AlertDialog.Builder(this);
+        a.setMessage("Do you want to logout?");
+        a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent gi=new Intent(money.this,MainActivity.class);
+                startActivity(gi);
+            }
+        });
+
+        a.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+        AlertDialog alerts=a.create();
+        alerts.show();
+    }
+public void open(){
     AlertDialog.Builder a=new AlertDialog.Builder(this);
     a.setMessage("Do you want to clear your balance?");
     a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialogInterface, int i) {
 
-            monthlyUpdate("0",Integer.parseInt(totalBalance()));
-            clear2();
-            t.setText("Total balance : 0");
+            Intent gi=new Intent(money.this,MainActivity.class);
+            sp.edit().putBoolean("islogged",false).apply();
+            startActivity(gi);
         }
     });
 
