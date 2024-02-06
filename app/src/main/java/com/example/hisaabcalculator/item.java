@@ -3,6 +3,7 @@ package com.example.hisaabcalculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +33,7 @@ import java.util.Locale;
 public class item extends AppCompatActivity {
 Button b1;
 EditText e1,e2;
+SharedPreferences sp;
 String mon,year,head;
 TextView t;
     @Override
@@ -48,7 +50,7 @@ TextView t;
             Intent gi=new Intent(this,guide.class);
             startActivity(gi);
         }
-        else if(item.getItemId()==R.id.about){
+        else if(item.getItemId()==R.id.contact){
             Intent gi=new Intent(this,about.class);
             startActivity(gi);
         }
@@ -64,6 +66,7 @@ TextView t;
         Bundle e=getIntent().getExtras();
         head=e.getString("head");
         Spinner s=findViewById(R.id.spin);
+        sp=getSharedPreferences("item",MODE_PRIVATE);
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.month, android.R.layout.simple_spinner_item);
         adapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
@@ -81,7 +84,7 @@ TextView t;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
                 mon=parent.getItemAtPosition(i).toString();
-                b1.setText("Commit");
+                b1.setText("Proceed");
             }
 
             @Override
@@ -95,7 +98,7 @@ TextView t;
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
                 year=parent.getItemAtPosition(i).toString();
-                b1.setText("Commit");
+                b1.setText("Proceed");
             }
 
             @Override
@@ -104,18 +107,22 @@ TextView t;
             }
         });
         b1.setOnClickListener(view ->{
-            String item=e1.getText().toString();
-            String price=e2.getText().toString();
+            String item=e1.getText().toString().trim();
+            String price=e2.getText().toString().trim();
             if(!mon.equals("")) {
                 if (!item.equals("") && !price.equals("")) {
                     if (isOk(Integer.parseInt(price)) == 1) {
 
                         add_data(item, price);
                         monthUpdate(Integer.parseInt(price));
-                        t.setText("Available Balance : "+deductMoney(Integer.parseInt(price)));
+                        Intent i=new Intent(item.this,ScanQR.class);
+                        sp.edit().putString("price",price).apply();
+                        //t.setText("Available Balance : "+deductMoney(Integer.parseInt(price)));
                         e1.setText("");
                         e2.setText("");
-                        b1.setText("Committed");
+                        i.putExtra("head",head);
+                        startActivity(i);
+
                     } else {
                         Toast.makeText(this, "insufficient balance", Toast.LENGTH_LONG).show();
                     }
@@ -253,4 +260,7 @@ return bal3;
         return b3;
 
     }
+
+
+
 }

@@ -5,6 +5,6 @@
 
     />
     <item android:title="@string/contact"
-        android:id="@+id/about"/>
+        android:id="@+id/contact"/>
 
 </menu>

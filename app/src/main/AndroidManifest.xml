@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HisaabCalculator">
         <activity
+            android:name=".ScanQR"
+            android:theme="@style/ScanqrTheme"
+            android:exported="false" />
+        <activity
             android:name=".about"
             android:exported="false" />
         <activity
