@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hisaab Calculator</string>
+    <string name="app_name">Hisaab Pay</string>
     <string name="hisaab">Hisaab</string>
     <string name="prompt_email">Username</string>
     <string name="prompt_password">Password</string>
