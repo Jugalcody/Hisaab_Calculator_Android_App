@@ -3,6 +3,7 @@ package com.example.hisaabcalculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import java.io.*;
 public class MainActivity extends AppCompatActivity {
     Button l;
+    SharedPreferences sp;
     EditText u, p;
 
     @Override
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         l = findViewById(R.id.login);
         u = findViewById(R.id.username);
         p = findViewById(R.id.password);
+        sp=getSharedPreferences("login",MODE_PRIVATE);
         l.setOnClickListener(view -> {
 
             String user = u.getText().toString();
@@ -52,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
             if (isAuthenticate(user, pass)) {
                 Toast.makeText(this, "Welcome " + user, Toast.LENGTH_LONG).show();
                 Intent p1=new Intent(this,first.class);
-                p1.putExtra("head",user);
+                sp.edit().putString("user",user);
+                sp.edit().putBoolean("islogged",true).apply();
                 startActivity(p1);
 
             }}
@@ -124,5 +128,11 @@ public class MainActivity extends AppCompatActivity {
     public void register(View view) {
         Intent i=new Intent(MainActivity.this,signup.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        super.onBackPressed();
     }
 }
