@@ -231,7 +231,6 @@ return bal3;
             try {
                 FileOutputStream f =new FileOutputStream(new File(path,head+mon+year+".txt"),true);
                     f.write(k.getBytes());
-                    b1.setText("committed");
                 f.close();
             } catch(FileNotFoundException ee) {
                 ee.printStackTrace();

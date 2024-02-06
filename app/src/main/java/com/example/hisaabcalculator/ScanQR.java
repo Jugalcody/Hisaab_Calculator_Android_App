@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -40,9 +41,10 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
         setContentView(R.layout.activity_scan_qr);
         myToolbar = findViewById(R.id.my_toolbar);
         sp=getSharedPreferences("item",MODE_PRIVATE);
-        setSupportActionBar(myToolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
+       setSupportActionBar(myToolbar);
+       getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        myToolbar.inflateMenu(R.menu.menu);
         Bundle e=getIntent().getExtras();
         head=e.getString("head");
        amt=sp.getString("price","0");
@@ -109,7 +111,11 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
         }
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -117,9 +123,9 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
             if (resultCode == RESULT_OK) {
                 deductMoney(Integer.parseInt(amt));
             }else if (resultCode == RESULT_CANCELED) {
-                Intent i=new Intent(this,ScanQR.class);
+
                Toast.makeText(getApplicationContext(),"Payment cancelled",Toast.LENGTH_SHORT).show();
-               startActivity(i);
+
             }
         }
     }

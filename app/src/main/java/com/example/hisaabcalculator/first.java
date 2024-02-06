@@ -3,14 +3,17 @@ package com.example.hisaabcalculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class first extends AppCompatActivity {
-TextView t1,t2,t3,t4;
+TextView t1,t2,t3,t4,t5;
+SharedPreferences sp;
     String n;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,8 +44,9 @@ TextView t1,t2,t3,t4;
         t2=findViewById(R.id.fb2);
         t3=findViewById(R.id.fb3);
         t4=findViewById(R.id.fb4);
-        Bundle extras=getIntent().getExtras();
-        n=extras.getString("head");
+        t5=findViewById(R.id.fb5);
+        sp=getSharedPreferences("login",MODE_PRIVATE);
+        n=sp.getString("user","");
         t1.setOnClickListener(view -> {
            Intent i1=new Intent(this,item.class);
            i1.putExtra("head",n);
@@ -65,6 +69,14 @@ TextView t1,t2,t3,t4;
             Intent i4=new Intent(this,money.class);
             i4.putExtra("head",n);
             startActivity(i4);
+        });
+        t5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i5=new Intent(first.this, MainActivity.class);
+                sp.edit().putBoolean("islogged",false);
+                startActivity(i5);
+            }
         });
     }
 }
