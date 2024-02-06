@@ -1,8 +1,11 @@
 package com.example.hisaabcalculator;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +27,7 @@ import java.io.InputStreamReader;
 public class display extends AppCompatActivity {
 TextView e1;
 Button b1;
+SharedPreferences sp;
 String mon,year,head;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,6 +47,9 @@ String mon,year,head;
             Intent gi=new Intent(this,about.class);
             startActivity(gi);
         }
+        else if(item.getItemId()==R.id.logout_menu){
+        open();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -51,6 +58,7 @@ String mon,year,head;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
         Spinner s=findViewById(R.id.spin2);
+        sp=getSharedPreferences("login",MODE_PRIVATE);
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.month, android.R.layout.simple_spinner_item);
         adapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
@@ -134,5 +142,25 @@ s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             else return 0;
         }
 
+    public void open(){
+        AlertDialog.Builder a=new AlertDialog.Builder(this);
+        a.setMessage("Do you want to logout?");
+        a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent gi=new Intent(display.this,MainActivity.class);
+                sp.edit().putBoolean("islogged",false).apply();
+                startActivity(gi);
+            }
+        });
 
+        a.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+        AlertDialog alerts=a.create();
+        alerts.show();
+    }
 }

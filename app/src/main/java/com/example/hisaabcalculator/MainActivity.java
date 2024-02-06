@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.io.*;
 public class MainActivity extends AppCompatActivity {
     Button l;
-    SharedPreferences sp;
+    SharedPreferences sp,spitem;
     EditText u, p;
 
     @Override
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         u = findViewById(R.id.username);
         p = findViewById(R.id.password);
         sp=getSharedPreferences("login",MODE_PRIVATE);
+        spitem=getSharedPreferences("item",MODE_PRIVATE);
         l.setOnClickListener(view -> {
 
             String user = u.getText().toString();
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             if (isAuthenticate(user, pass)) {
                 Toast.makeText(this, "Welcome " + user, Toast.LENGTH_LONG).show();
                 Intent p1=new Intent(this,first.class);
-                sp.edit().putString("user",user);
+                spitem.edit().putString("user",user).apply();
                 sp.edit().putBoolean("islogged",true).apply();
                 startActivity(p1);
 

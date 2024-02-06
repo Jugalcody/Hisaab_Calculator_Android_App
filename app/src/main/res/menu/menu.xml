@@ -6,5 +6,6 @@
     />
     <item android:title="@string/contact"
         android:id="@+id/contact"/>
-
+    <item android:title="@string/logout"
+        android:id="@+id/logout_menu"/>
 </menu>

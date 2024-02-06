@@ -18,7 +18,7 @@ SharedPreferences sp;
             new Handler().postDelayed(new Runnable(){
                 @Override
                 public void run() {
-                    /* Create an Intent that will start the Menu-Activity. */
+
                     Intent i = new Intent(SplashScreen.this,MainActivity.class);
                     startActivity(i);
                     finish();
