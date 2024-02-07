@@ -99,7 +99,8 @@ barcodeScannerView.setVisibility(View.VISIBLE);
             barcodeScannerView.setVisibility(View.GONE);
             if(isenable) {
                 String msg = "Items brought are : " + sp.getString("items", "") + "\n by "+head.trim();
-                intent.setData(Uri.parse(getfilteredUPI(content) + "tn=" + msg + "&am=" + amtt + "&cu=INR"));
+                intent.setData(Uri.parse(getfilteredUPI(content) + "tn=testing" + "&am=" + amtt + "&cu=INR"));
+               // intent.setData(Uri.parse("upi://pay?pa=9101332924@ibl&pn=9101332924&mc=0000&mode=02&purpose=00"+"tn=" + msg + "&am=" + amtt + "&cu=INR"));
                 intent.setAction(Intent.ACTION_VIEW);
 
                 Intent chooser = Intent.createChooser(intent, "Pay with...");
