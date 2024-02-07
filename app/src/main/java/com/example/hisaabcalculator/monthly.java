@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 public class monthly extends AppCompatActivity {
 TextView t1,t2,t3;
-SharedPreferences sp;
+SharedPreferences sp,spitem;
 Button b;
     String mon,year,head;
     @Override
@@ -57,12 +57,14 @@ Button b;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monthly);
         Bundle e=getIntent().getExtras();
-        head=e.getString("head");
+
         b=findViewById(R.id.mondb);
         t1=findViewById(R.id.monrec);
         t2=findViewById(R.id.mons);
         t3=findViewById(R.id.monav);
         sp=getSharedPreferences("login",MODE_PRIVATE);
+        spitem=getSharedPreferences("item",MODE_PRIVATE);
+        head=spitem.getString("user","");
         t3.setText("Total money available : Rs."+totalBalance());
         Spinner s=findViewById(R.id.spinm2);
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.month, android.R.layout.simple_spinner_item);

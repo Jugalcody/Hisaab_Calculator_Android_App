@@ -27,7 +27,7 @@ import java.io.InputStreamReader;
 public class display extends AppCompatActivity {
 TextView e1;
 Button b1;
-SharedPreferences sp;
+SharedPreferences sp,spitem;
 String mon,year,head;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,11 +59,12 @@ String mon,year,head;
         setContentView(R.layout.activity_display);
         Spinner s=findViewById(R.id.spin2);
         sp=getSharedPreferences("login",MODE_PRIVATE);
+        spitem=getSharedPreferences("item",MODE_PRIVATE);
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.month, android.R.layout.simple_spinner_item);
         adapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
         Bundle e=getIntent().getExtras();
-        head=e.getString("head");
+        head=spitem.getString("user","");
 
 
         Spinner s2=findViewById(R.id.spin3);
@@ -73,6 +74,7 @@ String mon,year,head;
 
         e1=findViewById(R.id.de);
         b1=findViewById(R.id.db);
+
         b1.setOnClickListener(view -> {
             if(show_data()==1) {b1.setText("Showed");}
             else {
