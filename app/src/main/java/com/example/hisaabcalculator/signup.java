@@ -22,12 +22,6 @@ import java.io.InputStreamReader;
 public class signup extends AppCompatActivity {
 Button s;
 EditText u,p;
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater mi=getMenuInflater();
-        mi.inflate(R.menu.menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

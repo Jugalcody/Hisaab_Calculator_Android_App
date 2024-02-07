@@ -1,28 +1,53 @@
 package com.example.hisaabcalculator;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+
 
 public class first extends AppCompatActivity {
-TextView t1,t2,t3,t4,t5;
-SharedPreferences sp;
+TextView t1,t2,t3,t4,t5,user_text;
+Toolbar toolbar;
+ImageView user_img;
+SharedPreferences sp,spitem;
+int REQUEST_IMAGE_PICKER=1;
     String n;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi=getMenuInflater();
         mi.inflate(R.menu.menu,menu);
+
+        // Set showAsAction for each menu item
+        MenuItem item1 = menu.findItem(R.id.guide);
+
+        MenuItem item2 = menu.findItem(R.id.contact);
+        item1.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        item2.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -47,11 +72,33 @@ SharedPreferences sp;
         setContentView(R.layout.activity_first);
         t1=findViewById(R.id.fb1);
         t2=findViewById(R.id.fb2);
+        user_text=findViewById(R.id.first_toolbar_txt);
+        user_img=findViewById(R.id.first_toolbar_img);
         t3=findViewById(R.id.fb3);
         t4=findViewById(R.id.fb4);
         t5=findViewById(R.id.fb5);
+        toolbar=findViewById(R.id.first_toolbar);
+        toolbar.setTitle("Hisaab Pay");
+        setSupportActionBar(toolbar);
         sp=getSharedPreferences("login",MODE_PRIVATE);
-        n=sp.getString("user","");
+        spitem=getSharedPreferences("item",MODE_PRIVATE);
+        n=spitem.getString("user","");
+        user_text.setText(n);
+try{
+    user_img.setPadding(0,0,0,0);
+    user_img.setImageBitmap(decodeStringToBitmap(sp.getString(spitem.getString("user","")+"img", "")));
+}
+catch (Exception e){
+    user_img.setPadding(20,20,20,20);
+    user_img.setImageResource(R.drawable.plus2);
+}
+user_img.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+
+openImagePicker();
+    }
+});
         t1.setOnClickListener(view -> {
            Intent i1=new Intent(this,item.class);
            i1.putExtra("head",n);
@@ -110,4 +157,46 @@ SharedPreferences sp;
         finishAffinity();
         super.onBackPressed();
     }
+
+
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_IMAGE_PICKER);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_PICKER && resultCode == RESULT_OK && data != null) {
+            try {
+                // Get the URI of the selected image
+                assert data.getData() != null;
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+
+                // Display the selected image in ImageView
+                user_img.setPadding(0,0,0,0);
+                sp.edit().putString(spitem.getString("user","")+"img",encodeBitmapToString(bitmap)).apply();
+                user_img.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error loading image", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private static String encodeBitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] byteArray = baos.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+    }
+
+    private static Bitmap decodeStringToBitmap(String encodedBitmap) {
+        byte[] decodedByteArray = Base64.decode(encodedBitmap, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
+
 }

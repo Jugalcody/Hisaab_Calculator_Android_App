@@ -29,7 +29,7 @@ public class money extends AppCompatActivity {
 String n;
 Button b,b2;
 EditText e;
-SharedPreferences sp;
+SharedPreferences sp,sp2;
 TextView t;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,12 +60,15 @@ TextView t;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money);
         Bundle bb=getIntent().getExtras();
-        n=bb.getString("head");
+
         b=findViewById(R.id.mb);
         e=findViewById(R.id.me);
         t=findViewById(R.id.mt);
         b2=findViewById(R.id.mb2);
         sp=getSharedPreferences("login",MODE_PRIVATE);
+        sp2=getSharedPreferences("item",MODE_PRIVATE);
+
+        n=sp2.getString("user","");
         File path=getApplicationContext().getFilesDir();
        try{
            File f=new File(path,n+"balance.txt");
@@ -91,19 +94,22 @@ TextView t;
             }}
         );
 
-        b2.setOnClickListener(this::open
-        );
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+           open2();
+            }
+        });
 
     }
 
-    public void open(View v){
+    public void open2(){
         AlertDialog.Builder a=new AlertDialog.Builder(this);
-        a.setMessage("Do you want to logout?");
+        a.setMessage("Do you want to clear your balance?");
         a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent gi=new Intent(money.this,MainActivity.class);
-                startActivity(gi);
+              clear2();
             }
         });
 
@@ -143,7 +149,7 @@ public void open(){
         try{
             FileOutputStream f=new FileOutputStream(new File(path,n+"balance.txt"));
             f.write("".getBytes());
-
+            t.setText("Total balance : 0");
         }
         catch(IOException e){
             Toast.makeText(this,"unable to clear",Toast.LENGTH_LONG).show();

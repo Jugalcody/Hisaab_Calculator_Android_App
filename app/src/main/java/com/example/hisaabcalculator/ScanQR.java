@@ -36,6 +36,7 @@ import java.util.Objects;
 public class ScanQR extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback, DecoratedBarcodeView.TorchListener {
     DecoratedBarcodeView barcodeScannerView;
     Toolbar myToolbar;
+    boolean isenable=true;
     String amt="",head="";
     SharedPreferences sp,splogin;
     private static final int CAMERA_PERMISSION_REQUEST = 1;
@@ -43,6 +44,7 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_qr);
+
         myToolbar = findViewById(R.id.my_toolbar);
         sp=getSharedPreferences("item",MODE_PRIVATE);
         splogin=getSharedPreferences("login",MODE_PRIVATE);
@@ -53,16 +55,16 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
 
         head=sp.getString("user","");
        amt=sp.getString("price","0");
-
         barcodeScannerView = findViewById(R.id.dbar);
 
         barcodeScannerView.setTorchListener(this);
-
+barcodeScannerView.setVisibility(View.VISIBLE);
                 if (ContextCompat.checkSelfPermission(ScanQR.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(ScanQR.this, new String[]{android.Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
                 } else {
                     if(!amt.trim().equals("")) {
-                        startScanner(amt);
+                            startScanner(amt);
+
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"invalid price, retry",Toast.LENGTH_SHORT).show();
@@ -94,10 +96,16 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
         barcodeScannerView.decodeContinuous(result -> {
             String content = result.getText();
             Intent intent = new Intent();
-            intent.setData(Uri.parse(getfilteredUPI(content)+"tn="+"Paying by "+head+" for Items : "+sp.getString("items","")+ "&am="+amtt+ "&cu=INR"));
-            intent.setAction(Intent.ACTION_VIEW);
-            Intent chooser = Intent.createChooser(intent, "Pay with...");
-            startActivityForResult(chooser, 1, null);
+            barcodeScannerView.setVisibility(View.GONE);
+            if(isenable) {
+                String msg = "Items brought are : " + sp.getString("items", "") + "\n by "+head.trim();
+                intent.setData(Uri.parse(getfilteredUPI(content) + "tn=" + msg + "&am=" + amtt + "&cu=INR"));
+                intent.setAction(Intent.ACTION_VIEW);
+
+                Intent chooser = Intent.createChooser(intent, "Pay with...");
+isenable=false;
+                startActivityForResult(chooser, 1, null);
+            }
 
         });
     }
@@ -129,11 +137,16 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                barcodeScannerView.setVisibility(View.GONE);
+                add_data(sp.getString("items", ""),amt);
                 deductMoney(Integer.parseInt(amt));
-                add_data(Objects.requireNonNull(sp.getString("item", "")),amt);
+                Toast.makeText(getApplicationContext(),"Paid",Toast.LENGTH_LONG).show();
+                Intent i=new Intent(ScanQR.this,item.class);
+                startActivity(i);
                 monthUpdate(Integer.parseInt(amt));
             }else if (resultCode == RESULT_CANCELED) {
-
+                barcodeScannerView.setVisibility(View.VISIBLE);
+                isenable=true;
                Toast.makeText(getApplicationContext(),"Payment cancelled",Toast.LENGTH_SHORT).show();
 
             }
@@ -145,7 +158,9 @@ public class ScanQR extends AppCompatActivity implements ActivityCompat.OnReques
         if (requestCode == CAMERA_PERMISSION_REQUEST) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if(!amt.trim().equals("")) {
-                    startScanner(amt);
+                   // barcodeScannerView.setVisibility(View.VISIBLE);
+                        startScanner(amt);
+
                 }
             } else {
                 Toast.makeText(this, "Camera permission is required to scan QR codes", Toast.LENGTH_SHORT).show();

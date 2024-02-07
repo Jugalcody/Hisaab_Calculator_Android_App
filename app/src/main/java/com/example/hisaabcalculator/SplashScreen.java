@@ -22,7 +22,7 @@ SharedPreferences sp;
                     Intent i = new Intent(SplashScreen.this,MainActivity.class);
                     startActivity(i);
                     finish();
-        }},2500);
+        }},3000);
 
         }
         else{

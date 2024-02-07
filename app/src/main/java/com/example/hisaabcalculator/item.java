@@ -2,7 +2,8 @@ package com.example.hisaabcalculator;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.appcompat.widget.AppCompatButton;
+import java.time.LocalDate;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,7 +34,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class item extends AppCompatActivity {
-Button b1;
+AppCompatButton b1;
 EditText e1,e2;
 SharedPreferences sp,splogin;
 
@@ -69,56 +70,29 @@ TextView t;
         setContentView(R.layout.activity_item);
 
         t=findViewById(R.id.ab);
-        Bundle e=getIntent().getExtras();
-
-        Spinner s=findViewById(R.id.spin);
         sp=getSharedPreferences("item",MODE_PRIVATE);
         splogin=getSharedPreferences("login",MODE_PRIVATE);
         head=sp.getString("user","");
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.month, android.R.layout.simple_spinner_item);
-        adapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
 
         t.setText("Available Balance : "+totalBalance());
-        Spinner s2=findViewById(R.id.spin1);
-        ArrayAdapter<CharSequence> adapter2=ArrayAdapter.createFromResource(this,R.array.year, android.R.layout.simple_spinner_item);
-        adapter2 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s2.setAdapter(adapter2);
         b1=findViewById(R.id.sb1);
         e1=findViewById(R.id.se1);
         e2=findViewById(R.id.se2);
-        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                mon=parent.getItemAtPosition(i).toString();
-                b1.setText("Proceed");
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                year=parent.getItemAtPosition(i).toString();
-                b1.setText("Proceed");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
         b1.setOnClickListener(view ->{
             String item=e1.getText().toString().trim();
             String price=e2.getText().toString().trim();
-            if(!mon.equals("")) {
-                if (!item.equals("") && !price.equals("")) {
+            LocalDate currentDate = null;
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                currentDate = LocalDate.now();
+               mon =getMonth(currentDate.getMonthValue());
+                year= String.valueOf(currentDate.getYear());
+            }
+
+            if(!price.trim().equals("")) {
+                if (!item.trim().equals("")) {
                     if (isOk(Integer.parseInt(price)) == 1) {
 
 
@@ -130,7 +104,6 @@ TextView t;
 
                         e1.setText("");
                         e2.setText("");
-                        i.putExtra("head",head);
                         startActivity(i);
 
                     } else {
@@ -138,13 +111,11 @@ TextView t;
                     }
                 }
             else if(item.equals("")){
-                    Toast.makeText(this, "enter item", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "enter item names", Toast.LENGTH_LONG).show();
                 }
-            else if(price.equals("")) {
-                    Toast.makeText(this, "enter price", Toast.LENGTH_LONG).show();
-                }
-            } else Toast.makeText(this, "select month", Toast.LENGTH_LONG).show();
-
+            } else {
+                Toast.makeText(getApplicationContext(), "empty price", Toast.LENGTH_SHORT).show();
+            }
             });
     }
 
@@ -251,25 +222,25 @@ return bal3;
         }}
 
 
-    public String totalBalance(){
+    public String totalBalance() {
         File path=getApplicationContext().getFilesDir();
         String b3="0";
         try{
-            FileInputStream f=new FileInputStream(new File(path,head+"balance.txt"));
-            InputStreamReader r=new InputStreamReader(f);
-            BufferedReader br=new BufferedReader(r);
-            b3=br.readLine();
-            if (b3==null) b3="0";
+            FileInputStream f2=new FileInputStream(new File(path,sp.getString("user","")+"balance.txt"));
+            InputStreamReader r = new InputStreamReader(f2);
+            BufferedReader br = new BufferedReader(r);
+            b3 = br.readLine();
+            if(b3==null) b3="0";
+            f2.close();
 
-            f.close();
+
         }
         catch(IOException e){
-            e.printStackTrace();
+
+            Toast.makeText(this,"empty balance",Toast.LENGTH_LONG).show();
         }
         return b3;
-
     }
-
     public void open(){
         AlertDialog.Builder a=new AlertDialog.Builder(this);
         a.setMessage("Do you want to logout?");
@@ -292,5 +263,39 @@ return bal3;
         alerts.show();
     }
 
+    public String getMonth(int mon){
+        if(mon==1) return "Jan";
+        else if(mon==2) return "Feb";
+        else if(mon==3) return "Mar";
+        else if(mon==4) return "Apr";
+        else if(mon==5) return "May";
+        else if(mon==6) return "June";
+        else if(mon==7) return "July";
+        else if(mon==8) return "Aug";
+        else if(mon==9) return "Sept";
+        else if(mon==10) return "Oct";
+        else if(mon==11) return "Nov";
+        else if(mon==12) return "Dec";
+        else return "";
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i=new Intent(item.this,first.class);
+        startActivity(i);
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        t.setText("Available Balance : "+totalBalance());
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        t.setText("Available Balance : "+totalBalance());
+        super.onRestart();
+    }
 }
