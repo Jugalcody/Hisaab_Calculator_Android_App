@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,7 @@ import java.io.*;
 public class MainActivity extends AppCompatActivity {
     Button l;
     SharedPreferences sp,spitem;
+    String name="";
     EditText u, p;
 
     @Override
@@ -43,34 +45,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        l = findViewById(R.id.login);
-        u = findViewById(R.id.username);
-        p = findViewById(R.id.password);
-        sp=getSharedPreferences("login",MODE_PRIVATE);
-        spitem=getSharedPreferences("item",MODE_PRIVATE);
-        l.setOnClickListener(view -> {
+        try {
+            l = findViewById(R.id.login);
+            u = findViewById(R.id.username);
+            p = findViewById(R.id.password);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getWindow().setStatusBarColor(getColor(R.color.secondary));
+            }
+            sp = getSharedPreferences("login", MODE_PRIVATE);
+            spitem = getSharedPreferences("item", MODE_PRIVATE);
+            l.setOnClickListener(view -> {
 
-            String user = u.getText().toString();
-            String pass = p.getText().toString();
-        if(!user.equals("") && !pass.equals("")){
-            if (isAuthenticate(user, pass)) {
-                Toast.makeText(this, "Welcome " + user, Toast.LENGTH_LONG).show();
-                Intent p1=new Intent(this,first.class);
-                spitem.edit().putString("user",user).apply();
-                sp.edit().putBoolean("islogged",true).apply();
-                startActivity(p1);
+                String user = u.getText().toString();
+                String pass = p.getText().toString();
+                if (!user.equals("") && !pass.equals("")) {
+                    if (isAuthenticate(user, pass)) {
+                        Intent p1 = new Intent(this, first.class);
+                        Toast.makeText(this, "Welcome " + name, Toast.LENGTH_LONG).show();
+                        spitem.edit().putString("user",name).apply();
+                        sp.edit().putBoolean("islogged", true).apply();
+                        startActivity(p1);
 
-            }}
-        else if(user.equals("")){
-            Toast.makeText(this,"enter username", Toast.LENGTH_LONG).show();
+                    }
+                } else if (user.equals("")) {
+                    Toast.makeText(this, "enter username", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "enter password", Toast.LENGTH_SHORT).show();
+                }
+
+            });
+
+        }catch (Exception e){
+
         }
-        else {
-            Toast.makeText(this, "enter password", Toast.LENGTH_SHORT).show();
-        }
-
-        });
-
-
     }
 
 
@@ -94,7 +101,10 @@ public class MainActivity extends AppCompatActivity {
                         if (arr[1].equals(p)) {
 
                             y = 1;
-
+                            name=arr[2];
+                            /*for(int i=2;i<arr.length;i++)
+                            name=name+arr[i]+" ";
+*/
                         }
                     }
                 }

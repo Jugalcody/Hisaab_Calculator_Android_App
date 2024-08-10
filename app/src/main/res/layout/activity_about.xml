@@ -13,36 +13,9 @@
     android:layout_margin="10dp"
     android:background="@color/white"
     android:textColor="@color/black"
-    android:text="@string/contact"
+    android:text="Contact"
     />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="0dp"
-        android:orientation="horizontal"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            android:textColor="@color/black"
-            android:text="@string/college"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_margin="10dp"
-            android:background="@color/gray"
-            android:textColor="@color/black"
-            android:text="@string/nerist"
-            />
 
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -56,7 +29,7 @@
         android:layout_margin="10dp"
         android:background="@color/white"
         android:textColor="@color/black"
-        android:text="@string/Github"
+        android:text="For any queries"
         />
         <TextView
             android:id="@+id/at"
@@ -66,7 +39,7 @@
             android:layout_margin="10dp"
             android:background="@color/white"
             android:textColor="@color/purple_500"
-            android:text="@string/https_github_com_jugalcody"
+            android:text="mail here"
             />
     </LinearLayout>
         <LinearLayout
@@ -91,7 +64,7 @@
                 android:layout_margin="10dp"
                 android:background="@color/white"
                 android:textColor="@color/purple_500"
-                android:text="@string/https_www_linkedin_com_in_jugal_kishore_das_323443234_originalsubdomain_in"
+                android:text="visit"
                 />
 
     </LinearLayout>

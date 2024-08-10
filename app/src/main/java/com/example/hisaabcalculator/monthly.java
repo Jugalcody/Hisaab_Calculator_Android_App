@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,63 +57,68 @@ Button b;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monthly);
-        Bundle e=getIntent().getExtras();
-
-        b=findViewById(R.id.mondb);
-        t1=findViewById(R.id.monrec);
-        t2=findViewById(R.id.mons);
-        t3=findViewById(R.id.monav);
-        sp=getSharedPreferences("login",MODE_PRIVATE);
-        spitem=getSharedPreferences("item",MODE_PRIVATE);
-        head=spitem.getString("user","");
-        t3.setText("Total money available : Rs."+totalBalance());
-        Spinner s=findViewById(R.id.spinm2);
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.month, android.R.layout.simple_spinner_item);
-        adapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
-
-        Spinner s2=findViewById(R.id.spinm3);
-        ArrayAdapter<CharSequence> adapter2=ArrayAdapter.createFromResource(this,R.array.year, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s2.setAdapter(adapter2);
-
-        s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                year=parent.getItemAtPosition(i).toString();
-                b.setText("Show");
-                t1.setText("Total money received : ");
-                t2.setText("Total money spend : ");
+        try {
+            Bundle e = getIntent().getExtras();
+            b = findViewById(R.id.mondb);
+            t1 = findViewById(R.id.monrec);
+            t2 = findViewById(R.id.mons);
+            t3 = findViewById(R.id.monav);
+            sp = getSharedPreferences("login", MODE_PRIVATE);
+            spitem = getSharedPreferences("item", MODE_PRIVATE);
+            head = spitem.getString("user", "");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getWindow().setStatusBarColor(getColor(R.color.primary));
             }
+            t3.setText("Total money available : Rs." + totalBalance());
+            Spinner s = findViewById(R.id.spinm2);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.month, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            s.setAdapter(adapter);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            Spinner s2 = findViewById(R.id.spinm3);
+            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.year, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            s2.setAdapter(adapter2);
 
-            }
-        });
-        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                    year = parent.getItemAtPosition(i).toString();
+                    b.setText("Show");
+                    t1.setText("Total money received : ");
+                    t2.setText("Total money spend : ");
+                }
 
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                mon=parent.getItemAtPosition(i).toString();
-                b.setText("Show");
-                t1.setText("Total money received : ");
-                t2.setText("Total money spend : ");
-            }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });
+            s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            }
-        });
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                    mon = parent.getItemAtPosition(i).toString();
+                    b.setText("Show");
+                    t1.setText("Total money received : ");
+                    t2.setText("Total money spend : ");
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
 
 
-        b.setOnClickListener(view -> {
-            t1.setText("Total money received in "+mon+"("+year+") :  Rs."+monthlyGet());
-            t2.setText("Total money spend in "+mon+"("+year+") :  Rs."+monthlySpend());
-            b.setText("Showed");
-        });
+            b.setOnClickListener(view -> {
+                t1.setText("Total money received in " + mon + "(" + year + ") :  Rs." + monthlyGet());
+                t2.setText("Total money spend in " + mon + "(" + year + ") :  Rs." + monthlySpend());
+                b.setText("Showed");
+            });
+        }catch(Exception e){
 
+        }
     }
     public int month(String m){
         if(m.equals("Jan")) return 1;

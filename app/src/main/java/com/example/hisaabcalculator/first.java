@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -37,12 +38,12 @@ int REQUEST_IMAGE_PICKER=1;
         MenuInflater mi=getMenuInflater();
         mi.inflate(R.menu.menu,menu);
 
-        // Set showAsAction for each menu item
+        /*// Set showAsAction for each menu item
         MenuItem item1 = menu.findItem(R.id.guide);
 
         MenuItem item2 = menu.findItem(R.id.contact);
         item1.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        item2.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        item2.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);*/
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -70,20 +71,37 @@ int REQUEST_IMAGE_PICKER=1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-        t1=findViewById(R.id.fb1);
-        t2=findViewById(R.id.fb2);
-        user_text=findViewById(R.id.first_toolbar_txt);
-        user_img=findViewById(R.id.first_toolbar_img);
-        t3=findViewById(R.id.fb3);
-        t4=findViewById(R.id.fb4);
-        t5=findViewById(R.id.fb5);
-        toolbar=findViewById(R.id.first_toolbar);
-        toolbar.setTitle("Hisaab Pay");
-        setSupportActionBar(toolbar);
-        sp=getSharedPreferences("login",MODE_PRIVATE);
-        spitem=getSharedPreferences("item",MODE_PRIVATE);
-        n=spitem.getString("user","");
-        user_text.setText(n);
+        try {
+            t1 = findViewById(R.id.fb1);
+            t2 = findViewById(R.id.fb2);
+            user_text = findViewById(R.id.first_toolbar_txt);
+            user_img = findViewById(R.id.first_toolbar_img);
+            t3 = findViewById(R.id.fb3);
+            t4 = findViewById(R.id.fb4);
+            t5 = findViewById(R.id.fb5);
+
+
+        }
+        catch(Exception e){
+
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().setStatusBarColor(getColor(R.color.primary));
+        }
+        try {
+            sp = getSharedPreferences("login", MODE_PRIVATE);
+            spitem = getSharedPreferences("item", MODE_PRIVATE);
+            n = spitem.getString("user", "");
+            user_text.setText("Hii " + n + ",");
+
+            toolbar = findViewById(R.id.first_toolbar);
+            setSupportActionBar(toolbar);
+
+        }
+        catch(Exception e){
+
+        }
 try{
     user_img.setPadding(0,0,0,0);
     user_img.setImageBitmap(decodeStringToBitmap(sp.getString(spitem.getString("user","")+"img", "")));
@@ -95,8 +113,12 @@ catch (Exception e){
 user_img.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
+try {
+    openImagePicker();
+}
+catch (Exception e){
 
-openImagePicker();
+}
     }
 });
         t1.setOnClickListener(view -> {
@@ -125,7 +147,12 @@ openImagePicker();
         t5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              open();
+
+                try {
+                    open();
+                }catch (Exception e){
+
+                }
 
 
             }

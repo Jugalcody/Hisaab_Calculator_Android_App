@@ -3,9 +3,8 @@ package com.example.hisaabcalculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +20,7 @@ import java.io.InputStreamReader;
 
 public class signup extends AppCompatActivity {
 Button s;
-EditText u,p;
+EditText ph, password,user;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -41,27 +40,34 @@ EditText u,p;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getWindow().setStatusBarColor(getColor(R.color.violet));
+            }
+            s = findViewById(R.id.signup);
+            user=findViewById(R.id.registerusername);
+            ph =findViewById(R.id.registerphone2);
+            password = findViewById(R.id.password2);
+            s.setOnClickListener(view -> {
+                String phonen = ph.getText().toString();
+                String pass = password.getText().toString();
 
-        s=findViewById(R.id.signup);
-        u = (EditText) findViewById(R.id.username2);
-        p = (EditText) findViewById(R.id.password2);
-        s.setOnClickListener(view -> {
-            String user = u.getText().toString();
-            String pass = p.getText().toString();
+                register(phonen, pass,user.getText().toString());
+            });
+        }
+        catch(Exception e){
 
-            register(user,pass);
-        });
-
+        }
     }
 
-    public void register(String u, String p) {
-        if (!u.equals("") && !p.equals("")){
-        File path = getApplicationContext().getFilesDir();
-        String k = u + " " + p+"\n";
+    public void register(String u, String p,String name) {
+        if (!u.equals("") && !p.equals("") && !name.equals("")){
+            File path = getApplicationContext().getFilesDir();
+            String k = u + " " + p+" "+name+"\n";
 
 
-        try {
-            FileOutputStream f =new FileOutputStream(new File(path,"valid2.txt"),true);
+            try {
+                FileOutputStream f =new FileOutputStream(new File(path,"valid2.txt"),true);
 
                 FileInputStream f1 = new FileInputStream(new File(path,"valid2.txt"));
                 InputStreamReader r = new InputStreamReader(f1);
@@ -78,6 +84,11 @@ EditText u,p;
                 if(ae!=1) {
                     f.write(k.getBytes());
                     s.setText("Registered");
+                    Toast.makeText(this, "Registered Successfully!", Toast.LENGTH_LONG).show();
+                    ph.setText("");
+                    user.setText("");
+                    password.setText("");
+                    onBackPressed();
 
                 }
                 else{
@@ -87,14 +98,14 @@ EditText u,p;
                 f.close();
                 //File p=getApplicationContext().getFilesDir();
 
-            //}
+                //}
 
 
-        } catch(FileNotFoundException ee) {
-            ee.printStackTrace();
-        } catch(IOException ioException)
-        {
-            ioException.printStackTrace();
-            Toast.makeText(this, "io exception", Toast.LENGTH_LONG).show();
-        }
-            }}}
+            } catch(FileNotFoundException ee) {
+                ee.printStackTrace();
+            } catch(IOException ioException)
+            {
+                ioException.printStackTrace();
+                Toast.makeText(this, "io exception", Toast.LENGTH_LONG).show();
+            }
+        }}}

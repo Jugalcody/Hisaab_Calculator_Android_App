@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,59 +58,67 @@ String mon,year,head;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
-        Spinner s=findViewById(R.id.spin2);
-        sp=getSharedPreferences("login",MODE_PRIVATE);
-        spitem=getSharedPreferences("item",MODE_PRIVATE);
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.month, android.R.layout.simple_spinner_item);
-        adapter .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
-        Bundle e=getIntent().getExtras();
-        head=spitem.getString("user","");
+        try {
+            Spinner s = findViewById(R.id.spin2);
+            sp = getSharedPreferences("login", MODE_PRIVATE);
+            spitem = getSharedPreferences("item", MODE_PRIVATE);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.month, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            s.setAdapter(adapter);
+            Bundle e = getIntent().getExtras();
+            head = spitem.getString("user", "");
 
-
-        Spinner s2=findViewById(R.id.spin3);
-        ArrayAdapter<CharSequence> adapter2=ArrayAdapter.createFromResource(this,R.array.year, android.R.layout.simple_spinner_item);
-        adapter2 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s2.setAdapter(adapter2);
-
-        e1=findViewById(R.id.de);
-        b1=findViewById(R.id.db);
-
-        b1.setOnClickListener(view -> {
-            if(show_data()==1) {b1.setText("Showed");}
-            else {
-                e1.setText(" ");
-                Toast.makeText(this, "no data found", Toast.LENGTH_LONG).show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getWindow().setStatusBarColor(getColor(R.color.primary));
             }
+            Spinner s2 = findViewById(R.id.spin3);
+            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.year, android.R.layout.simple_spinner_item);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            s2.setAdapter(adapter2);
 
-        });
-s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-        year=parent.getItemAtPosition(i).toString();
-        b1.setText("Show");
-        e1.setText("");
-    }
+            e1 = findViewById(R.id.de);
+            b1 = findViewById(R.id.db);
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+            b1.setOnClickListener(view -> {
+                if (show_data() == 1) {
+                    b1.setText("Showed");
+                } else {
+                    e1.setText(" ");
+                    Toast.makeText(this, "no data found", Toast.LENGTH_LONG).show();
+                }
 
-    }
-});
-s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            });
+            s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                    year = parent.getItemAtPosition(i).toString();
+                    b1.setText("Show");
+                    e1.setText("");
+                }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-        mon=parent.getItemAtPosition(i).toString();
-        b1.setText("Show");
-        e1.setText("");
-    }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });
+            s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-    }
-});
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                    mon = parent.getItemAtPosition(i).toString();
+                    b1.setText("Show");
+                    e1.setText("");
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+        }catch (Exception e){
+
+        }
     }
 
 

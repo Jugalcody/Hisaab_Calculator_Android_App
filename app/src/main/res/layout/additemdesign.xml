@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="@color/primary"
+    android:weightSum="10"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/additemd1"
+        android:layout_width="0dp"
+        android:layout_weight="7"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/white"
+        android:inputType="text"
+        android:padding="6dp"
+        android:background="@drawable/border4"
+        android:textColor="@color/black"
+        android:hint="@string/item"
+        android:textColorHint="@color/gray"
+        android:textSize="20sp"
+        android:importantForAutofill="no" />
+    <EditText
+        android:id="@+id/addprice"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/white"
+        android:inputType="text"
+        android:padding="6dp"
+        android:background="@drawable/border4"
+        android:textColor="@color/black"
+        android:hint="@string/price"
+        android:textColorHint="@color/gray"
+        android:textSize="20sp"
+        android:importantForAutofill="no" />
+</LinearLayout>

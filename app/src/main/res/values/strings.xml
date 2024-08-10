@@ -59,7 +59,7 @@
     <string name="about">about</string>
     <string name="Github">Github - </string>
     <string name="college">College - </string>
-    <string name="contact">contact</string>
+    <string name="contact">Contact</string>
     <string name="north_eastern_regional_institute_of_science_and_technology">North Eastern Regional Institute Of Science And Technology</string>
     <string name="nerist">NERIST</string>
     <string name="https_github_com_jugalcody">https://github.com/Jugalcody</string>
@@ -100,5 +100,15 @@
         <item>2038</item>
         <item>2039</item>
         <item>2040</item>
+        <item>2041</item>
+        <item>2042</item>
+        <item>2043</item>
+        <item>2044</item>
+        <item>2045</item>
+        <item>2046</item>
+        <item>2047</item>
+        <item>2048</item>
+        <item>2049</item>
+        <item>2050</item>
     </string-array>
 </resources>

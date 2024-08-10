@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CollapsingToolbarLayoutExpandedTextStyle">
+
+        <item name="android:textSize">25sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+</resources>

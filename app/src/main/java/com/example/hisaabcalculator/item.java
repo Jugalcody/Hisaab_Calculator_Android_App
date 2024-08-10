@@ -1,16 +1,10 @@
 package com.example.hisaabcalculator;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import java.time.LocalDate;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
+
+import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,91 +28,90 @@ import java.util.Date;
 import java.util.Locale;
 
 public class item extends AppCompatActivity {
-AppCompatButton b1;
-EditText e1,e2;
-SharedPreferences sp,splogin;
-
-String mon,year,head;
-TextView t;
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater mi=getMenuInflater();
-        mi.inflate(R.menu.menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.guide){
-
-            Intent gi=new Intent(this,guide.class);
-            startActivity(gi);
-        }
-        else if(item.getItemId()==R.id.contact){
-            Intent gi=new Intent(this,about.class);
-            startActivity(gi);
-        }
-        else if(item.getItemId()==R.id.logout_menu){
-          open();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
+    Button b1;
+    EditText e1,e2;
+    String mon,year,head;
+    TextView t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
-
-        t=findViewById(R.id.ab);
-        sp=getSharedPreferences("item",MODE_PRIVATE);
-        splogin=getSharedPreferences("login",MODE_PRIVATE);
-        head=sp.getString("user","");
-
-        t.setText("Available Balance : "+totalBalance());
-        b1=findViewById(R.id.sb1);
-        e1=findViewById(R.id.se1);
-        e2=findViewById(R.id.se2);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().setStatusBarColor(getColor(R.color.primary));
+        }
+        try {
+            Date now = new Date();
 
 
-        b1.setOnClickListener(view ->{
-            String item=e1.getText().toString().trim();
-            String price=e2.getText().toString().trim();
-            LocalDate currentDate = null;
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                currentDate = LocalDate.now();
-               mon =getMonth(currentDate.getMonthValue());
-                year= String.valueOf(currentDate.getYear());
-            }
-
-            if(!price.trim().equals("")) {
-                if (!item.trim().equals("")) {
-                    if (isOk(Integer.parseInt(price)) == 1) {
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.getDefault());
+            mon = monthFormat.format(now);
 
 
-                        Intent i=new Intent(item.this,ScanQR.class);
-                        sp.edit().putString("price",price).apply();
-                        sp.edit().putString("items",item).apply();
-                        sp.edit().putString("mon",mon).apply();
-                        sp.edit().putString("year",year).apply();
+            SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+            year = yearFormat.format(now);
+            t = findViewById(R.id.ab);
+            Bundle e = getIntent().getExtras();
+            head = e.getString("head");
 
-                        e1.setText("");
-                        e2.setText("");
-                        startActivity(i);
+            t.setText("Available Balance : " + totalBalance());
+            b1 = findViewById(R.id.sb1);
+            e1 = findViewById(R.id.se1);
+            e2 = findViewById(R.id.se2);
+            /*s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-                    } else {
-                        Toast.makeText(this, "insufficient balance", Toast.LENGTH_LONG).show();
-                    }
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                    mon = parent.getItemAtPosition(i).toString();
+                    b1.setText("Commit");
                 }
-            else if(item.equals("")){
-                    Toast.makeText(this, "enter item names", Toast.LENGTH_LONG).show();
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
                 }
-            } else {
-                Toast.makeText(getApplicationContext(), "empty price", Toast.LENGTH_SHORT).show();
-            }
             });
-    }
 
+            s2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                    year = parent.getItemAtPosition(i).toString();
+                    b1.setText("Commit");
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });*/
+            b1.setOnClickListener(view -> {
+                String item = e1.getText().toString();
+                String price = e2.getText().toString();
+                if (!mon.equals("")) {
+                    if (!item.equals("") && !price.equals("")) {
+                        if (isOk(Integer.parseInt(price)) == 1) {
+
+                            add_data(item, price);
+                            monthUpdate(Integer.parseInt(price));
+                            t.setText("Available Balance : " + deductMoney(Integer.parseInt(price)));
+                            e1.setText("");
+                            e2.setText("");
+                            b1.setText("Committed");
+                        } else {
+                            Toast.makeText(this, "insufficient balance", Toast.LENGTH_LONG).show();
+                        }
+                    } else if (item.equals("")) {
+                        Toast.makeText(this, "enter item", Toast.LENGTH_LONG).show();
+                    } else if (price.equals("")) {
+                        Toast.makeText(this, "enter price", Toast.LENGTH_LONG).show();
+                    }
+                } else Toast.makeText(this, "select month", Toast.LENGTH_LONG).show();
+
+            });
+        }catch (Exception e){
+
+        }
+    }
     public int isOk(int p){
         File path=getApplicationContext().getFilesDir();
         int bal3 = 0;
@@ -157,7 +150,7 @@ TextView t;
             clear3();
             e.printStackTrace();
         }
-return bal3;
+        return bal3;
     }
 
     public void monthUpdate(int p) {
@@ -211,7 +204,8 @@ return bal3;
 
             try {
                 FileOutputStream f =new FileOutputStream(new File(path,head+mon+year+".txt"),true);
-                    f.write(k.getBytes());
+                f.write(k.getBytes());
+                b1.setText("committed");
                 f.close();
             } catch(FileNotFoundException ee) {
                 ee.printStackTrace();
@@ -222,80 +216,22 @@ return bal3;
         }}
 
 
-    public String totalBalance() {
+    public String totalBalance(){
         File path=getApplicationContext().getFilesDir();
         String b3="0";
         try{
-            FileInputStream f2=new FileInputStream(new File(path,sp.getString("user","")+"balance.txt"));
-            InputStreamReader r = new InputStreamReader(f2);
-            BufferedReader br = new BufferedReader(r);
-            b3 = br.readLine();
-            if(b3==null) b3="0";
-            f2.close();
+            FileInputStream f=new FileInputStream(new File(path,head+"balance.txt"));
+            InputStreamReader r=new InputStreamReader(f);
+            BufferedReader br=new BufferedReader(r);
+            b3=br.readLine();
+            if (b3==null) b3="0";
 
-
+            f.close();
         }
         catch(IOException e){
-
-            Toast.makeText(this,"empty balance",Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
         return b3;
-    }
-    public void open(){
-        AlertDialog.Builder a=new AlertDialog.Builder(this);
-        a.setMessage("Do you want to logout?");
-        a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent gi=new Intent(item.this,MainActivity.class);
-                splogin.edit().putBoolean("islogged",false).apply();
-                startActivity(gi);
-            }
-        });
 
-        a.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
-
-        AlertDialog alerts=a.create();
-        alerts.show();
-    }
-
-    public String getMonth(int mon){
-        if(mon==1) return "Jan";
-        else if(mon==2) return "Feb";
-        else if(mon==3) return "Mar";
-        else if(mon==4) return "Apr";
-        else if(mon==5) return "May";
-        else if(mon==6) return "June";
-        else if(mon==7) return "July";
-        else if(mon==8) return "Aug";
-        else if(mon==9) return "Sept";
-        else if(mon==10) return "Oct";
-        else if(mon==11) return "Nov";
-        else if(mon==12) return "Dec";
-        else return "";
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent i=new Intent(item.this,first.class);
-        startActivity(i);
-        super.onBackPressed();
-    }
-
-    @Override
-    protected void onResume() {
-        t.setText("Available Balance : "+totalBalance());
-        super.onResume();
-    }
-
-    @Override
-    protected void onRestart() {
-        t.setText("Available Balance : "+totalBalance());
-        super.onRestart();
     }
 }

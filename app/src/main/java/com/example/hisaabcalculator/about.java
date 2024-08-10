@@ -15,7 +15,9 @@ public class about extends AppCompatActivity {
         setContentView(R.layout.activity_about);
         t=findViewById(R.id.at);
         t.setOnClickListener(view->{
-            Intent i=new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Jugalcody"));
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_EMAIL, new String[]{ "jugalkd2000@gmail.com" });
             startActivity(i);
         });
 

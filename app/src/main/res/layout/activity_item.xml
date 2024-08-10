@@ -93,22 +93,80 @@
                     android:textSize="20sp"
                     android:autofillHints="" />
             </LinearLayout>
+            <!--<LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/violet">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_margin="20dp"
+                    android:text="@string/month"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    />
+                <Spinner
+                    android:id="@+id/spin"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="20dp"
 
-<androidx.appcompat.widget.AppCompatButton
-    android:id="@+id/sb1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="start"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="30dp"
-    android:background="@drawable/paybut"
-    android:layout_marginRight="20dp"
-    android:layout_marginBottom="64dp"
-    android:text="@string/commit"
-    android:padding="12dp"
-    android:textColor="@color/white"
-    android:textSize="17sp"
-    />
+
+                    android:padding="15dp"
+                    android:backgroundTint="@color/purple_500"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border4"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/violet">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_margin="20dp"
+                    android:text="@string/year"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    />
+                <Spinner
+                    android:id="@+id/spin1"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="40dp"
+                    android:padding="15dp"
+                    android:backgroundTint="@color/purple_500"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border4"
+                    />
+
+            </LinearLayout>
+-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/sb1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="64dp"
+                android:text="@string/commit"
+                android:elevation="6dp"
+                android:paddingTop="8dp"
+                android:background="@drawable/loginbut"
+                android:paddingBottom="8dp"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

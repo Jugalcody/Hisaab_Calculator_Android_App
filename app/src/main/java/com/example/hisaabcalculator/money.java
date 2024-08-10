@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,48 +60,57 @@ TextView t;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money);
-        Bundle bb=getIntent().getExtras();
 
-        b=findViewById(R.id.mb);
-        e=findViewById(R.id.me);
-        t=findViewById(R.id.mt);
-        b2=findViewById(R.id.mb2);
-        sp=getSharedPreferences("login",MODE_PRIVATE);
-        sp2=getSharedPreferences("item",MODE_PRIVATE);
+        try {
+            Bundle bb = getIntent().getExtras();
 
-        n=sp2.getString("user","");
-        File path=getApplicationContext().getFilesDir();
-       try{
-           File f=new File(path,n+"balance.txt");
-           if(!f.exists()) f.createNewFile();
-           String date2 = new SimpleDateFormat("MMyyyy", Locale.getDefault()).format(new Date());
-           int d2 = Integer.parseInt(date2);
-           File f2=new File(path,(n+d2+"monthlyGet.txt"));
-           if(!f2.exists()) f2.createNewFile();
-       }
-       catch (Exception e){
-           e.printStackTrace();
-       }
-        t.setText("Total balance : "+totalBalance());
-        b.setOnClickListener(view -> {
-            String e1=e.getText().toString();
-            if(!e1.equals("")){
-                    t.setText("Total balance : " + updateBalance(e1));
-                    e.setText("");
-                    monthlyUpdate(e1,0);
-                }
-            else{
-              Toast.makeText(this,"nothing to add",Toast.LENGTH_LONG).show();
-            }}
-        );
-
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-           open2();
+            b = findViewById(R.id.mb);
+            e = findViewById(R.id.me);
+            t = findViewById(R.id.mt);
+            b2 = findViewById(R.id.mb2);
+            sp = getSharedPreferences("login", MODE_PRIVATE);
+            sp2 = getSharedPreferences("item", MODE_PRIVATE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getWindow().setStatusBarColor(getColor(R.color.primary));
             }
-        });
+            n = sp2.getString("user", "");
+            File path = getApplicationContext().getFilesDir();
+            try {
+                File f = new File(path, n + "balance.txt");
+                if (!f.exists()) f.createNewFile();
+                String date2 = new SimpleDateFormat("MMyyyy", Locale.getDefault()).format(new Date());
+                int d2 = Integer.parseInt(date2);
+                File f2 = new File(path, (n + d2 + "monthlyGet.txt"));
+                if (!f2.exists()) f2.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            t.setText("Total balance : " + totalBalance());
+            b.setOnClickListener(view -> {
+                        String e1 = e.getText().toString();
+                        if (!e1.equals("")) {
+                            t.setText("Total balance : " + updateBalance(e1));
+                            e.setText("");
+                            monthlyUpdate(e1, 0);
+                        } else {
+                            Toast.makeText(this, "nothing to add", Toast.LENGTH_LONG).show();
+                        }
+                    }
+            );
 
+            b2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        open2();
+                    }catch (Exception e){
+
+                    }
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 
     public void open2(){
