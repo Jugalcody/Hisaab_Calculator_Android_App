@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="@color/violet"
     android:orientation="vertical"
-    tools:context=".item">
+    tools:context="hisaab.store.analyser.item">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,12 +85,13 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/price"
                     android:padding="6dp"
+                    android:maxLength="17"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/white"
                     android:background="@drawable/border4"
                     android:textColorHint="@color/gray"
                     android:layout_margin="20dp"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textSize="20sp"
                     android:autofillHints="" />
             </LinearLayout>
@@ -169,4 +171,12 @@
 
         </LinearLayout>
     </ScrollView>
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adView"
+        android:layout_gravity="bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+        />
 </LinearLayout>

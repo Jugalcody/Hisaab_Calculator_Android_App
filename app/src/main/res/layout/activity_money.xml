@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="@color/violet"
     android:orientation="vertical"
-    tools:context=".money">
+    tools:context="hisaab.store.analyser.money">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -31,6 +32,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:layout_margin="10dp"
+            android:maxLength="17"
             android:background="@drawable/border4"
             android:textColor="@color/white"
             android:textColorHint="@color/gray"
@@ -43,29 +45,40 @@
             android:orientation="horizontal"
             android:layout_gravity="right"
             android:background="@color/violet">
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/mb"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:padding="13dp"
-            android:textColor="@color/black"
+            android:backgroundTint="#9E6ADD"
+            android:background="@drawable/border3"
+            android:textColor="@color/white"
             android:text="@string/add"
             />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mb2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-
+                android:backgroundTint="#AE4343"
+                android:background="@drawable/border3"
                 android:padding="13dp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:text="@string/clear"
                 />
         </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adViewmoney"
+        android:layout_gravity="bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+        />
 </LinearLayout>
