@@ -13,8 +13,16 @@
         android:icon="@drawable/contact"
         app:showAsAction="never"
         android:id="@+id/contact"/>
-    <item android:title="@string/logout"
-        app:showAsAction="never"
-        android:id="@+id/logout_menu"/>
+
+
+        <item android:title="Reset All"
+            app:showAsAction="never"
+            android:id="@+id/reset_menu"/>
+        <item android:title="@string/logout"
+            app:showAsAction="never"
+            android:id="@+id/logout_menu"/>
+       <!-- <item android:title="Delete Account"
+            app:showAsAction="never"
+            android:id="@+id/del_menu"/>-->
     </group>
 </menu>

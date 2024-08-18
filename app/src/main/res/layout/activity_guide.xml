@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".guide">
+    tools:context="hisaab.store.analyser.guide">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -208,6 +208,20 @@
         android:text="@string/monthly_spend2"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="40dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="- Yearly Spend"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="40dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

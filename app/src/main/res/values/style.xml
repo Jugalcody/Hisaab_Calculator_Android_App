@@ -6,4 +6,9 @@
         <item name="cornerSize">50%</item>
 
     </style>
+
+    <style name="MenuItemStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
 </resources>
