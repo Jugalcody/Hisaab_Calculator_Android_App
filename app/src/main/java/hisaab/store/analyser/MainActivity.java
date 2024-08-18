@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 String user = u.getText().toString();
                 String pass = p.getText().toString();
                 if (!user.equals("") && !pass.equals("")) {
-                    if(user.length()<7) {
+                    if(user.length()==10) {
                         if (isAuthenticate(user, pass)) {
                             Intent p1 = new Intent(this, first.class);
                             Toast.makeText(this, "Welcome " + name, Toast.LENGTH_LONG).show();

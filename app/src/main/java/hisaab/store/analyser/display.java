@@ -37,7 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class display extends AppCompatActivity {
-TextView e1;
+TextView e1,totalspend;
 Button b1;
 int p=0;
 SharedPreferences sp,spitem;
@@ -76,9 +76,8 @@ String mon,year,head;
         try {
 
             hview=findViewById(R.id.presshowhorizon);
-
+            totalspend=findViewById(R.id.display_total);
             Spinner s = findViewById(R.id.spin2);
-
             sp = getSharedPreferences("login", MODE_PRIVATE);
             spitem = getSharedPreferences("item", MODE_PRIVATE);
             String[] arr={"Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"};
@@ -114,6 +113,7 @@ String mon,year,head;
                     year = parent.getItemAtPosition(i).toString();
                     b1.setText("Show");
                     hview.setVisibility(View.GONE);
+                    totalspend.setVisibility(View.GONE);
                     //e1.setText("");
                 }
 
@@ -130,6 +130,7 @@ String mon,year,head;
                     b1.setText("Show");
                     //e1.setText("");
                     hview.setVisibility(View.GONE);
+                    totalspend.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -149,10 +150,45 @@ String mon,year,head;
 
     }
 
+    public int month(String m){
+        if(m.equals("Jan")) return 1;
+        else if(m.equals("Feb")) return 2;
+        else if(m.equals("Mar")) return 3;
+        else if(m.equals("Apr")) return 4;
+        else if(m.equals("May")) return 5;
+        else if(m.equals("June")) return 6;
+        else if(m.equals("July")) return 7;
+        else if(m.equals("Aug")) return 8;
+        else if(m.equals("Sept")) return 9;
+        else if(m.equals("Oct")) return 10;
+        else if(m.equals("Nov")) return 11;
+        else return 12;
+    }
 
 
+    public String monthlySpend(){
+        File path=getApplicationContext().getFilesDir();
+        String b4="0";
+        int m;
+        try{
+            m=month(mon);
+            FileInputStream f2=new FileInputStream(new File(path,head+m+year+"monthlySpend.txt"));
+
+            InputStreamReader r = new InputStreamReader(f2);
+            BufferedReader br = new BufferedReader(r);
+            b4 = br.readLine();
+            if(b4==null) b4="0";
+            f2.close();
+        }
+        catch(IOException e){
+            Toast.makeText(this,"no data found",Toast.LENGTH_LONG).show();
+        }
+        return b4;
+    }
     public int show_data(){
         hview.setVisibility(View.GONE);
+        totalspend.setVisibility(View.VISIBLE);
+        totalspend.setText("Total money spend : Rs."+monthlySpend());
         LinearLayout tableContent=findViewById(R.id.tableContent);
         tableContent.removeAllViews();
             File path = getApplicationContext().getFilesDir();
@@ -306,11 +342,11 @@ String mon,year,head;
     }
     public static String[][] convertToArray(List<List> data) {
         String[][] arr=new String[data.size()][4];
+
+
         for(int i=0;i<data.size();i++){
             arr[i][3]=data.get(i).get(data.get(i).size()-2).toString();  //date
-            System.out.println("jjk"+data.get(i).get(2).toString()+"  --  "+" 0000 "+data.size()+"0000"+data.get(i).toString());
             arr[i][2]=data.get(i).get(data.get(i).size()-4).toString();   //price
-
             String str="";
             for(int k=0;k<data.get(i).size()-5;k++){
                 if(!data.get(i).get(k).toString().trim().equals("+")){

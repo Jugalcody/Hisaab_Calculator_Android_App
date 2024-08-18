@@ -64,7 +64,7 @@ EditText ph, password,user;
 
     public void register(String u, String p,String name) {
         if (!u.equals("") && !p.equals("") && !name.equals("")) {
-            if (p.length() < 7) {
+            if (p.length()==10) {
                 File path = getApplicationContext().getFilesDir();
                 String k = u + " " + p + " " + name + "\n";
 
