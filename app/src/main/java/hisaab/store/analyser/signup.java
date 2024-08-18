@@ -64,14 +64,13 @@ EditText ph, password,user;
 
     public void register(String u, String p,String name) {
         if (!u.equals("") && !p.equals("") && !name.equals("")) {
-            if (p.length()==10) {
+            if (u.length()==10) {
                 File path = getApplicationContext().getFilesDir();
                 String k = u + " " + p + " " + name + "\n";
 
 
                 try {
                     FileOutputStream f = new FileOutputStream(new File(path, "valid2.txt"), true);
-
                     FileInputStream f1 = new FileInputStream(new File(path, "valid2.txt"));
                     InputStreamReader r = new InputStreamReader(f1);
                     BufferedReader br = new BufferedReader(r);
