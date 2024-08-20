@@ -6,7 +6,7 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/violet"
-    tools:context="hisaab.store.analyser.first">
+    tools:context="hisaab.store.analyser.display">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarheight"
@@ -14,7 +14,8 @@
         android:orientation="horizontal"
         >
         <ImageView
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
+            android:minWidth="30dp"
             android:layout_height="match_parent"
             android:layout_margin="9dp"
             android:id="@+id/display_back"
@@ -36,7 +37,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="UselessParent">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -165,6 +166,93 @@
     android:text="Total money spend : "
     android:textSize="18sp"
     />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/carddisplay"
+                android:background="@color/white"
+                ads:cardCornerRadius="5dp"
+                ads:cardBackgroundColor="#3F305C"
+                android:elevation="7dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="40dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delete Data"
+                        android:textSize="18sp"
+                        android:id="@+id/doctor_profile_qualititle"
+                        android:minHeight="40dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        />
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/addplus"
+                        android:id="@+id/hideunhide"
+                        android:layout_alignParentEnd="true"
+                        ads:tint="@color/white" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="10"
+                        android:layout_below="@id/hideunhide"
+                        android:visibility="gone"
+                        android:id="@+id/deletelayout_display"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/date_deletedata"
+                            android:layout_width="0dp"
+                            android:layout_weight="6"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/borderwhite"
+                            android:drawableLeft="@drawable/baseline_calendar_today_24"
+                            android:drawablePadding="9dp"
+                            android:textSize="17sp"
+                            android:hint="Date"
+                            android:gravity="center|start"
+                            android:minHeight="48dp"
+                            android:padding="9dp"
+                            android:textColor="@color/white"
+                            android:drawableTint="#BFBEBE"
+                            android:textColorHint="#BFBEBE" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Delete"
+                            android:layout_weight="4"
+                            android:padding="8dp"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:textSize="16sp"
+                            android:id="@+id/deletedisplaypage_but"
+                            android:elevation="5dp"
+                            android:backgroundTint="#D85353"
+                            android:background="@drawable/emailborder"
+                            />
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -203,7 +291,7 @@
                 android:layout_marginRight="20dp"
 
                 android:layout_marginBottom="64dp"
-                android:text="@string/display"
+                android:text="Show"
                 android:padding="12dp"
                 android:textColor="@color/white"
                 android:background="@drawable/loginbut"
@@ -220,4 +308,6 @@
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
         />
+
+
 </LinearLayout>

@@ -15,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HisaabCalculator">
         <activity
+            android:name="hisaab.store.analyser.ForgotPage"
+            android:exported="false" />
+        <activity
+            android:name="hisaab.store.analyser.ForgotPage"
+            android:exported="false" />
+        <activity
+            android:name="hisaab.store.analyser.ForgotPassword"
+            android:exported="false" />
+        <activity
             android:name="hisaab.store.analyser.Yearly"
             android:exported="false" />
         <activity
@@ -47,9 +56,9 @@
         <activity
             android:name="hisaab.store.analyser.first"
             android:exported="false" />
-        <activity android:name="hisaab.store.analyser.signup"
-            android:exported="false"
-            />
+        <activity
+            android:name="hisaab.store.analyser.signup"
+            android:exported="false" />
         <activity
             android:name="hisaab.store.analyser.MainActivity"
             android:exported="false" />

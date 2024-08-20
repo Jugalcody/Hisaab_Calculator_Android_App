@@ -7,7 +7,7 @@
     android:background="@color/violet"
     android:orientation="vertical"
     tools:context="hisaab.store.analyser.money">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarheight"
         android:background="@color/primary"
@@ -18,7 +18,9 @@
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_margin="9dp"
+            android:layout_alignParentStart="true"
             android:id="@+id/money_back"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:src="@drawable/back"
             />
@@ -26,13 +28,50 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="10dp"
-            android:gravity="center"
+            android:gravity="start|center"
+            android:layout_toRightOf="@id/money_back"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:text="Balance Enquiry"
+            android:id="@+id/money_buytitle"
+            android:layout_centerVertical="true"
             android:textColor="@color/white"
             android:textSize="@dimen/toolbartextsize"/>
-    </LinearLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            ads:lottie_rawRes="@raw/coin"
+            android:gravity="end"
+            android:id="@+id/money_coinanim"
+            android:layout_gravity="end|center"
+            ads:lottie_loop="true"
+            android:layout_marginEnd="12dp"
+            android:layout_centerVertical="true"
+            ads:lottie_autoPlay="true"
+            android:layout_alignParentEnd="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10P"
+            android:id="@+id/money_point"
+            android:layout_toLeftOf="@id/money_coinanim"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_toRightOf="@id/money_buytitle"
+            android:gravity="end"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="end|center"
+
+            />
+    </RelativeLayout>
 
 
     <ScrollView

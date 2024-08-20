@@ -50,6 +50,7 @@ public class item extends AppCompatActivity {
     String mon,year,head;
     AdView adView;
     SharedPreferences coin;
+    TextView itempoint;
     int point=0;
     TextView t;
     @Override
@@ -86,6 +87,7 @@ public class item extends AppCompatActivity {
             year = yearFormat.format(now);
             t = findViewById(R.id.ab);
             Bundle e = getIntent().getExtras();
+            itempoint=findViewById(R.id.item_point);
             SharedPreferences spitem = getSharedPreferences("item", MODE_PRIVATE);
             head = spitem.getString("user", "");
 
@@ -94,6 +96,7 @@ public class item extends AppCompatActivity {
             e1 = findViewById(R.id.se1);
             coin=getSharedPreferences(head+"coin",MODE_PRIVATE);
            point=coin.getInt("point",0);
+           itempoint.setText(point+"P");
 
 
 
@@ -139,8 +142,9 @@ try {
             });*/
             b1.setOnClickListener(view -> {
                 point=coin.getInt("point",0);
+                itempoint.setText(point+"P");
               // Toast.makeText(item.this,String.valueOf(point),Toast.LENGTH_LONG).show();
-                if (rewardedAd != null && point==0) {
+                if (rewardedAd != null && (point == 0)) {
                     Activity activityContext = item.this;
                     rewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
                         @Override
@@ -151,6 +155,10 @@ try {
                             String rewardType = rewardItem.getType();
                             int curpoint=coin.getInt("point",0)+10;
                             coin.edit().putInt("point",curpoint).apply();
+                            point=coin.getInt("point",0);
+                            itempoint.setText(point+"P");
+
+
                         }
                     });
 
@@ -166,6 +174,7 @@ try {
                         public void onAdDismissedFullScreenContent() {
                             // Called when ad is dismissed.
                             // Set the ad reference to null so you don't show the ad a second time.
+                            Toast.makeText(item.this,"No points earned!",Toast.LENGTH_LONG).show();
                              load();
 
 
@@ -180,6 +189,9 @@ try {
                         @Override
                         public void onAdImpression() {
                             // Called when an impression is recorded for an ad.
+
+                            Toast.makeText(item.this,"Watch ad to earn 10+ reward",Toast.LENGTH_LONG).show();
+
 load();
                         }
 
@@ -193,17 +205,14 @@ load();
 
                 } else {
 
-if(point>0){
-    int curpoint=coin.getInt("point",0)-1;
-    coin.edit().putInt("point",curpoint).apply();
-}
+
 
 
 
                 String item = e1.getText().toString().trim();
                 String price = e2.getText().toString().trim();
                 if (!mon.equals("")) {
-                    if (!item.equals("") && !price.equals("")) {
+                    if (!item.equals("") && !price.equals("")){
                         if (isOk(Long.parseLong(price)) == 1) {
 
                             add_data(item, price);
@@ -213,7 +222,17 @@ if(point>0){
                             e1.setText("");
                             e2.setText("");
                             b1.setText("Committed");
-                        } else {
+                            if(point>0){
+                                int curpoint=coin.getInt("point",0)-1;
+                                coin.edit().putInt("point",curpoint).apply();
+                                point=coin.getInt("point",0);
+                                itempoint.setText(point+"P");
+                            }
+                        }
+                        else if(isOk(Long.parseLong(price)) == 2){
+                            Toast.makeText(item.this,"invalid price",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
                             Toast.makeText(this, "insufficient balance", Toast.LENGTH_LONG).show();
                         }
                     } else if (item.equals("")) {
@@ -229,7 +248,12 @@ if(point>0){
 
         }
     }
-    public long isOk(long p){
+    public int isOk(long p){
+        if(p==0){
+
+
+            return 2;
+        }
         File path=getApplicationContext().getFilesDir();
         long bal3 = 0;
         try{

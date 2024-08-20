@@ -26,7 +26,8 @@
     <string name="daily_investment_analysis">Daily Investment Analysis</string>
     <string name="monthly_spend">Monthly spend</string>
     <string name="total_money_spend">money spend :</string>
-    <string name="total_money_received">money received :</string>    compileSdk 34
+    <string name="total_money_received">money received :</string>
+    compileSdk 34
 
     <string name="monthly_analysis">Monthly Analysis</string>
     <string name="display_data">no data</string>
@@ -67,6 +68,9 @@
     <string name="linkedin">Linkedin -</string>
     <string name="https_www_linkedin_com_in_jugal_kishore_das_323443234_originalsubdomain_in">https://www.linkedin.com/in/jugal-kishore-das-323443234/?originalSubdomain=in</string>
     <string name="logout">Logout</string>
+    <string name="back_button_of_register_page">back button of register page</string>
+    <string name="button_to_sign_up_by_user">Button to sign up by user</string>
+    <string name="back_button_for_forgot">Back button for forgot</string>
     <string-array name="month">
         <item>Jan</item>
         <item>Feb</item>

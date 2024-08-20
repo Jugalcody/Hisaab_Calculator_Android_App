@@ -18,7 +18,7 @@ SharedPreferences sp;
         try {
             sp = getSharedPreferences("login", MODE_PRIVATE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getWindow().setStatusBarColor(getColor(R.color.secondary));
+                getWindow().setStatusBarColor(getColor(R.color.primary));
             }
             boolean islooged = sp.getBoolean("islogged", false);
             if (!islooged) {

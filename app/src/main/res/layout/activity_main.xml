@@ -23,13 +23,13 @@
                 android:layout_width="348dp"
                 android:layout_height="185dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="80dp"
                 android:background="@color/white"
                 android:fontFamily="casual"
                 android:gravity="center"
                 android:text="@string/hisaab"
                 android:textColor="@color/black"
                 android:textSize="50sp"
-                android:layout_marginTop="100dp"
                 android:textStyle="bold" />
 
             <EditText
@@ -68,11 +68,23 @@
                 android:inputType="textPassword"
                 android:minHeight="48dp"
                 android:padding="8dp"
-
                 android:selectAllOnFocus="true"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
            />
+            <TextView
+                android:id="@+id/forgetpass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Forgot Password?"
+                android:gravity="center"
+                android:textColor="#4659C3"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="end" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/login"
@@ -83,6 +95,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"
                 android:elevation="4dp"
+                android:minHeight="48dp"
                 android:layout_marginBottom="64dp"
                 android:text="@string/action_sign_in"
                 android:padding="8dp"
@@ -98,9 +111,10 @@
                 android:minHeight="48dp"
                 android:onClick="register"
                 android:text="@string/don_t_have_account"
-                android:textColor="@color/purple_500"
+                android:textColor="#4659C3"
                 android:textSize="15sp"
                 android:textStyle="bold"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center" />
         </LinearLayout>
     </ScrollView>

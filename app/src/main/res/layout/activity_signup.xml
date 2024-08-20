@@ -9,14 +9,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarheight"
-        android:background="@color/violet"
+        android:background="@color/primary"
         android:orientation="horizontal"
         >
         <ImageView
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
+            android:minWidth="30dp"
             android:layout_height="match_parent"
             android:layout_margin="9dp"
             android:id="@+id/register_back"
+            android:contentDescription="@string/back_button_of_register_page"
             android:layout_gravity="center"
             android:src="@drawable/back"
             />
@@ -30,12 +32,22 @@
             android:textColor="@color/white"
             android:textSize="@dimen/toolbartextsize"/>
     </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
     <EditText
         android:id="@+id/registerusername"
         android:layout_width="wrap_content"
         android:minWidth="370dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:textSize="17sp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="200dp"
         android:layout_marginRight="20dp"
@@ -56,6 +68,7 @@
         android:minWidth="370dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:textSize="17sp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="14dp"
         android:layout_marginRight="20dp"
@@ -71,13 +84,57 @@
         android:selectAllOnFocus="true"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"/>
-
+    <EditText
+        android:id="@+id/registeremail"
+        android:layout_width="wrap_content"
+        android:minWidth="370dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border"
+        android:hint="Email ID"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:drawableLeft="@drawable/baseline_person_24"
+        android:drawablePadding="8dp"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"/>
+    <TextView
+        android:id="@+id/registerdob"
+        android:layout_width="wrap_content"
+        android:minWidth="370dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border"
+        android:hint="DOB"
+        android:importantForAutofill="no"
+        android:maxLength="15"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:textSize="17sp"
+        android:gravity="center|start"
+        android:drawableLeft="@drawable/baseline_calendar_today_24"
+        android:drawablePadding="8dp"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"/>
     <EditText
         android:id="@+id/password2"
         android:layout_width="wrap_content"
         android:minWidth="370dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:textSize="17sp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="14dp"
         android:layout_marginRight="20dp"
@@ -102,10 +159,13 @@
         android:elevation="4dp"
         android:layout_marginTop="35dp"
         android:padding="8dp"
+        android:contentDescription="@string/button_to_sign_up_by_user"
         android:background="@drawable/loginbut"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="64dp"
         android:text="@string/register"
         android:textColor="@color/white"
         android:textSize="17sp"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

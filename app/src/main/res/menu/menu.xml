@@ -29,5 +29,6 @@
        <!-- <item android:title="Delete Account"
             app:showAsAction="never"
             android:id="@+id/del_menu"/>-->
+
     </group>
 </menu>

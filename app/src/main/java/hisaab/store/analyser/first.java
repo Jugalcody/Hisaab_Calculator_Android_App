@@ -51,12 +51,8 @@ int REQUEST_IMAGE_PICKER=1;
         MenuInflater mi=getMenuInflater();
         mi.inflate(R.menu.menu,menu);
 
-        /*// Set showAsAction for each menu item
-        MenuItem item1 = menu.findItem(R.id.guide);
 
-        MenuItem item2 = menu.findItem(R.id.contact);
-        item1.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        item2.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);*/
+
         return super.onCreateOptionsMenu(menu);
     }
 

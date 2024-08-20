@@ -15,7 +15,8 @@
         android:orientation="horizontal"
         >
         <ImageView
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
+            android:minWidth="30dp"
             android:layout_height="match_parent"
             android:layout_margin="9dp"
             android:id="@+id/yearly_back"
@@ -92,7 +93,20 @@
                     android:text="@string/total_money_spend"
                     />
             </LinearLayout>
-
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset Now"
+                android:layout_gravity="end"
+                android:layout_margin="10dp"
+                android:padding="8dp"
+                android:textSize="16sp"
+                android:visibility="gone"
+                android:id="@+id/yearly_reset"
+                android:elevation="5dp"
+                android:backgroundTint="#D85353"
+                android:background="@drawable/emailborder"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

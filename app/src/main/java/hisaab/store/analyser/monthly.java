@@ -2,6 +2,7 @@ package hisaab.store.analyser;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,39 +27,22 @@ import com.google.android.gms.ads.AdView;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class monthly extends AppCompatActivity {
 TextView t1,t2,t3;
 SharedPreferences sp,spitem;
 AdView adView;
+AppCompatButton reset;
 ImageView back;
 Button b;
-    String mon,year,head;
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater mi=getMenuInflater();
-        mi.inflate(R.menu.menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.guide){
-
-            Intent gi=new Intent(this,guide.class);
-            startActivity(gi);
-        }
-        else if(item.getItemId()==R.id.contact){
-            Intent gi=new Intent(this,about.class);
-            startActivity(gi);
-        }
-        else if(item.getItemId()==R.id.logout_menu){
-          open();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
+    String mon="",year="",head;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,12 +55,19 @@ Button b;
             t3 = findViewById(R.id.monav);
 
             sp = getSharedPreferences("login", MODE_PRIVATE);
+            reset=findViewById(R.id.monthly_reset);
             spitem = getSharedPreferences("item", MODE_PRIVATE);
             head = spitem.getString("user", "");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getWindow().setStatusBarColor(getColor(R.color.primary));
             }
             back=findViewById(R.id.monthly_back);
+            reset.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    open2();
+                }
+            });
             back.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -100,6 +91,7 @@ Button b;
                     b.setText("Show");
                     t1.setText("Total money received : ");
                     t2.setText("Total money spend : ");
+                    reset.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -115,6 +107,7 @@ Button b;
                     b.setText("Show");
                     t1.setText("Total money received : ");
                     t2.setText("Total money spend : ");
+                    reset.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -128,6 +121,7 @@ Button b;
                 t1.setText("Total money received in " + mon + "(" + year + ") :  Rs." + monthlyGet());
                 t2.setText("Total money spend in " + mon + "(" + year + ") :  Rs." + monthlySpend());
                 b.setText("Showed");
+                reset.setVisibility(View.VISIBLE);
             });
         }catch(Exception e){
 
@@ -214,15 +208,90 @@ Button b;
         }
         return b4;
     }
-    public void open(){
+    public long deductMoney(long p){
+        File path=getApplicationContext().getFilesDir();
+        long bal3=0;
+        try{
+            FileInputStream f=new FileInputStream(new File(path,head+"balance.txt"));
+            InputStreamReader r=new InputStreamReader(f);
+            BufferedReader br=new BufferedReader(r);
+            String bal=br.readLine();
+            if (bal==null) bal="0";
+            bal3=Long.parseLong(bal)-p;
+            f.close();
+            FileOutputStream f2=new FileOutputStream(new File(path,head+"balance.txt"));
+            f2.write(Long.toString(bal3).getBytes());
+            f2.close();
+
+        }
+        catch(IOException e){
+            //e.printStackTrace();
+        }
+        return bal3;
+    }
+
+    public void open2(){
         AlertDialog.Builder a=new AlertDialog.Builder(this);
-        a.setMessage("Do you want to logout?");
+        a.setMessage("Do you want to reset the data of "+mon+","+year+"?");
         a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent gi=new Intent(monthly.this,MainActivity.class);
-                sp.edit().putBoolean("islogged",false).apply();
-                startActivity(gi);
+                File path=getApplicationContext().getFilesDir();
+
+                FileInputStream f2= null;
+                try {
+                    f2 = new FileInputStream(new File(path,head+year+"yearlyGet.txt"));
+
+                InputStreamReader r = new InputStreamReader(f2);
+                BufferedReader br = new BufferedReader(r);
+
+               String initalamt = br.readLine();
+                if(initalamt==null) initalamt="0";
+                f2.close();
+                FileOutputStream f3=new FileOutputStream(new File(path,head+year+"yearlyGet.txt"));
+                f3.write(String.valueOf(Long.parseLong(initalamt)-Long.parseLong(monthlyGet())).getBytes());
+                f3.close();
+                FileInputStream f4=new FileInputStream(new File(path,head+year+"yearlySpend.txt"));
+                 r = new InputStreamReader(f4);
+                br = new BufferedReader(r);
+
+                String initalspend = br.readLine();
+                if(initalspend==null) initalspend="0";
+                f4.close();
+                FileOutputStream f5=new FileOutputStream(new File(path,head+year+"yearlySpend.txt"));
+                f5.write(String.valueOf(Long.parseLong(initalspend)-Long.parseLong(monthlySpend())).getBytes());
+                f5.close();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                long remain=Long.parseLong(monthlyGet())-Long.parseLong(monthlySpend());
+                t3.setText("Total money available : Rs." + String.valueOf(deductMoney(remain)));
+
+                FileOutputStream f6 = null;
+                try {
+
+
+
+
+                    f6 = new FileOutputStream(new File(path, head+month(mon)+year+ "monthlySpend.txt"));
+                    f6.write(("0").getBytes());
+                    f6.close();
+                    f6 = new FileOutputStream(new File(path, head+month(mon)+year+ "monthlyGet.txt"));
+                    f6.write(("0").getBytes());
+                    f6.close();
+                    FileOutputStream f1 = new FileOutputStream(new File(path,head+month(mon)+year+".txt"));
+                    f1.write("".getBytes());
+                    f1.close();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                t1.setText("Total money received in " + mon + "(" + year + ") :  Rs." + monthlyGet());
+                t2.setText("Total money spend in " + mon + "(" + year + ") :  Rs." + monthlySpend());
+
             }
         });
 
@@ -235,5 +304,4 @@ Button b;
         AlertDialog alerts=a.create();
         alerts.show();
     }
-
 }

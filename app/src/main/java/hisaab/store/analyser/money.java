@@ -72,6 +72,7 @@ TextView t;
 
         try {
             Bundle bb = getIntent().getExtras();
+            TextView itempoint=findViewById(R.id.money_point);
 
             b = findViewById(R.id.mb);
             e = findViewById(R.id.me);
@@ -82,6 +83,9 @@ TextView t;
                 getWindow().setStatusBarColor(getColor(R.color.primary));
             }
             n = sp2.getString("user", "");
+            SharedPreferences coin=getSharedPreferences(n+"coin",MODE_PRIVATE);
+            int curpoint=coin.getInt("point",0);
+            itempoint.setText(curpoint+"P");
             File path = getApplicationContext().getFilesDir();
             back=findViewById(R.id.money_back);
             back.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +121,11 @@ TextView t;
                             e.setText("");
                             monthlyUpdate(e1, 0);
                             yearlyUpdate(e1,0);
+                 /*           int point=curpoint-2;
+                            if(point<0) point=0;
+                            coin.edit().putInt("point",point).apply();
+                            itempoint.setText(point+"P");
+                            Toast.makeText(money.this,"-2",Toast.LENGTH_SHORT).show();*/
                         } else {
                             Toast.makeText(this, "nothing to add", Toast.LENGTH_LONG).show();
                         }

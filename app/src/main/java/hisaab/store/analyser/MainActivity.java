@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hisaabcalculator.R;
@@ -53,10 +54,20 @@ public class MainActivity extends AppCompatActivity {
             u = findViewById(R.id.username);
             p = findViewById(R.id.password);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getWindow().setStatusBarColor(getColor(R.color.secondary));
+                getWindow().setStatusBarColor(getColor(R.color.primary));
             }
             sp = getSharedPreferences("login", MODE_PRIVATE);
             spitem = getSharedPreferences("item", MODE_PRIVATE);
+
+            TextView forget=findViewById(R.id.forgetpass);
+            forget.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i=new Intent(MainActivity.this,ForgotPage.class);
+                    startActivity(i);
+                }
+            });
+
             l.setOnClickListener(view -> {
 
                 String user = u.getText().toString();
@@ -66,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         if (isAuthenticate(user, pass)) {
                             Intent p1 = new Intent(this, first.class);
                             Toast.makeText(this, "Welcome " + name, Toast.LENGTH_LONG).show();
+                            SharedPreferences spitem = getSharedPreferences("item", MODE_PRIVATE);
                             spitem.edit().putString("user", user).apply();
                             spitem.edit().putString("name", name).apply();
                             sp.edit().putBoolean("islogged", true).apply();
@@ -78,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "invalid phone number", Toast.LENGTH_LONG).show();
                     }
                 } else if (user.equals("")) {
-                    Toast.makeText(this, "enter phone number", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,"enter phone number", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(this, "enter password", Toast.LENGTH_SHORT).show();
                 }
@@ -112,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
 
                             y = 1;
                             name=arr[2];
+                            //dob=arr[3];
+
                             /*for(int i=2;i<arr.length;i++)
                             name=name+arr[i]+" ";
 */
