@@ -18,6 +18,11 @@
         <item android:title="Reset All"
             app:showAsAction="never"
             android:id="@+id/reset_menu"/>
+
+
+        <item android:title="Reset Photo"
+            app:showAsAction="never"
+            android:id="@+id/reset_photo"/>
         <item android:title="@string/logout"
             app:showAsAction="never"
             android:id="@+id/logout_menu"/>

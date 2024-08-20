@@ -43,7 +43,7 @@
                 android:hint="Phone Number"
                 android:importantForAutofill="no"
                 android:inputType="phone"
-                android:maxLength="10"
+                android:maxLength="15"
                 android:minHeight="48dp"
                 android:padding="8dp"
                 android:drawableLeft="@drawable/baseline_call_24"

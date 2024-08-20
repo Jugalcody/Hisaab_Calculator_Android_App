@@ -41,7 +41,7 @@ SharedPreferences sp;
                         startActivity(i);
                         finish();
                     }
-                }, 1000);
+                }, 2000);
             }
         }catch (Exception e){
 

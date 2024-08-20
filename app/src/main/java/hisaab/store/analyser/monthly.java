@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class monthly extends AppCompatActivity {
 TextView t1,t2,t3;
 SharedPreferences sp,spitem;
 AdView adView;
+ImageView back;
 Button b;
     String mon,year,head;
     @Override
@@ -74,6 +76,13 @@ Button b;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getWindow().setStatusBarColor(getColor(R.color.primary));
             }
+            back=findViewById(R.id.monthly_back);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
             t3.setText("Total money available : Rs." + totalBalance());
             Spinner s = findViewById(R.id.spinm2);
             Spinner s2 = findViewById(R.id.spinm3);

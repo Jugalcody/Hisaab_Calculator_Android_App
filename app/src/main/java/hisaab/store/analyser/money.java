@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,8 +35,9 @@ import java.util.Locale;
 
 public class money extends AppCompatActivity {
 String n;
-Button b,b2;
+Button b;
 EditText e;
+ImageView back;
 AdView adView;
 SharedPreferences sp,sp2;
 TextView t;
@@ -73,7 +76,6 @@ TextView t;
             b = findViewById(R.id.mb);
             e = findViewById(R.id.me);
             t = findViewById(R.id.mt);
-            b2 = findViewById(R.id.mb2);
             sp = getSharedPreferences("login", MODE_PRIVATE);
             sp2 = getSharedPreferences("item", MODE_PRIVATE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -81,7 +83,13 @@ TextView t;
             }
             n = sp2.getString("user", "");
             File path = getApplicationContext().getFilesDir();
-
+            back=findViewById(R.id.money_back);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
             adView=findViewById(R.id.adViewmoney);
            // adView.setAdUnitId("ca-app-pub-1079506490540577/7402312139");
             //adView.setAdSize(getAdSize());
@@ -115,16 +123,6 @@ TextView t;
                     }
             );
 
-            b2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-                        open2();
-                    }catch (Exception e){
-
-                    }
-                }
-            });
         }catch (Exception e){
 
         }

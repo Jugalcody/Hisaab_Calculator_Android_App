@@ -7,7 +7,33 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context="hisaab.store.analyser.guide">
-<ScrollView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarheight"
+        android:background="@color/primary"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:id="@+id/about_back"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="About"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+    </LinearLayout>
+
+    <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="UselessParent">
@@ -17,16 +43,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/white">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="27sp"
-        android:layout_margin="10dp"
-        android:text="@string/about2"
-        />
 
     <TextView
         android:layout_width="match_parent"

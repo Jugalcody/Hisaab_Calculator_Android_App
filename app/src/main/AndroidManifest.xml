@@ -47,7 +47,9 @@
         <activity
             android:name="hisaab.store.analyser.first"
             android:exported="false" />
-        <activity android:name="hisaab.store.analyser.signup" />
+        <activity android:name="hisaab.store.analyser.signup"
+            android:exported="false"
+            />
         <activity
             android:name="hisaab.store.analyser.MainActivity"
             android:exported="false" />

@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,9 +45,12 @@ public class item extends AppCompatActivity {
     Button b1;
     EditText e1,e2;
     private RewardedAd rewardedAd;
+    ImageView back;
     private final String TAG = "item";
     String mon,year,head;
     AdView adView;
+    SharedPreferences coin;
+    int point=0;
     TextView t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,17 +73,28 @@ public class item extends AppCompatActivity {
             mon = monthFormat.format(now);
 
 
+            back=findViewById(R.id.item_back);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
 
 
             SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
             year = yearFormat.format(now);
             t = findViewById(R.id.ab);
             Bundle e = getIntent().getExtras();
-            head = e.getString("head");
+            SharedPreferences spitem = getSharedPreferences("item", MODE_PRIVATE);
+            head = spitem.getString("user", "");
 
             t.setText("Available Balance : " + totalBalance());
             b1 = findViewById(R.id.sb1);
             e1 = findViewById(R.id.se1);
+            coin=getSharedPreferences(head+"coin",MODE_PRIVATE);
+           point=coin.getInt("point",0);
+
 
 
 
@@ -121,8 +138,9 @@ try {
                 }
             });*/
             b1.setOnClickListener(view -> {
-
-                if (rewardedAd != null) {
+                point=coin.getInt("point",0);
+              // Toast.makeText(item.this,String.valueOf(point),Toast.LENGTH_LONG).show();
+                if (rewardedAd != null && point==0) {
                     Activity activityContext = item.this;
                     rewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
                         @Override
@@ -131,6 +149,8 @@ try {
 
                             int rewardAmount = rewardItem.getAmount();
                             String rewardType = rewardItem.getType();
+                            int curpoint=coin.getInt("point",0)+10;
+                            coin.edit().putInt("point",curpoint).apply();
                         }
                     });
 
@@ -139,40 +159,44 @@ try {
                         @Override
                         public void onAdClicked() {
                             // Called when a click is recorded for an ad.
-
+                              load();
                         }
 
                         @Override
                         public void onAdDismissedFullScreenContent() {
                             // Called when ad is dismissed.
                             // Set the ad reference to null so you don't show the ad a second time.
-                          //  load();
-                            rewardedAd = null;
+                             load();
+
 
                         }
 
                         @Override
                         public void onAdFailedToShowFullScreenContent(AdError adError) {
                             // Called when ad fails to show.
-                            rewardedAd = null;
+                            load();
                         }
 
                         @Override
                         public void onAdImpression() {
                             // Called when an impression is recorded for an ad.
-
+load();
                         }
 
                         @Override
                         public void onAdShowedFullScreenContent() {
                             // Called when ad is shown.
-
+load();
                         }
                     });
 
 
                 } else {
 
+if(point>0){
+    int curpoint=coin.getInt("point",0)-1;
+    coin.edit().putInt("point",curpoint).apply();
+}
 
 
 

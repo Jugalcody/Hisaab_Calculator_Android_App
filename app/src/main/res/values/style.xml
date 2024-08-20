@@ -11,4 +11,8 @@
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">0dp</item>
     </style>
+
+    <style name="Theme.RemoveSplashScreenTheme" parent="Theme.AppCompat">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>

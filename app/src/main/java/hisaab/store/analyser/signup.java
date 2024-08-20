@@ -3,11 +3,14 @@ package hisaab.store.analyser;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.hisaabcalculator.R;
@@ -23,6 +26,7 @@ import java.io.InputStreamReader;
 public class signup extends AppCompatActivity {
 Button s;
 EditText ph, password,user;
+ImageView back;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -47,6 +51,7 @@ EditText ph, password,user;
                 getWindow().setStatusBarColor(getColor(R.color.violet));
             }
             s = findViewById(R.id.signup);
+            back=findViewById(R.id.register_back);
             user=findViewById(R.id.registerusername);
             ph =findViewById(R.id.registerphone2);
             password = findViewById(R.id.password2);
@@ -60,11 +65,19 @@ EditText ph, password,user;
         catch(Exception e){
 
         }
+
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     public void register(String u, String p,String name) {
         if (!u.equals("") && !p.equals("") && !name.equals("")) {
-            if (u.length()==10) {
+            if (u.length()>=7) {
                 File path = getApplicationContext().getFilesDir();
                 String k = u + " " + p + " " + name + "\n";
 
@@ -86,6 +99,8 @@ EditText ph, password,user;
                     if (ae != 1) {
                         f.write(k.getBytes());
                         s.setText("Registered");
+                        SharedPreferences coin=getSharedPreferences(u+"coin",MODE_PRIVATE);
+                        coin.edit().putInt("point",10).apply();
                         Toast.makeText(this, "Registered Successfully!", Toast.LENGTH_LONG).show();
                         ph.setText("");
                         user.setText("");

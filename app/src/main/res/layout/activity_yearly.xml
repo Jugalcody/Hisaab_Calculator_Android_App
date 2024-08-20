@@ -7,21 +7,32 @@
     android:orientation="vertical"
     android:background="@color/violet"
     tools:context="hisaab.store.analyser.first">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Yearly Analysis"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:paddingTop="16dp"
-        android:paddingBottom="20dp"
-
+        android:layout_height="@dimen/toolbarheight"
+        android:background="@color/primary"
         android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:background="@color/violet"
-
-        />
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:id="@+id/yearly_back"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="Yearly Analysis"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"

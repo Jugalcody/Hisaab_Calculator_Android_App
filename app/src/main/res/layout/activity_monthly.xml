@@ -7,21 +7,37 @@
     android:orientation="vertical"
     android:background="@color/violet"
     tools:context="hisaab.store.analyser.first">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/monthly_analysis"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:paddingTop="16dp"
-        android:paddingBottom="20dp"
-
+        android:layout_height="@dimen/toolbarheight"
+        android:background="@color/primary"
         android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:background="@color/violet"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:id="@+id/monthly_back"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="@string/monthly_analysis"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+    </LinearLayout>
 
-        />
+
+
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,53 +50,53 @@
             android:background="@color/violet"
 
             android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-            <TextView
-                android:id="@+id/monav"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:background="@color/violet"
-                android:textColor="@color/white"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="@string/total_money_available"
-                />
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/monav"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:background="@color/violet"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/total_money_available"
+                    />
 
-            <TextView
-                android:id="@+id/monrec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/violet"
-                android:textColor="@color/white"
-                android:text="@string/total_money_received"
-                />
+                <TextView
+                    android:id="@+id/monrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/violet"
+                    android:textColor="@color/white"
+                    android:text="@string/total_money_received"
+                    />
 
-            <TextView
-                android:id="@+id/mons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:background="@color/violet"
-                android:textColor="@color/white"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="@string/total_money_spend"
-                />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/mons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:background="@color/violet"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/total_money_spend"
+                    />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

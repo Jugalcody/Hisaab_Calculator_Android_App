@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +59,7 @@ public class Yearly extends AppCompatActivity {
 
     TextView t1,t2,t3;
     SharedPreferences sp,spitem;
+    ImageView back;
     AdView adView;
     Button b;
     String mon,year,head;
@@ -76,7 +78,13 @@ public class Yearly extends AppCompatActivity {
                 spitem = getSharedPreferences("item", MODE_PRIVATE);
                 head = spitem.getString("user", "");
 
-
+                back=findViewById(R.id.yearly_back);
+                back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onBackPressed();
+                    }
+                });
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     getWindow().setStatusBarColor(getColor(R.color.primary));
                 }

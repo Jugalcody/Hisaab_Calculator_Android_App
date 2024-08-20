@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,20 +26,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hisaabcalculator.R;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 
 public class first extends AppCompatActivity {
 TextView t1,t2,t3,t4,t5,user_text,yearly;
 Toolbar toolbar;
-ImageView user_img;
+ShapeableImageView user_img;
 SharedPreferences sp,spitem;
 int REQUEST_IMAGE_PICKER=1;
     String n;
@@ -71,7 +75,10 @@ int REQUEST_IMAGE_PICKER=1;
             startActivity(gi);
         }
         else if(item.getItemId()==R.id.reset_menu){
-            reset();
+            reset("all");
+        }
+        else if(item.getItemId()==R.id.reset_photo){
+            reset("photo");
         }
         else if(item.getItemId()==R.id.logout_menu){
           open();
@@ -83,9 +90,6 @@ int REQUEST_IMAGE_PICKER=1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-        if(!isNightMode(first.this)){
-
-        }
         try {
             t1 = findViewById(R.id.fb1);
             t2 = findViewById(R.id.fb2);
@@ -108,7 +112,7 @@ int REQUEST_IMAGE_PICKER=1;
         try {
             sp = getSharedPreferences("login", MODE_PRIVATE);
             spitem = getSharedPreferences("item", MODE_PRIVATE);
-            n = spitem.getString("user", "");
+            n = spitem.getString("name", "");
             user_text.setText("Hii " + n + ",");
 
             toolbar = findViewById(R.id.first_toolbar);
@@ -122,12 +126,17 @@ int REQUEST_IMAGE_PICKER=1;
 
         }
 try{
-    user_img.setPadding(0,0,0,0);
-    user_img.setImageBitmap(decodeStringToBitmap(sp.getString(spitem.getString("user","")+"img", "")));
-}
+    if(!sp.getString(spitem.getString("user","")+"img", "").equals("")) {
+        user_img.setPadding(0, 0, 0, 0);
+        user_img.setImageBitmap(decodeStringToBitmap(sp.getString(spitem.getString("user", "") + "img", "")));
+    }
+else{
+    user_img.setImageResource(R.drawable.baseline_person_24_white);
+        user_img.setPadding(0,0,0,0);
+}}
 catch (Exception e){
-    user_img.setPadding(20,20,20,20);
-    user_img.setImageResource(R.drawable.plus2);
+    user_img.setPadding(0,0,0,0);
+    user_img.setImageResource(R.drawable.baseline_person_24_white);
 }
 user_img.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -215,7 +224,6 @@ catch (Exception e){
                 n = spitem.getString("user", "");
                 deleteUserFile(n);
                 deleteUserData(n);
-                Toast.makeText(first.this, "Account successfully deleted", Toast.LENGTH_SHORT).show();
                 startActivity(gi);
                 finishAffinity();
 
@@ -302,67 +310,123 @@ private boolean isNightMode(Context context){
     public void deleteUserData(String phoneNumber) {
         File path = getApplicationContext().getFilesDir();
         File file = new File(path, "valid2.txt");
-try{
-    sp.edit().remove(phoneNumber+"img").apply();
-}
-catch (Exception eee){
+        File tempFile = new File(path, "valid2_temp.txt");
 
-}
+        // Remove shared preferences entry
+        try {
+            SharedPreferences.Editor editor = sp.edit();
+            editor.remove(phoneNumber + "img");
+            editor.apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error removing image", Toast.LENGTH_LONG).show();
+        }
+
         if (!file.exists()) {
-            Toast.makeText(this, "File not found", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
             return;
         }
 
-        try {
-            // Read the existing data
-            FileInputStream fis = new FileInputStream(file);
-            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-            StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempFile)))) {
+
             String line;
+            boolean isDeleted = false;
 
             while ((line = br.readLine()) != null) {
-                // Check if the line contains the phone number
-                if (!line.contains(phoneNumber)) {
-                    sb.append(line).append("\n");
+                String[] arr = line.split(" ");
+                if (!arr[0].equals(phoneNumber)) {
+                    bw.write(line);
+                    bw.newLine();
+                } else {
+                    isDeleted = true;
                 }
             }
 
+            // Close readers/writers
+            bw.flush();
+            bw.close();
             br.close();
-            fis.close();
 
-            // Write the updated data back to the file
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(sb.toString().trim().getBytes()); // Remove trailing newline
-            fos.close();
+            // Delete the original file and rename the temp file
+            if (file.delete()) {
+                if (tempFile.renameTo(file)) {
+                    Toast.makeText(this, "Account successfully deleted", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Failed to rename temp file", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(this, "Failed to delete original file", Toast.LENGTH_LONG).show();
+            }
 
-            Toast.makeText(this, "User data deleted successfully", Toast.LENGTH_LONG).show();
+            if (!isDeleted) {
+                Toast.makeText(this, "User account not found", Toast.LENGTH_LONG).show();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "IO exception", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "IO exception occurred while deleting user data", Toast.LENGTH_LONG).show();
         }
     }
-    public void reset(){
-        AlertDialog.Builder a=new AlertDialog.Builder(this);
-        a.setMessage("Do you want to reset your account?");
-        a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+    public void reset(String key) {
+        AlertDialog.Builder a = new AlertDialog.Builder(this);
+        if (key.equals("all")) {
+            a.setMessage("Do you want to reset your account?");
+            a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-                spitem = getSharedPreferences("item", MODE_PRIVATE);
-                n = spitem.getString("user", "");
-                deleteUserFile(n);
-                Toast.makeText(first.this, "Account reset successfully ", Toast.LENGTH_SHORT).show();
+                    spitem = getSharedPreferences("item", MODE_PRIVATE);
+                    n = spitem.getString("user", "");
+                    deleteUserFile(n);
+                    Toast.makeText(first.this, "Account reset successfully ", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                }
+            });
 
-        a.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
+            a.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
 
-        AlertDialog alerts=a.create();
+        }else{
+
+            a.setMessage("Do you want to reset your photo?");
+            a.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    try {
+
+
+                        sp.edit().putString(spitem.getString("user","")+"img","").apply();
+                         user_img.setImageResource(R.drawable.baseline_person_24_white);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            user_img.setStrokeColor(ColorStateList.valueOf(getColor(R.color.strokecolor)));
+
+                            //user_img.setBackgroundColor(getColor(R.color.transparent));
+                        }
+
+                        Toast.makeText(first.this, "photo removed ", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
+                    }
+
+
+                }
+            });
+
+            a.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+
+
+        }
+
+        AlertDialog alerts = a.create();
         alerts.show();
+
     }
 }

@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ TextView e1,totalspend;
 Button b1;
 int p=0;
 SharedPreferences sp,spitem;
+ImageView back;
 AdView adView;
 HorizontalScrollView hview;
 String mon,year,head;
@@ -97,6 +99,13 @@ String mon,year,head;
             e1 = findViewById(R.id.de);
             e1.setVisibility(View.GONE);
             b1 = findViewById(R.id.db);
+            back=findViewById(R.id.display_back);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
 
             b1.setOnClickListener(view -> {
                 if (show_data() == 1) {

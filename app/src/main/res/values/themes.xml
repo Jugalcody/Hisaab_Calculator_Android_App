@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/purple_500</item>
         <item name="android:itemBackground">#2B2A2A</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:windowIsTranslucent">true</item>
         <item name="android:insetTop">0dp</item>
         <item name="popupMenuBackground">@color/white</item>
         <item name="android:insetBottom">0dp</item>
