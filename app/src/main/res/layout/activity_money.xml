@@ -3,10 +3,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="@color/violet"
     android:orientation="vertical"
-    tools:context=".money">
-<ScrollView
+    tools:context="hisaab.store.analyser.money">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarheight"
+        android:background="@color/primary"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:layout_alignParentStart="true"
+            android:id="@+id/money_back"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:gravity="start|center"
+            android:layout_toRightOf="@id/money_back"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="Balance Enquiry"
+            android:id="@+id/money_buytitle"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            ads:lottie_rawRes="@raw/coin"
+            android:gravity="end"
+            android:id="@+id/money_coinanim"
+            android:layout_gravity="end|center"
+            ads:lottie_loop="true"
+            android:layout_marginEnd="12dp"
+            android:layout_centerVertical="true"
+            ads:lottie_autoPlay="true"
+            android:layout_alignParentEnd="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10P"
+            android:id="@+id/money_point"
+            android:layout_toLeftOf="@id/money_coinanim"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_toRightOf="@id/money_buytitle"
+            android:gravity="end"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="end|center"
+
+            />
+    </RelativeLayout>
+
+
+    <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -31,6 +99,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:layout_margin="10dp"
+            android:maxLength="17"
             android:background="@drawable/border4"
             android:textColor="@color/white"
             android:textColorHint="@color/gray"
@@ -43,29 +112,29 @@
             android:orientation="horizontal"
             android:layout_gravity="right"
             android:background="@color/violet">
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/mb"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:padding="13dp"
-            android:textColor="@color/black"
+            android:backgroundTint="#9E6ADD"
+            android:background="@drawable/border3"
+            android:textColor="@color/white"
             android:text="@string/add"
             />
 
-            <Button
-                android:id="@+id/mb2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-
-                android:padding="13dp"
-                android:textColor="@color/black"
-                android:text="@string/clear"
-                />
         </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adViewmoney"
+        android:layout_gravity="bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+        />
 </LinearLayout>

@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group
         >
-<item android:title="@string/about"
+<item android:title="@string/about2"
     android:icon="@drawable/help"
     android:id="@+id/guide"
+    app:showAsAction="never"
 
     />
     <item android:title="@string/contact"
         android:icon="@drawable/contact"
+        app:showAsAction="never"
         android:id="@+id/contact"/>
-    <item android:title="@string/logout"
-        android:id="@+id/logout_menu"/>
+
+
+        <item android:title="Reset All"
+            app:showAsAction="never"
+            android:id="@+id/reset_menu"/>
+
+
+        <item android:title="Reset Photo"
+            app:showAsAction="never"
+            android:id="@+id/reset_photo"/>
+        <item android:title="@string/logout"
+            app:showAsAction="never"
+            android:id="@+id/logout_menu"/>
+       <!-- <item android:title="Delete Account"
+            app:showAsAction="never"
+            android:id="@+id/del_menu"/>-->
+
     </group>
 </menu>

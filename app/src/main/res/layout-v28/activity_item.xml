@@ -3,9 +3,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="@color/violet"
     android:orientation="vertical"
-    tools:context=".item">
+    tools:context="hisaab.store.analyser.item">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarheight"
+        android:background="@color/primary"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:layout_alignParentStart="true"
+            android:id="@+id/item_back"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:gravity="start|center"
+            android:layout_toRightOf="@id/item_back"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="Buy Item"
+            android:id="@+id/item_buytitle"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            ads:lottie_rawRes="@raw/coin"
+            android:gravity="end"
+            android:id="@+id/item_coinanim"
+            android:layout_gravity="end|center"
+            ads:lottie_loop="true"
+            android:layout_marginEnd="12dp"
+            android:layout_centerVertical="true"
+            ads:lottie_autoPlay="true"
+            android:layout_alignParentEnd="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10P"
+            android:id="@+id/item_point"
+            android:layout_toLeftOf="@id/item_coinanim"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_toRightOf="@id/item_buytitle"
+            android:gravity="end"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="end|center"
+
+            />
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +91,7 @@
                 android:textSize="20sp"
                 android:padding="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="50dp"
                 android:textColor="@color/black"
                 android:background="@drawable/border3"
                 android:layout_gravity="end"
@@ -84,16 +150,72 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/price"
                     android:padding="6dp"
+                    android:maxLength="17"
                     android:textColor="@color/black"
                     android:backgroundTint="@color/white"
                     android:background="@drawable/border4"
                     android:textColorHint="@color/gray"
                     android:layout_margin="20dp"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textSize="20sp"
                     android:autofillHints="" />
             </LinearLayout>
+            <!--<LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/violet">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_margin="20dp"
+                    android:text="@string/month"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    />
+                <Spinner
+                    android:id="@+id/spin"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="20dp"
 
+
+                    android:padding="15dp"
+                    android:backgroundTint="@color/purple_500"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border4"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/violet">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_margin="20dp"
+                    android:text="@string/year"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    />
+                <Spinner
+                    android:id="@+id/spin1"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="40dp"
+                    android:padding="15dp"
+                    android:backgroundTint="@color/purple_500"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border4"
+                    />
+
+            </LinearLayout>
+-->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/sb1"
                 android:layout_width="match_parent"
@@ -101,14 +223,25 @@
                 android:layout_gravity="start"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/paybut"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="64dp"
                 android:text="@string/commit"
-                android:padding="12dp"
+                android:elevation="6dp"
+                android:paddingTop="8dp"
+                android:background="@drawable/loginbut"
+                android:paddingBottom="8dp"
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 />
+
         </LinearLayout>
     </ScrollView>
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adView"
+        android:layout_gravity="bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+        />
 </LinearLayout>

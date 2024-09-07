@@ -3,17 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/violet"
-    tools:context=".first">
+    tools:context="hisaab.store.analyser.display">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarheight"
+        android:background="@color/primary"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:minWidth="30dp"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:id="@+id/display_back"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="Display"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="UselessParent">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@color/violet"
             android:orientation="vertical">
 
@@ -25,6 +54,7 @@
                 android:background="@drawable/border4"
                 android:importantForAutofill="no"
                 android:layout_marginTop="5dp"
+                android:visibility="gone"
                 android:layout_marginBottom="18dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
@@ -33,32 +63,225 @@
                 android:textColorHint="@color/gray"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:id="@+id/presshowhorizon"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    >
+                    <LinearLayout
+                        android:id="@+id/headerRow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="horizontal">
+
+                        <!-- Columns for Header Row -->
+                        <!-- Medicine Name -->
+
+<!--
+                        <TextView
+                            android:layout_width="55dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rectangle_box"
+                            android:padding="8dp"
+                            android:id="@+id/medsno"
+                            android:text="SNO"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+-->
+
+
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rectangle_box"
+                            android:padding="8dp"
+                            android:text="Item"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <!-- Dosage -->
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rectangle_box"
+                            android:padding="8dp"
+                            android:text="Price"
+
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <!-- Duration -->
+                        <TextView
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rectangle_box"
+                            android:padding="8dp"
+                            android:text="Date"
+
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/tableContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/headerRow"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="vertical">
+                        <!-- Dynamic rows will be added here -->
+                    </LinearLayout>
+                </RelativeLayout>
+            </HorizontalScrollView>
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:textColor="@color/white"
+    android:id="@+id/display_total"
+    android:visibility="gone"
+    android:text="Total money spend : "
+    android:textSize="18sp"
+    />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/carddisplay"
+                android:background="@color/white"
+                ads:cardCornerRadius="5dp"
+                ads:cardBackgroundColor="#3F305C"
+                android:elevation="7dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="40dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delete Data"
+                        android:textSize="18sp"
+                        android:id="@+id/doctor_profile_qualititle"
+                        android:minHeight="40dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        />
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/addplus"
+                        android:id="@+id/hideunhide"
+                        android:layout_alignParentEnd="true"
+                        ads:tint="@color/white" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="10"
+                        android:layout_below="@id/hideunhide"
+                        android:visibility="gone"
+                        android:id="@+id/deletelayout_display"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/date_deletedata"
+                            android:layout_width="0dp"
+                            android:layout_weight="6"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/borderwhite"
+                            android:drawableLeft="@drawable/baseline_calendar_today_24"
+                            android:drawablePadding="9dp"
+                            android:textSize="17sp"
+                            android:hint="Date"
+                            android:gravity="center|start"
+                            android:minHeight="48dp"
+                            android:padding="9dp"
+                            android:textColor="@color/white"
+                            android:drawableTint="#BFBEBE"
+                            android:textColorHint="#BFBEBE" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Delete"
+                            android:layout_weight="4"
+                            android:padding="8dp"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:textSize="16sp"
+                            android:id="@+id/deletedisplaypage_but"
+                            android:elevation="5dp"
+                            android:backgroundTint="#D85353"
+                            android:background="@drawable/emailborder"
+                            />
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:background="@color/violet">
 
                 <Spinner
                     android:id="@+id/spin2"
-                    android:backgroundTint="@color/purple_500"
+                    android:backgroundTint="#9E6ADD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="25dp"
                     android:background="@drawable/border3"
-                    android:padding="15dp" />
+                    />
                 <Spinner
                     android:id="@+id/spin3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="25dp"
-                    android:backgroundTint="@color/purple_500"
-                    android:background="@drawable/border4"
-                    android:padding="15dp" />
+                    android:backgroundTint="#9E6ADD"
+                    android:background="@drawable/border3"
+                    />
 
             </LinearLayout>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/db"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,13 +291,23 @@
                 android:layout_marginRight="20dp"
 
                 android:layout_marginBottom="64dp"
-                android:text="@string/display"
-                android:textColor="@color/black"
-                android:background="@color/purple_200"
+                android:text="Show"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                android:background="@drawable/loginbut"
                 android:textSize="16sp"
                 />
 
         </LinearLayout>
     </ScrollView>
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adViewdisplay"
+        android:layout_gravity="bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+        />
+
 
 </LinearLayout>

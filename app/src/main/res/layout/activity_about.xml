@@ -5,95 +5,90 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".about">
-<TextView
-    android:layout_width="wrap_content"
+    tools:context="hisaab.store.analyser.about">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarheight"
+        android:background="@color/violet"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:minWidth="30dp"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:id="@+id/contact_back"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Contact"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="13dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Drop us a message"
+            android:id="@+id/contact_title"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Subject"
+            android:layout_margin="10dp"
+            android:maxLines="1"
+            android:textColorHint="@color/gray"
+            android:padding="13dp"
+            android:textSize="20sp"
+            android:id="@+id/contact_sub"
+            android:textColor="@color/black"
+            android:background="@drawable/emailborder"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:hint="Enter your message"
+            android:layout_margin="10dp"
+            android:textColorHint="@color/gray"
+            android:textSize="19sp"
+            android:id="@+id/contact_msg"
+            android:padding="12dp"
+            android:gravity="top"
+            android:textColor="@color/black"
+            android:background="@drawable/emailborder"
+            />
+<androidx.appcompat.widget.AppCompatButton
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="24sp"
     android:layout_margin="10dp"
-    android:background="@color/white"
-    android:textColor="@color/black"
-    android:text="@string/contact"
+    android:padding="10dp"
+    android:id="@+id/contact_send"
+    android:text="Send"
+    android:textSize="18sp"
+    android:backgroundTint="#4B3F61"
+    android:background="@drawable/border4"
     />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="0dp"
-        android:orientation="horizontal"
-        android:background="@color/white">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            android:textColor="@color/black"
-            android:text="@string/college"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_margin="10dp"
-            android:background="@color/gray"
-            android:textColor="@color/black"
-            android:text="@string/nerist"
-            />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/white">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_margin="10dp"
-        android:background="@color/white"
-        android:textColor="@color/black"
-        android:text="@string/Github"
-        />
-        <TextView
-            android:id="@+id/at"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            android:textColor="@color/purple_500"
-            android:text="@string/https_github_com_jugalcody"
-            />
-    </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/white">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_margin="10dp"
-                android:background="@color/white"
-                android:textColor="@color/black"
-                android:text="@string/linkedin"
-                />
-            <TextView
-                android:id="@+id/at2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_margin="10dp"
-                android:background="@color/white"
-                android:textColor="@color/purple_500"
-                android:text="@string/https_www_linkedin_com_in_jugal_kishore_das_323443234_originalsubdomain_in"
-                />
-
     </LinearLayout>
 
 </LinearLayout>

@@ -6,8 +6,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".guide">
-<ScrollView
+    tools:context="hisaab.store.analyser.guide">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarheight"
+        android:background="@color/primary"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:minWidth="30dp"
+            android:layout_height="match_parent"
+            android:layout_margin="9dp"
+            android:id="@+id/about_back"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="About"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+    </LinearLayout>
+
+    <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="UselessParent">
@@ -17,16 +44,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/white">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="27sp"
-        android:layout_margin="10dp"
-        android:text="@string/about2"
-        />
 
     <TextView
         android:layout_width="match_parent"
@@ -208,6 +225,20 @@
         android:text="@string/monthly_spend2"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="40dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginBottom="2dp"
+        android:text="- Yearly Spend"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="40dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

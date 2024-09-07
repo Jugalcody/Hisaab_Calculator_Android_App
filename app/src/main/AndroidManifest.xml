@@ -3,6 +3,9 @@
     package="com.example.hisaabcalculator">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
     <application
         android:allowBackup="true"
@@ -11,30 +14,36 @@
         android:roundIcon="@mipmap/icon2"
         android:supportsRtl="true"
         android:theme="@style/Theme.HisaabCalculator">
-
         <activity
-            android:name=".ScanQR"
-            android:exported="false"
-            android:theme="@style/ScanqrTheme" />
-        <activity
-            android:name=".about"
+            android:name="hisaab.store.analyser.ForgotPage"
             android:exported="false" />
         <activity
-            android:name=".guide"
+            android:name="hisaab.store.analyser.ForgotPage"
             android:exported="false" />
         <activity
-            android:name=".monthly"
+            android:name="hisaab.store.analyser.ForgotPassword"
             android:exported="false" />
         <activity
-            android:name=".money"
+            android:name="hisaab.store.analyser.Yearly"
             android:exported="false" />
         <activity
-            android:name=".display"
+            android:name="hisaab.store.analyser.about"
             android:exported="false" />
         <activity
-            android:name=".SplashScreen"
-            android:theme="@style/ScanqrTheme"
-            android:exported="true" >
+            android:name="hisaab.store.analyser.guide"
+            android:exported="false" />
+        <activity
+            android:name="hisaab.store.analyser.monthly"
+            android:exported="false" />
+        <activity
+            android:name="hisaab.store.analyser.money"
+            android:exported="false" />
+        <activity
+            android:name="hisaab.store.analyser.display"
+            android:exported="false" />
+        <activity
+            android:name="hisaab.store.analyser.SplashScreen"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,16 +51,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".item"
+            android:name="hisaab.store.analyser.item"
             android:exported="false" />
         <activity
-            android:name=".first"
-            android:theme="@style/ScanqrTheme"
+            android:name="hisaab.store.analyser.first"
             android:exported="false" />
-        <activity android:name=".signup" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false"/>
+            android:name="hisaab.store.analyser.signup"
+            android:exported="false" />
+        <activity
+            android:name="hisaab.store.analyser.MainActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1079506490540577~9727322648" />
     </application>
 
 </manifest>
