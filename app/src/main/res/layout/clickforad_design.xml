@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/popup_back"
+        android:src="@drawable/baseline_close_24"
+        android:layout_gravity="end"
+        app:tint="@color/black" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Point : "
+        android:textSize="25sp"
+        android:id="@+id/warn_popup_title"
+        android:textColor="@color/black"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10P"
+        android:id="@+id/item_point_window"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:layout_marginEnd="2dp"
+        android:gravity="end"
+        android:layout_marginStart="10dp"
+        android:layout_gravity="end|center"
+        />
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        ads:lottie_rawRes="@raw/coin"
+        android:gravity="end"
+        android:id="@+id/item_coinanim"
+        android:layout_gravity="end|center"
+        ads:lottie_loop="true"
+        android:layout_marginEnd="12dp"
+        ads:lottie_autoPlay="true"
+        />
+
+</LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Require 1 point to add an individual item to hisaab."
+        android:layout_marginTop="15dp"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="15dp"
+    android:orientation="horizontal"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#F81414"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:text="demo"
+        android:id="@+id/adbut"
+/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Watch ad"
+        android:textColor="@color/white"
+        android:id="@+id/watchad"
+        android:background="#4E4E4E"
+        android:layout_marginStart="18dp"
+        android:layout_gravity="center"
+        />
+</LinearLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/adprogress"
+        android:visibility="gone"
+        />
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adView"
+        android:layout_gravity="bottom"
+        android:elevation="1dp"
+        ads:adSize="BANNER"
+        android:background="#F8F8F8"
+        android:layout_marginTop="18dp"
+        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="18dp"
+        >
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:text="cancel"
+            android:gravity="center"
+            android:id="@+id/popup_warn_gotit"
+            android:backgroundTint="@color/primarydark"
+            android:background="@drawable/loginbut"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+</LinearLayout>

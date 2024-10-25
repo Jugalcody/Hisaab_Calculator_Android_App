@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/popup_back"
+        android:src="@drawable/baseline_close_24"
+        android:layout_gravity="end"
+        app:tint="@color/black" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hope you are using the app well"
+        android:textSize="25sp"
+        android:id="@+id/warn_popup_title"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:drawableLeft="@drawable/baseline_warning_24"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="25dp"
+        android:text="Warn Message"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="All the hisaab data are saved locally to your device and exist until the application installed on your phone, Once you uninstall the application, your data and account will be erased as everything is saved in your local storage only. Other than this, the application has no issue.\n\nIf you uninstall the app for some reason, please be sure to download your expenses as the lost data is not recoverable."
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        >
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/popup_warn_check"
+            android:textColor="@color/black"
+            android:layout_toLeftOf="@id/popup_warn_gotit"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="10dp"
+            android:text="Don't show this message again"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:text="Got It"
+            android:id="@+id/popup_warn_gotit"
+            android:background="@color/primarydark"
+            android:layout_below="@id/popup_warn_check"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+</LinearLayout>

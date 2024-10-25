@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="hisaab.store.analyser.Contact">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarheight"
+        android:id="@+id/contact_toolbar"
+        android:background="@color/primarydark"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:minWidth="30dp"
+            android:layout_height="@dimen/back_height"
+            android:layout_margin="8dp"
+            android:id="@+id/contact_back"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Contact"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Share your concern, we will reach out to you soon!"
+            android:id="@+id/contact_title"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Subject or Topic"
+            android:layout_margin="10dp"
+            android:maxLines="1"
+            android:textColorHint="@color/gray"
+            android:padding="13dp"
+            android:textSize="20sp"
+            android:id="@+id/contact_sub"
+            android:textColor="@color/black"
+            android:background="@drawable/emailborder"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:hint="Describe your issue"
+            android:layout_margin="10dp"
+            android:textColorHint="@color/gray"
+            android:textSize="19sp"
+            android:id="@+id/contact_msg"
+            android:padding="12dp"
+            android:gravity="top"
+            android:textColor="@color/black"
+            android:background="@drawable/emailborder"
+            />
+<androidx.appcompat.widget.AppCompatButton
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    android:id="@+id/contact_send"
+    android:text="Send"
+    android:textSize="17sp"
+    android:background="@drawable/loginbut"
+    />
+    </LinearLayout>
+
+</LinearLayout>

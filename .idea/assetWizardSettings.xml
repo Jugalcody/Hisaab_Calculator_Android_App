@@ -24,7 +24,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="/tmp/baseline_help_24.xml" />
+                                                <entry key="imagePath" value="/tmp/baseline_arrow_back_24.xml" />
                                                 <entry key="opacityPercent" value="80" />
                                               </map>
                                             </option>
@@ -36,7 +36,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/help/baseline_help_24.xml" />
+                                                <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/arrow_back/baseline_arrow_back_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -68,9 +68,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="help" />
+                                      <entry key="outputName" value="back" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="f6f7f8" />
+                                      <entry key="themeColor" value="ffffff" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -98,7 +98,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$PROJECT_DIR$/../icon.jpeg" />
+                                                <entry key="imagePath" value="$PROJECT_DIR$/.." />
                                                 <entry key="scalingPercent" value="67" />
                                               </map>
                                             </option>
@@ -330,7 +330,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/person/baseline_person_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/file_download/baseline_file_download_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -340,8 +340,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="3e3e3e" />
-                            <entry key="outputName" value="baseline_person_24" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="download" />
                           </map>
                         </option>
                       </PersistentState>

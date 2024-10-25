@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.hisaabcalculator">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -14,11 +22,30 @@
         android:roundIcon="@mipmap/icon2"
         android:supportsRtl="true"
         android:theme="@style/Theme.HisaabCalculator">
+
+
+        <activity
+            android:name="hisaab.store.analyser.ForgotPage"
+            android:exported="false" />
+        <receiver android:name="hisaab.store.analyser.AlarmReceiver" />
+        <service
+            android:name="hisaab.store.analyser.AppMonitorService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
         <activity
             android:name="hisaab.store.analyser.Yearly"
             android:exported="false" />
         <activity
-            android:name="hisaab.store.analyser.about"
+            android:name="hisaab.store.analyser.Contact"
             android:exported="false" />
         <activity
             android:name="hisaab.store.analyser.guide"
@@ -47,7 +74,9 @@
         <activity
             android:name="hisaab.store.analyser.first"
             android:exported="false" />
-        <activity android:name="hisaab.store.analyser.signup" />
+        <activity
+            android:name="hisaab.store.analyser.signup"
+            android:exported="false" />
         <activity
             android:name="hisaab.store.analyser.MainActivity"
             android:exported="false" />

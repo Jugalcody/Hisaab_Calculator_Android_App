@@ -4,16 +4,84 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-    android:background="@color/violet"
+    android:background="@color/backgrounddark"
     android:orientation="vertical"
+    android:id="@+id/money_container"
     tools:context="hisaab.store.analyser.money">
-<ScrollView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarheight"
+        android:id="@+id/money_toolbar"
+        android:background="@color/primarydark"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="@dimen/back_height"
+            android:layout_margin="8dp"
+            android:layout_alignParentStart="true"
+            android:id="@+id/money_back"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:gravity="start|center"
+            android:layout_toRightOf="@id/money_back"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="Balance Enquiry"
+            android:id="@+id/money_buytitle"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            ads:lottie_rawRes="@raw/coin"
+            android:gravity="end"
+            android:id="@+id/money_coinanim"
+            android:layout_gravity="end|center"
+            ads:lottie_loop="true"
+            android:layout_marginEnd="12dp"
+            android:layout_centerVertical="true"
+            ads:lottie_autoPlay="true"
+            android:layout_alignParentEnd="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10P"
+            android:id="@+id/money_point"
+            android:layout_toLeftOf="@id/money_coinanim"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_toRightOf="@id/money_buytitle"
+            android:gravity="end"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="end|center"
+
+            />
+    </RelativeLayout>
+
+
+    <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/violet"
         android:orientation="vertical">
         <TextView
             android:id="@+id/mt"
@@ -21,7 +89,6 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:background="@color/violet"
             android:text="@string/total_balance"
             android:padding="10dp"
             android:layout_margin="10dp"
@@ -36,49 +103,61 @@
             android:background="@drawable/border4"
             android:textColor="@color/white"
             android:textColorHint="@color/gray"
-            android:hint="@string/add_money"
+            android:hint="Add balance"
             android:padding="30dp"
             android:importantForAutofill="no" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_gravity="right"
-            android:background="@color/violet">
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/mb"
-
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="end"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:padding="13dp"
-            android:backgroundTint="#9E6ADD"
-            android:background="@drawable/border3"
+            android:background="@drawable/loginbut"
             android:textColor="@color/white"
             android:text="@string/add"
             />
+        <com.google.android.gms.ads.AdView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/adViewmoney"
+            ads:adSize="BANNER"
+            android:layout_marginTop="2dp"
+            ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+            />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/mb2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="#AE4343"
-                android:background="@drawable/border3"
-                android:padding="13dp"
-                android:textColor="@color/white"
-                android:text="@string/clear"
-                />
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="15dp"
+            android:textColor="#E4E4E4"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="#E4E4E4"
+            android:textSize="14sp"
+            android:text="** Add balance is to add the record of your available money, no real money involved."
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="#E4E4E4"
+            android:textSize="14sp"
+            android:text="** Add exact balance to analyse the hisaab correctly."
+            />
 
     </LinearLayout>
 </ScrollView>
-    <com.google.android.gms.ads.AdView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/adViewmoney"
-        android:layout_gravity="bottom"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
-        />
 </LinearLayout>
