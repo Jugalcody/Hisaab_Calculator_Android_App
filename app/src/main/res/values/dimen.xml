@@ -3,4 +3,11 @@
 
     <dimen name="toolbarheight">67dp</dimen>
     <dimen name="toolbartextsize">20.6sp</dimen>
+
+    <!--first page text size-->
+    <dimen name="first_page_textsize_button">20sp</dimen>
+    <dimen name="back_height">25dp</dimen>
+
+
+
 </resources>

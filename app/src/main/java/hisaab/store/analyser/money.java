@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,22 +49,6 @@ TextView t;
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.guide){
-
-            Intent gi=new Intent(this,guide.class);
-            startActivity(gi);
-        }
-        else if(item.getItemId()==R.id.contact){
-            Intent gi=new Intent(this,about.class);
-            startActivity(gi);
-        }
-        else if(item.getItemId()==R.id.logout_menu){
-         open();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +60,14 @@ TextView t;
             TextView itempoint=findViewById(R.id.money_point);
 
             b = findViewById(R.id.mb);
+            ButtonEffect buttonEffect=new ButtonEffect(money.this);
+            buttonEffect.buttonEffect(b);
             e = findViewById(R.id.me);
             t = findViewById(R.id.mt);
             sp = getSharedPreferences("login", MODE_PRIVATE);
             sp2 = getSharedPreferences("item", MODE_PRIVATE);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getWindow().setStatusBarColor(getColor(R.color.primary));
+                getWindow().setStatusBarColor(getColor(R.color.primarydark));
             }
             n = sp2.getString("user", "");
             SharedPreferences coin=getSharedPreferences(n+"coin",MODE_PRIVATE);
@@ -99,16 +86,17 @@ TextView t;
             //adView.setAdSize(getAdSize());
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
+            changetheme();
             try {
                 File f = new File(path, n + "balance.txt");
                 if (!f.exists()) f.createNewFile();
                 String date2 = new SimpleDateFormat("MMyyyy", Locale.getDefault()).format(new Date());
                 int d2 = Integer.parseInt(date2);
-                File f2 = new File(path, (n + d2 + "monthlyGet.txt"));
+                File f2 = new File(path, (n+"monthlyGet"+ d2 + ".txt"));
                 if (!f2.exists()) f2.createNewFile();
                 String date3 = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
                 int d3 = Integer.parseInt(date3);
-                File f3 = new File(path, (n +d3+ "yearlyGet.txt"));
+                File f3 = new File(path, (n+"yearlyGet"+d3+ ".txt"));
                 if (!f3.exists()) f3.createNewFile();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -193,7 +181,7 @@ public void open(){
         try{
             String date = new SimpleDateFormat("MMyyyy", Locale.getDefault()).format(new Date());
             int d = Integer.parseInt(date);
-            FileOutputStream f=new FileOutputStream(new File(path,n+d+"monthlyGet.txt"));
+            FileOutputStream f=new FileOutputStream(new File(path,n+"monthlyGet"+d+".txt"));
             f.write("".getBytes());
 
         }
@@ -203,10 +191,15 @@ public void open(){
     }
 
     public String totalBalance() {
+        String date3 = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
+        int year = Integer.parseInt(date3);
+        SharedPreferences sharedPreferences=getSharedPreferences(n+year,MODE_PRIVATE);
         File path=getApplicationContext().getFilesDir();
         String b3="0";
         try{
-            FileInputStream f2=new FileInputStream(new File(path,n+"balance.txt"));
+            File file=new File(path,n+"balance.txt");
+            if(!file.exists()) file.createNewFile();
+            FileInputStream f2=new FileInputStream(file);
             InputStreamReader r = new InputStreamReader(f2);
             BufferedReader br = new BufferedReader(r);
                 b3 = br.readLine();
@@ -219,21 +212,20 @@ public void open(){
 
             Toast.makeText(this,"empty balance",Toast.LENGTH_LONG).show();
         }
+        sharedPreferences.edit().putString("balance",b3).apply();
         return b3;
     }
     public String updateBalance(String e1){
+        String date3 = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
+        int year = Integer.parseInt(date3);
+        SharedPreferences sharedPreferences=getSharedPreferences(n+year,MODE_PRIVATE);
         File path=getApplicationContext().getFilesDir();
         String b3="0",b4;
         long l;
         try{
-            new File(path,n+"balance.txt");
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        try{
-
-            FileInputStream f2=new FileInputStream(new File(path,n+"balance.txt"));
+File file=new File(path,n+"balance.txt");
+if(!file.exists()) file.createNewFile();
+            FileInputStream f2=new FileInputStream(file);
 
             InputStreamReader r = new InputStreamReader(f2);
             BufferedReader br = new BufferedReader(r);
@@ -262,6 +254,9 @@ public void open(){
             yearlyUpdate(e0,0);
             finish();
         }
+
+
+        sharedPreferences.edit().putString("balance",b3).apply();
         return b3;
     }
 
@@ -270,9 +265,13 @@ public void open(){
         String b3,b4;
         long l;
         try{
-            String date = new SimpleDateFormat("MMyyyy", Locale.getDefault()).format(new Date());
-            int d = Integer.parseInt(date);
-            FileInputStream f2=new FileInputStream(new File(path,n+d+"monthlyGet.txt"));
+            String date = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
+            String date2 = new SimpleDateFormat("MM", Locale.getDefault()).format(new Date());
+            if(date2.charAt(0)=='0') date2=String.valueOf(date2.charAt(1));
+            File file=new File(path,n+"monthlyGet"+date2+date+".txt");
+            if(!file.exists()) file.createNewFile();
+
+            FileInputStream f2=new FileInputStream(file);
 
             InputStreamReader r = new InputStreamReader(f2);
             BufferedReader br = new BufferedReader(r);
@@ -285,7 +284,7 @@ public void open(){
                 l=Long.parseLong(b4);
             }
             b3=Long.toString(l);
-            FileOutputStream f=new FileOutputStream(new File(path,n+d+"monthlyGet.txt"));
+            FileOutputStream f=new FileOutputStream(file);
             f.write((b3).getBytes());
             f.close();
 
@@ -304,10 +303,23 @@ public void open(){
         try{
             String date3 = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
             int d3 = Integer.parseInt(date3);
-            FileInputStream f2=new FileInputStream(new File(path,n+d3+"yearlyGet.txt"));
-            InputStreamReader r = new InputStreamReader(f2);
+            File file=new File(path,n+"yearlyGet"+d3+".txt");
+            if(!file.exists()){
+                try {
+
+                    if (file.createNewFile()) {
+                    }
+                }catch (Exception e){}
+            }
+            FileInputStream f2=new FileInputStream(file);
+
+
+
+                InputStreamReader r = new InputStreamReader(f2);
             BufferedReader br = new BufferedReader(r);
+
             b4 = br.readLine();
+
             if(b4==null) b4="0";
             f2.close();
 
@@ -316,15 +328,49 @@ public void open(){
                 l=Long.parseLong(b4);
             }
             b3=Long.toString(l);
-            FileOutputStream f=new FileOutputStream(new File(path,n+d3+"yearlyGet.txt"));
+            FileOutputStream f=new FileOutputStream(file);
             f.write((b3).getBytes());
             f.close();
 
 
         }
         catch(IOException ee){
+            Toast.makeText(this,ee.toString(),Toast.LENGTH_LONG).show();
             clear3();
         }
     }
 
+
+
+    private void changetheme(){
+        SharedPreferences sp=getSharedPreferences("theme",MODE_PRIVATE);
+        LinearLayout layout=findViewById(R.id.money_container);
+        RelativeLayout toolbar=findViewById(R.id.money_toolbar);
+        if(sp.getString("theme","dark").equals("pink")){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getWindow().setStatusBarColor(getColor(R.color.toolbarpink));
+            }
+            e.setHintTextColor(getColor(R.color.primarypink));
+            b.setBackgroundResource(R.drawable.loginbutpink);
+            toolbar.setBackgroundColor(getColor(R.color.toolbarpink));
+            layout.setBackgroundColor(getColor(R.color.backgroundpink));
+
+
+
+
+        }
+
+        else{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getWindow().setStatusBarColor(getColor(R.color.primarydark));
+            }
+            toolbar.setBackgroundColor(getColor(R.color.toolbardark));
+            layout.setBackgroundColor(getColor(R.color.backgrounddark));
+            b.setBackgroundResource(R.drawable.loginbut);
+
+        }
+
     }
+
+
+}

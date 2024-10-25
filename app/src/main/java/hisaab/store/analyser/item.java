@@ -1,5 +1,8 @@
 package hisaab.store.analyser;
 
+import static com.example.hisaabcalculator.R.color.deletecardbackgrounddark;
+import static com.example.hisaabcalculator.R.color.deletecardbackgroundpink;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,23 +14,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hisaabcalculator.R;
-import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.OnUserEarnedRewardListener;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,32 +42,32 @@ public class item extends AppCompatActivity {
     private RewardedAd rewardedAd;
     ImageView back;
     private final String TAG = "item";
+    LinearLayout parentlayout;
+    RelativeLayout toolbar;
     String mon,year,head;
     AdView adView;
     SharedPreferences coin;
     TextView itempoint;
     int point=0;
+    Showad ad;
     TextView t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().setStatusBarColor(getColor(R.color.primary));
+            getWindow().setStatusBarColor(getColor(R.color.primarydark));
         }
+
         try {
 
-            MobileAds.initialize(this, new OnInitializationCompleteListener() {
-                @Override
-                public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
-                }
-            });
-            load();
+            parentlayout=findViewById(R.id.item_container);
+            ad=new Showad(item.this);
+            ad.loadRewardad();
 
             Date now = new Date();
             SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.getDefault());
             mon = monthFormat.format(now);
-
 
             back=findViewById(R.id.item_back);
             back.setOnClickListener(new View.OnClickListener() {
@@ -88,24 +83,33 @@ public class item extends AppCompatActivity {
             t = findViewById(R.id.ab);
             Bundle e = getIntent().getExtras();
             itempoint=findViewById(R.id.item_point);
+            toolbar=findViewById(R.id.item_toolbar);
             SharedPreferences spitem = getSharedPreferences("item", MODE_PRIVATE);
             head = spitem.getString("user", "");
 
             t.setText("Available Balance : " + totalBalance());
             b1 = findViewById(R.id.sb1);
+
+            ButtonEffect buttonEffect=new ButtonEffect(item.this);
+            buttonEffect.buttonEffect(b1);
             e1 = findViewById(R.id.se1);
             coin=getSharedPreferences(head+"coin",MODE_PRIVATE);
-           point=coin.getInt("point",0);
-           itempoint.setText(point+"P");
+            point=coin.getInt("point",0);
+            itempoint.setText(point+"P");
 
+            changetheme();
 
-
-
-try {
-    File path = getApplicationContext().getFilesDir();
-    File f3 = new File(path, (head + year + "yearlySpend.txt"));
-    if (!f3.exists()) f3.createNewFile();
-}catch(Exception ex){}
+            itempoint.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ad.createWindow(item.this,parentlayout,itempoint);
+                }
+            });
+            try {
+                File path = getApplicationContext().getFilesDir();
+                File f3 = new File(path, (head+"yearlySpend" + year+ ".txt"));
+                if (!f3.exists()) f3.createNewFile();
+            }catch(Exception ex){}
 
             adView=findViewById(R.id.adView);
             //adView.setAdUnitId("ca-app-pub-1079506490540577/7402312139");
@@ -141,108 +145,45 @@ try {
                 }
             });*/
             b1.setOnClickListener(view -> {
+                rewardedAd=ad.getRewardedAd();
                 point=coin.getInt("point",0);
-                itempoint.setText(point+"P");
-              // Toast.makeText(item.this,String.valueOf(point),Toast.LENGTH_LONG).show();
-                if (rewardedAd != null && (point == 0)) {
-                    Activity activityContext = item.this;
-                    rewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
-                        @Override
-                        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
-                            // Handle the reward.
-
-                            int rewardAmount = rewardItem.getAmount();
-                            String rewardType = rewardItem.getType();
-                            int curpoint=coin.getInt("point",0)+10;
-                            coin.edit().putInt("point",curpoint).apply();
-                            point=coin.getInt("point",0);
-                            itempoint.setText(point+"P");
-
-
-                        }
-                    });
-
-
-                    rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                        @Override
-                        public void onAdClicked() {
-                            // Called when a click is recorded for an ad.
-                              load();
-                        }
-
-                        @Override
-                        public void onAdDismissedFullScreenContent() {
-                            // Called when ad is dismissed.
-                            // Set the ad reference to null so you don't show the ad a second time.
-                            Toast.makeText(item.this,"No points earned!",Toast.LENGTH_LONG).show();
-                             load();
-
-
-                        }
-
-                        @Override
-                        public void onAdFailedToShowFullScreenContent(AdError adError) {
-                            // Called when ad fails to show.
-                            load();
-                        }
-
-                        @Override
-                        public void onAdImpression() {
-                            // Called when an impression is recorded for an ad.
-
-                            Toast.makeText(item.this,"Watch ad to earn 10+ reward",Toast.LENGTH_LONG).show();
-
-load();
-                        }
-
-                        @Override
-                        public void onAdShowedFullScreenContent() {
-                            // Called when ad is shown.
-load();
-                        }
-                    });
-
-
+                if (point == 0) {
+                    ad.createWindow(item.this,parentlayout,itempoint);
                 } else {
+                    String item = e1.getText().toString().trim();
+                    String price = e2.getText().toString().trim();
+                    if (!mon.equals("")) {
+                        if (!item.equals("") && !price.equals("")){
+                            if (isOk(Long.parseLong(price)) == 1) {
 
-
-
-
-
-                String item = e1.getText().toString().trim();
-                String price = e2.getText().toString().trim();
-                if (!mon.equals("")) {
-                    if (!item.equals("") && !price.equals("")){
-                        if (isOk(Long.parseLong(price)) == 1) {
-
-                            add_data(item, price);
-                            monthUpdate(Long.parseLong(price));
-                            yearUpdate(Long.parseLong(price));
-                            t.setText("Available Balance : " + deductMoney(Long.parseLong(price)));
-                            e1.setText("");
-                            e2.setText("");
-                            b1.setText("Committed");
-                            if(point>0){
-                                int curpoint=coin.getInt("point",0)-1;
-                                coin.edit().putInt("point",curpoint).apply();
-                                point=coin.getInt("point",0);
-                                itempoint.setText(point+"P");
+                                add_data(item, price);
+                                monthUpdate(Long.parseLong(price));
+                                yearUpdate(Long.parseLong(price));
+                                t.setText("Available Balance : " + deductMoney(Long.parseLong(price)));
+                                e1.setText("");
+                                e2.setText("");
+                                b1.setText("Committed");
+                                if(point>0){
+                                    int curpoint=coin.getInt("point",0)-1;
+                                    coin.edit().putInt("point",curpoint).apply();
+                                    point=coin.getInt("point",0);
+                                    itempoint.setText(point+"P");
+                                }
                             }
+                            else if(isOk(Long.parseLong(price)) == 2){
+                                Toast.makeText(item.this,"invalid price",Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Toast.makeText(this, "insufficient balance", Toast.LENGTH_LONG).show();
+                            }
+                        } else if (item.equals("")) {
+                            Toast.makeText(this, "enter item", Toast.LENGTH_LONG).show();
+                        } else if (price.equals("")) {
+                            Toast.makeText(this, "enter price", Toast.LENGTH_LONG).show();
                         }
-                        else if(isOk(Long.parseLong(price)) == 2){
-                            Toast.makeText(item.this,"invalid price",Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Toast.makeText(this, "insufficient balance", Toast.LENGTH_LONG).show();
-                        }
-                    } else if (item.equals("")) {
-                        Toast.makeText(this, "enter item", Toast.LENGTH_LONG).show();
-                    } else if (price.equals("")) {
-                        Toast.makeText(this, "enter price", Toast.LENGTH_LONG).show();
-                    }
-                } else Toast.makeText(this, "select month", Toast.LENGTH_LONG).show();
+                    } else Toast.makeText(this, "select month", Toast.LENGTH_LONG).show();
 
-            }});
+                }});
 
         }catch (Exception e){
 
@@ -257,7 +198,9 @@ load();
         File path=getApplicationContext().getFilesDir();
         long bal3 = 0;
         try{
-            FileInputStream f=new FileInputStream(new File(path,head+"balance.txt"));
+            File file=new File(path,head+"balance.txt");
+            if(!file.exists())file.createNewFile();
+            FileInputStream f=new FileInputStream(file);
             InputStreamReader r=new InputStreamReader(f);
             BufferedReader br=new BufferedReader(r);
             String bal=br.readLine();
@@ -272,6 +215,9 @@ load();
     }
 
     public long deductMoney(long p){
+        String date3 = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
+        int year = Integer.parseInt(date3);
+        SharedPreferences sharedPreferences=getSharedPreferences(head+year,MODE_PRIVATE);
         File path=getApplicationContext().getFilesDir();
         long bal3=0;
         try{
@@ -291,6 +237,7 @@ load();
             clear3();
             e.printStackTrace();
         }
+        sharedPreferences.edit().putString("balance",String.valueOf(bal3)).apply();
         return bal3;
     }
 
@@ -299,8 +246,10 @@ load();
         try {
             String date = new SimpleDateFormat("MMyyyy", Locale.getDefault()).format(new Date());
             int d = Integer.parseInt(date);
+            File file=new File(path, head+"monthlySpend"+d+".txt");
+            if(!file.exists()) file.createNewFile();
 
-            FileInputStream f3 = new FileInputStream(new File(path, head +d+"monthlySpend.txt"));
+            FileInputStream f3 = new FileInputStream(file);
 
             InputStreamReader rr = new InputStreamReader(f3);
             BufferedReader brr = new BufferedReader(rr);
@@ -311,7 +260,7 @@ load();
 
             long l = Long.parseLong(b5) + p;
             String b3 =Long.toString(l);
-            FileOutputStream f6 = new FileOutputStream(new File(path, head+d+ "monthlySpend.txt"));
+            FileOutputStream f6 = new FileOutputStream(file);
             f6.write((b3).getBytes());
             f6.close();
         }catch(IOException e){
@@ -323,13 +272,16 @@ load();
     }
 
 
+
     public void yearUpdate(long p) {
         File path=getApplicationContext().getFilesDir();
         try {
             String date = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
             int d = Integer.parseInt(date);
-
-            FileInputStream f3 = new FileInputStream(new File(path, head +d+"yearlySpend.txt"));
+            File f =null;
+            f=new File(path, (head+"yearlySpend" + year+ ".txt"));
+            if (!f.exists()) f.createNewFile();
+            FileInputStream f3 = new FileInputStream(f);
 
             InputStreamReader rr = new InputStreamReader(f3);
             BufferedReader brr = new BufferedReader(rr);
@@ -340,7 +292,9 @@ load();
 
             long l = Long.parseLong(b5) + p;
             String b3 =Long.toString(l);
-            FileOutputStream f6 = new FileOutputStream(new File(path, head+d+ "yearlySpend.txt"));
+            f =new File(path, (head+"yearlySpend" + year+ ".txt"));
+            if (!f.exists()) f.createNewFile();
+            FileOutputStream f6 = new FileOutputStream(f);
             f6.write((b3).getBytes());
             f6.close();
         }catch(IOException e){
@@ -355,7 +309,8 @@ load();
         int d = Integer.parseInt(date);
         File path=getApplicationContext().getFilesDir();
         try{
-            FileOutputStream f=new FileOutputStream(new File(path,head+d+"monthlySpend.txt"));
+            File file= new File(path,head+"monthlySpend"+d+".txt");
+            FileOutputStream f=new FileOutputStream(file);
             f.write("".getBytes());
 
         }
@@ -373,7 +328,10 @@ load();
 
 
             try {
-                FileOutputStream f =new FileOutputStream(new File(path,head+mon+year+".txt"),true);
+
+                File file=new File(path,head+"hisaab"+mon+year+"data.txt");
+                if(!file.exists()) file.createNewFile();
+                FileOutputStream f =new FileOutputStream(file,true);
                 f.write(k.getBytes());
                 b1.setText("committed");
                 f.close();
@@ -389,8 +347,11 @@ load();
     public String totalBalance(){
         File path=getApplicationContext().getFilesDir();
         String b3="0";
+        File file=null;
         try{
-            FileInputStream f=new FileInputStream(new File(path,head+"balance.txt"));
+            file=new File(path,head+"balance.txt");
+            if(!file.exists()) file.createNewFile();
+            FileInputStream f=new FileInputStream(file);
             InputStreamReader r=new InputStreamReader(f);
             BufferedReader br=new BufferedReader(r);
             b3=br.readLine();
@@ -405,23 +366,59 @@ load();
 
     }
 
-    public void load(){
+
+    private void changetheme(){
+        SharedPreferences sp=getSharedPreferences("theme",MODE_PRIVATE);
+        LinearLayout layout=findViewById(R.id.item_container);
+        LinearLayout itemlayout=findViewById(R.id.item_enterlayout);
+        if(sp.getString("theme","dark").equals("pink")){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getWindow().setStatusBarColor(getColor(R.color.toolbarpink));
+            }
+            b1.setBackgroundResource(R.drawable.loginbutpink);
+            t.setBackgroundResource(R.drawable.border_light);
+            toolbar.setBackgroundColor(getColor(R.color.toolbarpink));
+            layout.setBackgroundColor(getColor(R.color.backgroundpink));
+            t.setTextColor(getColor(R.color.white));
+            e1.setTextColor(getColor(R.color.itempink));
+            e1.setHintTextColor(getColor(R.color.backgroundpink));
 
 
-        AdRequest adRequest = new AdRequest.Builder().build();
-        RewardedAd.load(this, "ca-app-pub-1079506490540577/9563671110",
-                adRequest, new RewardedAdLoadCallback() {
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                     //   Toast.makeText(item.this,loadAdError.toString(),Toast.LENGTH_SHORT).show();
-                    }
+        }
 
-                    @Override
-                    public void onAdLoaded(@NonNull RewardedAd ad) {
-                       // Toast.makeText(item.this,"loaded",Toast.LENGTH_SHORT).show();
+        else{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getWindow().setStatusBarColor(getColor(R.color.primarydark));
+            }
+            t.setTextColor(getColor(R.color.black));
+            t.setBackgroundResource(R.drawable.border3);
+            toolbar.setBackgroundColor(getColor(R.color.toolbardark));
+            e1.setTextColor(getColor(R.color.black));
+            e1.setHintTextColor(getColor(R.color.gray));
+            layout.setBackgroundColor(getColor(R.color.backgrounddark));
 
-                    }
-                });
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences sharedPreferences=getSharedPreferences("hisaab",MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean("incoming_fromAnotherApp",false).apply();
+        SharedPreferences spitem = getSharedPreferences("item", MODE_PRIVATE);
+        String user = spitem.getString("user","");
+        sharedPreferences.edit().putBoolean(user+"allowapp",true).apply();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences sharedPreferences=getSharedPreferences("hisaab",MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean("incoming_fromAnotherApp",false).apply();
+        SharedPreferences spitem = getSharedPreferences("item", MODE_PRIVATE);
+        String user = spitem.getString("user","");
+        sharedPreferences.edit().putBoolean(user+"allowapp",false).apply();
 
     }
 }

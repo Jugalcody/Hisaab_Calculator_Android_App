@@ -6,9 +6,11 @@
     <string name="action_sign_in">login</string>
     <string name="don_t_have_account">Don\'t have account?</string>
     <string name="register">Register</string>
-    <string name="buy_item">Buy item</string>
+    <string name="buy_item">Add item</string>
     <string name="balance_enquiry">Balance enquiry</string>
     <string name="add_money">Add money</string>
+    <string name="channel_name1">channel1</string>
+    <string name="channel_description">it is for alerting users</string>
     <string name="display_information">Display Information</string>
     <string name="item">item</string>
     <string name="enter_price">Enter price :</string>
@@ -47,7 +49,7 @@
     <string name="_13_if_you_want_to_see_how_much_you_spend_in_a_month_you_can_check_in_the_monthly_spend_page">13.To view your total spending for the month, check the monthly spending page</string>
     <string name="_12_to_see_your_daily_investment_record_go_to_display_information_set_the_month_and_year_collectly_and_press_show_button_it_will_show_all_your_record_of_that_respective_month">12. To view your daily investment record, go to the \'Display Information\' section, select the correct month and year, and press the \'Show\' button. This will display all your records for the selected month</string>
     <string name="_1_user_have_to_login_first_if_he_she_doesn_t_has_an_account_can_register_by_clicking_on_don_t_have_account_option_below_in_the_login_page">1. Users must log in first. If you don\'t have an account, you can register by clicking the \'Don\'t have an account?\' option below the login form.</string>
-    <string name="balance_enquiry2">- Balance enquiry</string>
+    <string name="balance_enquiry2">- Balance Enquiry</string>
     <string name="monthly_spend2">- Monthly spend</string>
     <string name="_4_firstly_the_user_has_0_balance_in_his_her_account_so_he_she_can_t_buy_or_add_any_item_here_in_this_app_it_will_show_insufficient_balance">4. Initially, the user has 0 balance in their account, so they cannot buy or add any items in the app; it will show an \'insufficient balance\' message</string>
     <string name="_6_go_to_balance_enquiry_and_add_100_or_any_if_you_really_has_with_you_in_real">6. Go to the balance enquiry section and add 100 or any amount if you truly have it available in real life</string>
@@ -71,6 +73,8 @@
     <string name="back_button_of_register_page">back button of register page</string>
     <string name="button_to_sign_up_by_user">Button to sign up by user</string>
     <string name="back_button_for_forgot">Back button for forgot</string>
+    <string name="back_button_to_move_back_to_login_activity_from_register_page">Back button to move back to login activity from register page</string>
+    <string name="accessibility_service_description">Using the accessibility service to detect if user has recently visited payment app so that hisaab analyser app can open next to it to allow user add their expenses immediately</string>
     <string-array name="month">
         <item>Jan</item>
         <item>Feb</item>

@@ -3,32 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group
         >
-<item android:title="@string/about2"
-    android:icon="@drawable/help"
-    android:id="@+id/guide"
-    app:showAsAction="never"
-
-    />
-    <item android:title="@string/contact"
-        android:icon="@drawable/contact"
-        app:showAsAction="never"
-        android:id="@+id/contact"/>
-
-
         <item android:title="Reset All"
             app:showAsAction="never"
             android:id="@+id/reset_menu"/>
 
+        <item android:title="Help and Support"
+        app:showAsAction="never"
+            android:id="@+id/support"/>
 
-        <item android:title="Reset Photo"
+        <item android:title="Change Name"
+            app:showAsAction="never"
+            android:icon="@drawable/baseline_person_24_white"
+            android:id="@+id/reset_name"/>
+
+        <item android:title="Remove Photo"
             app:showAsAction="never"
             android:id="@+id/reset_photo"/>
+
+        <item android:title="Warning Message"
+            app:showAsAction="never"
+            android:id="@+id/reset_warn"/>
+
+        <item android:title="Auto Detect Payment"
+            android:id="@+id/detectpayment"
+            />
+        <item android:title="Change Theme"
+            app:showAsAction="never"
+            android:id="@+id/theme"/>
+
+        <item android:title="Tell your friends"
+            app:showAsAction="never"
+            android:id="@+id/tellfriend"/>
+
+        <item android:title="Review this app"
+            app:showAsAction="never"
+            android:id="@+id/rateapp"/>
+
         <item android:title="@string/logout"
             app:showAsAction="never"
             android:id="@+id/logout_menu"/>
-       <!-- <item android:title="Delete Account"
-            app:showAsAction="never"
-            android:id="@+id/del_menu"/>-->
 
     </group>
 </menu>

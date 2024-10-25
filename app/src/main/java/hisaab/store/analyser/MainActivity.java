@@ -1,11 +1,12 @@
 package hisaab.store.analyser;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,8 +22,9 @@ import java.io.*;
 public class MainActivity extends AppCompatActivity {
     Button l;
     SharedPreferences sp,spitem;
+    ButtonEffect buttonEffect;
     String name="";
-    EditText u, p;
+    EditText user, password;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -31,19 +33,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.guide){
 
-            Intent gi=new Intent(this,guide.class);
-            startActivity(gi);
-        }
-       else if(item.getItemId()==R.id.contact){
-            Intent gi=new Intent(this,about.class);
-            startActivity(gi);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         try {
             l = findViewById(R.id.login);
-            u = findViewById(R.id.username);
-            p = findViewById(R.id.password);
+            user = findViewById(R.id.username);
+            buttonEffect=new ButtonEffect(MainActivity.this);
+            password = findViewById(R.id.password);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getWindow().setStatusBarColor(getColor(R.color.primary));
+                getWindow().setStatusBarColor(getColor(R.color.primarydark));
             }
+            buttonEffect.buttonEffect(l);
             sp = getSharedPreferences("login", MODE_PRIVATE);
             spitem = getSharedPreferences("item", MODE_PRIVATE);
 
@@ -68,12 +60,73 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            user.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.toString().contains(" ")) {
+                        String updatedText = s.toString().replace(" ", "");
+
+                        // Remove the TextWatcher temporarily to avoid recursion
+                        user.removeTextChangedListener(this);
+
+                        // Update the EditText with the modified text
+                        user.setText(updatedText);
+
+                        // Move the cursor to the end of the text
+                        user.setSelection(updatedText.length());
+
+                        // Reattach the TextWatcher
+                        user.addTextChangedListener(this);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+
+            password.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.toString().contains(" ")) {
+                        String updatedText = s.toString().replace(" ", "");
+
+                        // Remove the TextWatcher temporarily to avoid recursion
+                        password.removeTextChangedListener(this);
+
+                        // Update the EditText with the modified text
+                        password.setText(updatedText);
+
+                        // Move the cursor to the end of the text
+                        password.setSelection(updatedText.length());
+
+                        // Reattach the TextWatcher
+                        password.addTextChangedListener(this);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
             l.setOnClickListener(view -> {
 
-                String user = u.getText().toString();
-                String pass = p.getText().toString();
+                String user = this.user.getText().toString();
+                String pass = password.getText().toString();
                 if (!user.equals("") && !pass.equals("")) {
-                    if(user.length()>=7) {
+
                         if (isAuthenticate(user, pass)) {
                             Intent p1 = new Intent(this, first.class);
                             Toast.makeText(this, "Welcome " + name, Toast.LENGTH_LONG).show();
@@ -85,12 +138,10 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-                    }
-                    else{
-                        Toast.makeText(this, "invalid phone number", Toast.LENGTH_LONG).show();
-                    }
+
+
                 } else if (user.equals("")) {
-                    Toast.makeText(this,"enter phone number", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,"empty field!", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(this, "enter password", Toast.LENGTH_SHORT).show();
                 }

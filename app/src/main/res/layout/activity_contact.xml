@@ -5,18 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="hisaab.store.analyser.about">
+    tools:context="hisaab.store.analyser.Contact">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarheight"
-        android:background="@color/violet"
+        android:id="@+id/contact_toolbar"
+        android:background="@color/primarydark"
         android:orientation="horizontal"
         >
         <ImageView
             android:layout_width="wrap_content"
             android:minWidth="30dp"
-            android:layout_height="match_parent"
-            android:layout_margin="9dp"
+            android:layout_height="@dimen/back_height"
+            android:layout_margin="8dp"
             android:id="@+id/contact_back"
             android:layout_gravity="center"
             android:src="@drawable/back"
@@ -24,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="10dp"
+            android:padding="5dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:text="Contact"
@@ -45,17 +46,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:padding="13dp"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="10dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="Drop us a message"
+            android:text="Share your concern, we will reach out to you soon!"
             android:id="@+id/contact_title"
             android:textColor="@color/black"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Subject"
+            android:hint="Subject or Topic"
             android:layout_margin="10dp"
             android:maxLines="1"
             android:textColorHint="@color/gray"
@@ -68,7 +72,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:hint="Enter your message"
+            android:hint="Describe your issue"
             android:layout_margin="10dp"
             android:textColorHint="@color/gray"
             android:textSize="19sp"
@@ -85,9 +89,8 @@
     android:padding="10dp"
     android:id="@+id/contact_send"
     android:text="Send"
-    android:textSize="18sp"
-    android:backgroundTint="#4B3F61"
-    android:background="@drawable/border4"
+    android:textSize="17sp"
+    android:background="@drawable/loginbut"
     />
     </LinearLayout>
 

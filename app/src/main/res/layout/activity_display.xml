@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/violet"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/display_layout"
+    android:background="@color/backgrounddark"
     tools:context="hisaab.store.analyser.display">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarheight"
-        android:background="@color/primary"
+        android:id="@+id/display_toolbar"
+        android:background="@color/primarydark"
         android:orientation="horizontal"
         >
         <ImageView
             android:layout_width="wrap_content"
             android:minWidth="30dp"
-            android:layout_height="match_parent"
-            android:layout_margin="9dp"
+            android:layout_height="@dimen/back_height"
+            android:layout_margin="8dp"
             android:id="@+id/display_back"
             android:layout_gravity="center"
             android:src="@drawable/back"
@@ -25,17 +27,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="10dp"
+            android:padding="5dp"
             android:gravity="center"
             android:textStyle="bold"
             android:layout_gravity="center"
-            android:text="Display"
+            android:text="View Hisaab"
             android:textColor="@color/white"
             android:textSize="@dimen/toolbartextsize"/>
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
+        android:layout_below="@id/display_toolbar"
         android:layout_height="wrap_content"
         >
 
@@ -43,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/violet"
+            android:id="@+id/display_background"
             android:orientation="vertical">
 
             <TextView
@@ -64,7 +67,39 @@
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
-
+            <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_gravity="center|end"
+    android:layout_marginEnd="20dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/borderwhite"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingStart="15dp"
+    android:id="@+id/filterlayout_display"
+    android:visibility="gone"
+    android:layout_marginBottom="20dp"
+    android:paddingEnd="15dp"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter Date"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:layout_marginEnd="20dp"
+        />
+            <Spinner
+                android:id="@+id/display_filter"
+                android:backgroundTint="#9E6ADD"
+                android:layout_width="wrap_content"
+                android:layout_gravity="end"
+                android:spinnerMode="dropdown"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@color/transparent"
+                />
+</LinearLayout>
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,23 +124,6 @@
                         android:layout_centerHorizontal="true"
                         android:orientation="horizontal">
 
-                        <!-- Columns for Header Row -->
-                        <!-- Medicine Name -->
-
-<!--
-                        <TextView
-                            android:layout_width="55dp"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/rectangle_box"
-                            android:padding="8dp"
-                            android:id="@+id/medsno"
-                            android:text="SNO"
-                            android:gravity="center"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
--->
-
 
                         <TextView
                             android:layout_width="110dp"
@@ -113,32 +131,31 @@
                             android:background="@drawable/rectangle_box"
                             android:padding="8dp"
                             android:text="Item"
+                            android:id="@+id/display_showbox_1"
                             android:gravity="center"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
-                        <!-- Dosage -->
+
                         <TextView
                             android:layout_width="110dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_box"
                             android:padding="8dp"
                             android:text="Price"
-
+                            android:id="@+id/display_showbox_2"
                             android:gravity="center"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
-
-                        <!-- Duration -->
                         <TextView
                             android:layout_width="110dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_box"
                             android:padding="8dp"
                             android:text="Date"
-
+                            android:id="@+id/display_showbox_3"
                             android:gravity="center"
                             android:textColor="@color/white"
                             android:textSize="16sp"
@@ -173,10 +190,11 @@
                 android:background="@color/white"
                 ads:cardCornerRadius="5dp"
                 ads:cardBackgroundColor="#3F305C"
+                android:visibility="gone"
                 android:elevation="7dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="40dp"
                 >
 
@@ -231,10 +249,11 @@
                             android:hint="Date"
                             android:gravity="center|start"
                             android:minHeight="48dp"
+                            android:textColorHint="@color/white"
                             android:padding="9dp"
                             android:textColor="@color/white"
-                            android:drawableTint="#BFBEBE"
-                            android:textColorHint="#BFBEBE" />
+                            android:drawableTint="@color/white"
+                             />
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:layout_width="0dp"
@@ -247,7 +266,7 @@
                             android:textSize="16sp"
                             android:id="@+id/deletedisplaypage_but"
                             android:elevation="5dp"
-                            android:backgroundTint="#D85353"
+                            android:backgroundTint="#EF3D3D"
                             android:background="@drawable/emailborder"
                             />
                     </LinearLayout>
@@ -257,10 +276,12 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/display_selection_layout"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:background="@color/violet">
+
+                >
 
                 <Spinner
                     android:id="@+id/spin2"
@@ -281,33 +302,58 @@
 
             </LinearLayout>
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="300dp"
+                android:layout_height="280dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                app:lottie_rawRes="@raw/nodata"
+                android:tint="@color/primarydark"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center"
+                android:id="@+id/nodata_display"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+            <com.google.android.gms.ads.AdView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/adViewdisplay"
+                android:layout_gravity="bottom"
+                ads:adSize="BANNER"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+                />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/db"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-
-                android:layout_marginBottom="64dp"
+                android:layout_marginBottom="85dp"
                 android:text="Show"
                 android:padding="12dp"
                 android:textColor="@color/white"
                 android:background="@drawable/loginbut"
                 android:textSize="16sp"
                 />
-
         </LinearLayout>
     </ScrollView>
-    <com.google.android.gms.ads.AdView
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/adViewdisplay"
-        android:layout_gravity="bottom"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+        android:id="@+id/displayPdfdownload"
+        android:contentDescription="floating button to download pdf"
+        android:src="@drawable/download"
+        android:padding="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="15dp"
         />
 
-
-</LinearLayout>
+</RelativeLayout>

@@ -11,9 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.hisaabcalculator.R;
 
@@ -26,7 +23,7 @@ import java.util.Calendar;
 
 public class ForgotPage extends AppCompatActivity {
 
-    EditText ph,email;
+    EditText ph;
     TextView result,dob;
     ImageView back;
     String pass="";
@@ -37,16 +34,18 @@ public class ForgotPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().setStatusBarColor(getColor(R.color.primary));
+            getWindow().setStatusBarColor(getColor(R.color.primarydark));
         }
 
 
-        ph=findViewById(R.id.phone_number_forget);
-        email=findViewById(R.id.forgotemail);
+        ph=findViewById(R.id.username_forget);
         submit=findViewById(R.id.submit_button_forget);
         back=findViewById(R.id.back_forgot_);
         result=findViewById(R.id.result_forget);
         dob=findViewById(R.id.dob_forget);
+
+        ButtonEffect buttonEffect=new ButtonEffect(ForgotPage.this);
+        buttonEffect.buttonEffect(submit);
         dob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,11 +64,10 @@ public class ForgotPage extends AppCompatActivity {
 
                 String phone=ph.getText().toString().trim();
                 String dob_=dob.getText().toString().trim();
-                String email_=email.getText().toString().trim();
 
 
 
-                isTrue(phone,dob_,email_);
+                isTrue(phone,dob_);
 
             }
         });
@@ -104,7 +102,7 @@ public class ForgotPage extends AppCompatActivity {
     }
 
 
-    public boolean isTrue(String ph_,String dob_,String email_) {
+    public boolean isTrue(String ph_,String dob_) {
         int y = 0;
         int v=0;
         int e=0;
@@ -115,8 +113,6 @@ public class ForgotPage extends AppCompatActivity {
             f3=new FileInputStream(new File(path,"valid2.txt"));
             InputStreamReader r=new InputStreamReader(f3);
             BufferedReader br=new BufferedReader(r);
-
-
             String txt;
             while ((txt = br.readLine()) != null) {
                 String[] arr = txt.split(" ");
@@ -125,7 +121,6 @@ public class ForgotPage extends AppCompatActivity {
                     v = 1;
                     if (arr[3].equals(dob_)) {
                         y=1;
-                        if (arr[4].equals(email_)) {
 
 
                             e = 1;
@@ -138,7 +133,7 @@ public class ForgotPage extends AppCompatActivity {
 
                     }
                 }
-            }
+
 
 
         } catch (IOException fileNotFoundException) {
@@ -155,20 +150,15 @@ public class ForgotPage extends AppCompatActivity {
 
         }
 
-        if (v == 1 && y==1 && e==1) {
+        if (v == 1 && y==1) {
             result.setVisibility(View.VISIBLE);
             submit.setVisibility(View.GONE);
-            email.setVisibility(View.GONE);
             dob.setVisibility(View.GONE);
             result.setText("**Your password is "+pass);
             ph.setVisibility(View.GONE);
             return true;
         } else if(v==1 && y==0){
             Toast.makeText(this, "dob not matched", Toast.LENGTH_LONG).show();
-            return false;
-        }
-        else if(v==1 && y==1 && e==0){
-            Toast.makeText(this, "email not matched", Toast.LENGTH_LONG).show();
             return false;
         }
         else{

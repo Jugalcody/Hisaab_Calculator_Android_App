@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:background="@color/white"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Change Username"
+    android:textSize="18sp"
+    android:textColor="@color/black"
+    android:layout_centerVertical="true"
+    android:textStyle="bold"
+    />
+
+      <ImageView
+          android:id="@+id/changename_close"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_alignParentEnd="true"
+          android:layout_centerVertical="true"
+          android:layout_marginStart="5dp"
+          android:layout_marginTop="5dp"
+          android:layout_marginEnd="2dp"
+          android:layout_marginBottom="5dp"
+          android:src="@drawable/baseline_close_24" />
+
+  </RelativeLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/rectangle_box"
+        android:padding="10dp"
+        android:id="@+id/changename_edit"
+        android:textColor="@color/black"
+        android:hint="Enter new name"
+        android:textColorHint="@color/gray"
+        />
+  <com.google.android.gms.ads.AdView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/adViewchangename"
+      android:layout_gravity="bottom"
+      android:elevation="4dp"
+      ads:adSize="BANNER"
+
+      android:background="#F4F4F4"
+      ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+      />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change"
+        android:padding="10dp"
+        android:background="@drawable/border"
+        android:backgroundTint="@color/backgrounddark"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:id="@+id/changename_but"
+        />
+</LinearLayout>

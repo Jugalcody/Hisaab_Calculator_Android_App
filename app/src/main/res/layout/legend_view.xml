@@ -1,0 +1,33 @@
+<!-- res/layout/legend_view.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/checkbox_received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:buttonTint="@color/green"
+        android:textSize="14sp"
+        android:text="Money Received" />
+
+    <CheckBox
+        android:id="@+id/checkbox_available"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:buttonTint="#E9FB38"
+        android:layout_height="wrap_content"
+        android:text="Available Money" />
+
+    <CheckBox
+        android:id="@+id/checkbox_spent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:buttonTint="#F31414"
+        android:textSize="14sp"
+        android:text="Money Spent" />
+</LinearLayout>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/popup_accessibility_close"
+        android:src="@drawable/baseline_close_24"
+        android:layout_gravity="end"
+        app:tint="@color/black"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Auto Detect Payment"
+        android:textSize="25sp"
+        android:id="@+id/warn_popup_title"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hisaab Analyser will launch automatically after your visit to any payment app to help you quickly record your expenses."
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:drawableLeft="@drawable/baseline_android_24"
+        android:drawablePadding="10dp"
+        android:layout_marginTop="25dp"
+        android:text="Enable Accessibility Service"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To use this feature , enable the accessibility service for Hisaab Analyser."
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+/>
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adView"
+        android:layout_gravity="bottom"
+        android:elevation="4dp"
+        ads:adSize="BANNER"
+        android:background="#F4F4F4"
+        android:layout_marginTop="29dp"
+        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        >
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/popup_accessibility_check"
+            android:textColor="@color/black"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="10dp"
+            android:text="Use this feature"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/popup_setbutton"
+            android:layout_below="@id/popup_accessibility_check"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="25dp"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            >
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:text="Enable"
+            android:id="@+id/popup_accessibility_enable"
+            android:background="@drawable/loginbut"
+            android:backgroundTint="@color/primarydark"
+            android:minHeight="40dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="14sp"
+            android:layout_marginStart="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:text="Disable"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:minHeight="40dp"
+                android:textSize="14sp"
+                android:id="@+id/popup_accessibility_disable"
+                android:background="@drawable/loginbut"
+                android:backgroundTint="@color/primarydark"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:text="Cancel"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:minHeight="40dp"
+                android:textSize="14sp"
+                android:id="@+id/popup_accessibility_cancel"
+                android:background="@drawable/loginbut"
+                android:backgroundTint="#F84D5A"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

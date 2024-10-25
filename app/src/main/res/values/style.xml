@@ -4,7 +4,6 @@
     <style name="roundedImageview">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
-
     </style>
 
     <style name="MenuItemStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
