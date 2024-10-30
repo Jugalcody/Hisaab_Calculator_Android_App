@@ -166,7 +166,7 @@
                 android:fontFamily="monospace"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Monthly Expenses"
+                android:text="Monthly Spend"
                 android:textColor="@color/black"
                 android:textSize="@dimen/first_page_textsize_button"
                 />
@@ -181,7 +181,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:clickable="true"
-                android:text="Yearly Expenses"
+                android:text="Yearly Spend"
                 android:fontFamily="monospace"
                 android:elevation="10dp"
                 android:textColor="@color/black"

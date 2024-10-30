@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/display_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/backgrounddark"
     tools:context="hisaab.store.analyser.display">
+
     <LinearLayout
+        android:id="@+id/display_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarheight"
-        android:id="@+id/display_toolbar"
         android:background="@color/primarydark"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:minWidth="30dp"
-            android:layout_height="@dimen/back_height"
-            android:layout_margin="8dp"
             android:id="@+id/display_back"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/back_height"
             android:layout_gravity="center"
-            android:src="@drawable/back"
-            />
+            android:layout_margin="8dp"
+            android:minWidth="30dp"
+            android:src="@drawable/back" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:gravity="center"
-            android:textStyle="bold"
             android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="5dp"
             android:text="View Hisaab"
             android:textColor="@color/white"
-            android:textSize="@dimen/toolbartextsize"/>
+            android:textSize="@dimen/toolbartextsize"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_below="@id/display_toolbar"
         android:layout_height="wrap_content"
-        >
+        android:layout_below="@id/display_toolbar">
 
         <LinearLayout
+            android:id="@+id/display_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:id="@+id/display_background"
             android:orientation="vertical">
 
             <TextView
@@ -54,69 +54,70 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:background="@drawable/border4"
-                android:importantForAutofill="no"
-                android:layout_marginTop="5dp"
-                android:visibility="gone"
-                android:layout_marginBottom="18dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
-                android:padding="7dp"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/border4"
                 android:hint="@string/display_data"
-                android:textColorHint="@color/gray"
+                android:importantForAutofill="no"
+                android:padding="7dp"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textColorHint="@color/gray"
+                android:textSize="20sp"
+                android:visibility="gone" />
 
             <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_gravity="center|end"
-    android:layout_marginEnd="20dp"
-    android:layout_height="wrap_content"
-    android:background="@drawable/borderwhite"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingStart="15dp"
-    android:id="@+id/filterlayout_display"
-    android:visibility="gone"
-    android:layout_marginBottom="20dp"
-    android:paddingEnd="15dp"
-    >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filter Date"
-        android:layout_gravity="center"
-        android:textSize="18sp"
-        android:layout_marginEnd="20dp"
-        />
-            <Spinner
-                android:id="@+id/display_filter"
-                android:backgroundTint="#9E6ADD"
+                android:id="@+id/filterlayout_display"
                 android:layout_width="wrap_content"
-                android:layout_gravity="end"
-                android:spinnerMode="dropdown"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:background="@color/transparent"
-                />
-</LinearLayout>
+                android:layout_gravity="center|end"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/borderwhite"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="20dp"
+                    android:text="Filter Date"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/display_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/transparent"
+                    android:backgroundTint="#9E6ADD"
+                    android:spinnerMode="dropdown" />
+            </LinearLayout>
+
             <HorizontalScrollView
+                android:id="@+id/presshowhorizon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:visibility="gone"
                 android:layout_gravity="center"
-                android:id="@+id/presshowhorizon"
-                >
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:layout_gravity="center"
-                    >
+                    android:layout_gravity="center">
+
                     <LinearLayout
                         android:id="@+id/headerRow"
                         android:layout_width="match_parent"
@@ -126,41 +127,43 @@
 
 
                         <TextView
+                            android:id="@+id/display_showbox_1"
                             android:layout_width="110dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_box"
+                            android:gravity="center"
                             android:padding="8dp"
                             android:text="Item"
-                            android:id="@+id/display_showbox_1"
-                            android:gravity="center"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
 
                         <TextView
+                            android:id="@+id/display_showbox_2"
                             android:layout_width="110dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_box"
+                            android:gravity="center"
                             android:padding="8dp"
                             android:text="Price"
-                            android:id="@+id/display_showbox_2"
-                            android:gravity="center"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
                         <TextView
+                            android:id="@+id/display_showbox_3"
                             android:layout_width="110dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rectangle_box"
+                            android:gravity="center"
                             android:padding="8dp"
                             android:text="Date"
-                            android:id="@+id/display_showbox_3"
-                            android:gravity="center"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/tableContent"
                         android:layout_width="match_parent"
@@ -173,110 +176,107 @@
                 </RelativeLayout>
             </HorizontalScrollView>
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:textColor="@color/white"
-    android:id="@+id/display_total"
-    android:visibility="gone"
-    android:text="Total money spend : "
-    android:textSize="18sp"
-    />
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/display_total"
+                android:layout_width="@dimen/commonwidth"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="Total money spend : "
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/carddisplay"
-                android:background="@color/white"
-                ads:cardCornerRadius="5dp"
-                ads:cardBackgroundColor="#3F305C"
-                android:visibility="gone"
-                android:elevation="7dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_width="@dimen/commonwidth"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="40dp"
-                >
+                android:background="@color/white"
+                android:elevation="7dp"
+                android:visibility="gone"
+                ads:cardBackgroundColor="#3F305C"
+                ads:cardCornerRadius="5dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
                     android:layout_margin="10dp"
-                    android:padding="10dp"
-                    >
+                    android:padding="10dp">
+
                     <TextView
+                        android:id="@+id/doctor_profile_qualititle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Delete Data"
-                        android:textSize="18sp"
-                        android:id="@+id/doctor_profile_qualititle"
-                        android:minHeight="40dp"
                         android:gravity="center_vertical"
+                        android:minHeight="40dp"
+                        android:text="Delete Data"
                         android:textColor="@color/white"
-                        android:textStyle="bold"
-                        />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
                     <ImageView
+                        android:id="@+id/hideunhide"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/addplus"
-                        android:id="@+id/hideunhide"
                         android:layout_alignParentEnd="true"
+                        android:src="@drawable/addplus"
                         ads:tint="@color/white" />
+
                     <LinearLayout
+                        android:id="@+id/deletelayout_display"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="10"
                         android:layout_below="@id/hideunhide"
-                        android:visibility="gone"
-                        android:id="@+id/deletelayout_display"
                         android:layout_centerVertical="true"
                         android:layout_margin="10dp"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        >
+                        android:visibility="gone"
+                        android:weightSum="10">
 
                         <TextView
                             android:id="@+id/date_deletedata"
                             android:layout_width="0dp"
-                            android:layout_weight="6"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:layout_weight="6"
                             android:background="@drawable/borderwhite"
                             android:drawableLeft="@drawable/baseline_calendar_today_24"
                             android:drawablePadding="9dp"
-                            android:textSize="17sp"
-                            android:hint="Date"
+                            android:drawableTint="@color/white"
                             android:gravity="center|start"
+                            android:hint="Date"
                             android:minHeight="48dp"
-                            android:textColorHint="@color/white"
                             android:padding="9dp"
                             android:textColor="@color/white"
-                            android:drawableTint="@color/white"
-                             />
+                            android:textColorHint="@color/white"
+                            android:textSize="17sp" />
 
                         <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/deletedisplaypage_but"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Delete"
-                            android:layout_weight="4"
-                            android:padding="8dp"
                             android:layout_margin="5dp"
-                            android:gravity="center"
-                            android:textSize="16sp"
-                            android:id="@+id/deletedisplaypage_but"
-                            android:elevation="5dp"
-                            android:backgroundTint="#EF3D3D"
+                            android:layout_weight="4"
                             android:background="@drawable/emailborder"
-                            />
+                            android:backgroundTint="#EF3D3D"
+                            android:elevation="5dp"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Delete"
+                            android:textSize="16sp" />
                     </LinearLayout>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
+                android:id="@+id/display_selection_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/display_selection_layout"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
@@ -285,75 +285,73 @@
 
                 <Spinner
                     android:id="@+id/spin2"
-                    android:backgroundTint="#9E6ADD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="25dp"
                     android:background="@drawable/border3"
-                    />
+                    android:backgroundTint="#9E6ADD" />
+
                 <Spinner
                     android:id="@+id/spin3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="25dp"
-                    android:backgroundTint="#9E6ADD"
                     android:background="@drawable/border3"
-                    />
+                    android:backgroundTint="#9E6ADD" />
 
             </LinearLayout>
 
             <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/nodata_display"
                 android:layout_width="300dp"
                 android:layout_height="280dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                app:lottie_rawRes="@raw/nodata"
-                android:tint="@color/primarydark"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="4dp"
                 android:layout_gravity="center"
-                android:id="@+id/nodata_display"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:tint="@color/primarydark"
                 app:lottie_autoPlay="true"
-                app:lottie_loop="true"/>
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/nodata" />
+
             <com.google.android.gms.ads.AdView
+                android:id="@+id/adViewdisplay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/adViewdisplay"
                 android:layout_gravity="bottom"
-                ads:adSize="BANNER"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginBottom="10dp"
-                ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
-                />
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-1079506490540577/7402312139" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/db"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/commonwidth"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="85dp"
-                android:text="Show"
-                android:padding="12dp"
-                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginBottom="95dp"
                 android:background="@drawable/loginbut"
-                android:textSize="16sp"
-                />
+                android:padding="12dp"
+                android:text="Show"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 
     <ImageView
+        android:id="@+id/displayPdfdownload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/displayPdfdownload"
-        android:contentDescription="floating button to download pdf"
-        android:src="@drawable/download"
-        android:padding="16dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
-        />
+        android:layout_marginBottom="20dp"
+        android:contentDescription="floating button to download pdf"
+        android:padding="16dp"
+        android:src="@drawable/download" />
 
 </RelativeLayout>

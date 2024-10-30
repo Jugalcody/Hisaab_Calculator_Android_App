@@ -1,6 +1,5 @@
 package hisaab.store.analyser;
 
-import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
 import static com.example.hisaabcalculator.R.color.deletecardbackgrounddark;
 import static com.example.hisaabcalculator.R.color.deletecardbackgrounddark2;
 
@@ -20,7 +19,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -30,6 +29,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -54,13 +54,9 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.hisaabcalculator.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Canvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
@@ -88,14 +84,20 @@ import java.util.List;
 import java.util.Locale;
 
 public class display extends AppCompatActivity {
+    int PORTRAIT_TABLE_WIDTH =89;
     TextView e1, totalspend;
     CardView card;
     RelativeLayout layout;
     LinearLayout filterlayout;
+    Configuration config;
 
+    int LANDSCAPE_TABLE_WIDTH=65;
+
+    TextView colhead1, colhead2, colhead3;
     ShowInterstitialAd interstitialAd;
     AppCompatButton deletebut;
     ImageView pdfdownloadbut;
+    AdjustSizeConfiguration displaysize;
     LottieAnimationView nodata;
     LinearLayout toolbar;
 
@@ -106,7 +108,7 @@ public class display extends AppCompatActivity {
     TextView deldate;
     Button b1;
     int p = 0;
-    SharedPreferences sp, spitem, sptheme;
+    SharedPreferences sp, spitem, sptheme,spaccount;
     ImageView back, hide;
     AdView adView;
     boolean isclicked = false;
@@ -122,7 +124,8 @@ public class display extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
         try {
-
+            displaysize=new AdjustSizeConfiguration(display.this);
+            config = getResources().getConfiguration();
             hview = findViewById(R.id.presshowhorizon);
             root = (ViewGroup) getWindow().getDecorView().getRootView();
             totalspend = findViewById(R.id.display_total);
@@ -135,6 +138,9 @@ public class display extends AppCompatActivity {
             filterspinner = findViewById(R.id.display_filter);
             deldate = findViewById(R.id.date_deletedata);
             layout = findViewById(R.id.display_layout);
+            colhead1 = findViewById(R.id.display_showbox_1);
+            colhead2 = findViewById(R.id.display_showbox_2);
+            colhead3 = findViewById(R.id.display_showbox_3);
             nodata=findViewById(R.id.nodata_display);
             deletebut = findViewById(R.id.deletedisplaypage_but);
             card = findViewById(R.id.carddisplay);
@@ -144,6 +150,8 @@ public class display extends AppCompatActivity {
             sptheme = getSharedPreferences("theme", MODE_PRIVATE);
             head = spitem.getString("user", "");
             back = findViewById(R.id.display_back);
+            checkOrientation();
+
             changetheme();
 
             interstitialAd=new ShowInterstitialAd(display.this);
@@ -258,6 +266,7 @@ public class display extends AppCompatActivity {
                         e1.setText("");
                         nodata.setVisibility(View.VISIBLE);
                         b1.setVisibility(View.GONE);
+                        totalspend.setVisibility(View.GONE);
                         card.setVisibility(View.GONE);
                         Toast.makeText(this, "no data found", Toast.LENGTH_LONG).show();
                     }
@@ -293,6 +302,7 @@ public class display extends AppCompatActivity {
                     isclicked = false;
                     nodata.setVisibility(View.GONE);
                     if (i == 1) {
+                        b1.setText("Show");
                         pdfdownloadbut.setVisibility(View.GONE);
                         card.setVisibility(View.GONE);
                         hview.setVisibility(View.GONE);
@@ -519,7 +529,7 @@ public class display extends AppCompatActivity {
                     nodata.setVisibility(View.VISIBLE);
                     card.setVisibility(View.GONE);
                     hview.setVisibility(View.GONE);
-                    totalspend.setVisibility(View.VISIBLE);
+                    totalspend.setVisibility(View.GONE);
 
                 }
                 else{
@@ -537,10 +547,7 @@ public class display extends AppCompatActivity {
 
                     // e1.setText(sb.toString());
                     hisaabdata = convertToArray(meddata);
-                    TextView colhead1, colhead2, colhead3;
-                    colhead1 = findViewById(R.id.display_showbox_1);
-                    colhead2 = findViewById(R.id.display_showbox_2);
-                    colhead3 = findViewById(R.id.display_showbox_3);
+
                     SharedPreferences sptheme = getSharedPreferences("theme", MODE_PRIVATE);
                     if (sptheme.getString("theme", "dark").equals("pink")) {
                         colhead1.setBackgroundResource(R.drawable.rectangle_box_black);
@@ -752,13 +759,11 @@ public class display extends AppCompatActivity {
         rowLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         List<TextView> textViews = new ArrayList<>(); // List to hold TextViews in the row
-
         // Find maximum height of TextViews and adjust width of columns
         int maxHeight = 0;
         p = 0;
         int maxlength = 0;
         for (String cellData : rowData) {
-
             TextView textView = new TextView(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     dpToPx(110), // Set width to 0 initially
@@ -804,7 +809,17 @@ public class display extends AppCompatActivity {
             if (kk == 1) {
                 params.width = dpToPx(110);
             }
-            params.height = maxHeight + (((maxlength / 16) + 1) * 60);
+            int height = maxHeight + (((maxlength / 16) + 1) * 60);
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            int width = displayMetrics.widthPixels;
+            params.height=height;
+            if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                params.width = ((width * LANDSCAPE_TABLE_WIDTH) / 100)/3;
+            }
+            else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                //displaysize.setwidthTableColoumn(textView, PORTRAIT_TABLE_WIDTH);
+                params.width = ((width * PORTRAIT_TABLE_WIDTH) / 100)/3;
+            }
             textView.setLayoutParams(params);
             kk = 1;
         }
@@ -1000,29 +1015,54 @@ public class display extends AppCompatActivity {
     // Create the PDF file using MediaStore (Android 13+)
     // Create the PDF file using MediaStore (Android 13+)
     private void createPdfFileUsingMediaStore() {
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.MediaColumns.DISPLAY_NAME, pdfFileName); // The file name
-        values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf"); // The MIME type for PDF
-
-        // Save to a custom folder inside Documents (e.g., "Documents/MyAppPDFs")
-        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS + "/HisaabAnalyser/DailyExpenses/"+year+"/"+mon);
-
-        // Insert the file into the MediaStore
-        Uri externalUri = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
-        Uri fileUri = getContentResolver().insert(externalUri, values);
-
-        if (fileUri != null) {
-            try (OutputStream outputStream = getContentResolver().openOutputStream(fileUri)) {
-                if (outputStream != null) {
-                    createPdfDocument(outputStream); // Write PDF content
-                    Toast.makeText(this, "PDF created and saved in Documents/HisaabAnalyser/"+year+"/"+mon+"/"+filterday+mon+year+".pdf", Toast.LENGTH_LONG).show();
+        try{
+            File pdfDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "HisaabAnalyser");
+            if (!pdfDir.exists()) {
+                boolean isDirCreated = pdfDir.mkdirs(); // Use mkdirs() to create necessary directories in the path
+                if (!isDirCreated) {
+                    Toast.makeText(this, "Failed to create directory!", Toast.LENGTH_SHORT).show();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Error creating PDF!", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(this, "Error saving file!", Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e){
+
+        }
+        try {
+            ContentValues values = new ContentValues();
+            pdfFileName += "_Expenses_" + spitem.getString("name", "");
+            String path = "/HisaabAnalyser/" + spitem.getString("name", "") + "_" + sp.getString("userserial", "").trim() + "/DailyExpenses/" + year + "/" + mon;
+            if (!filterday.toLowerCase().equals("all")) {
+                path = path + "/DateExpenses/";
+            }
+
+            values.put(MediaStore.MediaColumns.DISPLAY_NAME, pdfFileName); // The file name
+            values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf"); // The MIME type for PDF
+
+            // Save to a custom folder inside Documents (e.g., "Documents/MyAppPDFs")
+
+            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS + path);
+
+            // Insert the file into the MediaStore
+            Uri externalUri = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
+            Uri fileUri = getContentResolver().insert(externalUri, values);
+
+            if (fileUri != null) {
+                try (OutputStream outputStream = getContentResolver().openOutputStream(fileUri)) {
+                    if (outputStream != null) {
+                        createPdfDocument(outputStream); // Write PDF content
+                        Toast.makeText(this, "PDF created and saved in /Documents" + path + "/" + pdfFileName + ".pdf", Toast.LENGTH_LONG).show();
+                        interstitialAd.setFlag(1, "PDF saved in /Documents" + path + "/" + pdfFileName + ".pdf");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Error creating PDF!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Error saving file!", Toast.LENGTH_SHORT).show();
+            }
+
+        }catch (Exception e){
+            Toast.makeText(display.this,e.toString(),Toast.LENGTH_LONG).show();
         }
     }
 
@@ -1034,55 +1074,140 @@ public class display extends AppCompatActivity {
 
         pdfDocument.setDefaultPageSize(PageSize.A4);
         document.setMargins(30, 0, 50, 0);
-
+        float startmargin=52.2f;
         Paragraph title = new Paragraph("Hisaab Analyser - Your Daily Expenses")
                 .setBold()
                 .setFontSize(26)
                 .setTextAlignment(TextAlignment.CENTER);
         Date date=new Date();
-        Paragraph monthtitle = new Paragraph("Month & Year : " + monthStr + ", " + yearStr)
+        Paragraph fullname = new Paragraph("Name : "+sp.getString("fullname",""))
                 .setBold()
-                .setTextAlignment(TextAlignment.LEFT).setMargins(30,0,2,53).setFontSize(13);
+                .setTextAlignment(TextAlignment.LEFT).setMargins(30,0,2,startmargin).setFontSize(13);
+        Paragraph monthtitle;
+if(filterday.toLowerCase().trim().equals("all")) {
+    monthtitle = new Paragraph("Month & Year : " + monthStr + ", " + yearStr)
+            .setBold()
+            .setTextAlignment(TextAlignment.LEFT).setMargins(1, 0, 2, startmargin).setFontSize(13);
+}else{
+    monthtitle = new Paragraph("Hisaab Date : "+filterday+" " + monthStr + ", " + yearStr)
+            .setBold()
+            .setTextAlignment(TextAlignment.LEFT).setMargins(1, 0, 2, startmargin).setFontSize(13);
+}
 
         Paragraph issuedate = new Paragraph("Issue Date : "+date)
                 .setBold()
-                .setTextAlignment(TextAlignment.LEFT).setMargins(1,0,25,53).setFontSize(13);
+                .setTextAlignment(TextAlignment.LEFT).setMargins(1,0,25,startmargin).setFontSize(13);
 
         float[] width = {100f, 150f, 120f,120f};
         Table table = new Table(width).setHorizontalAlignment(HorizontalAlignment.CENTER);
+// Add header cells
+        table.addCell(new Cell()
+                .add(new Paragraph("Sno")
+                        .setFontSize(15)
+                        .setBold()
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setPaddingTop(5)
+                        .setPaddingBottom(5))
+                .setVerticalAlignment(VerticalAlignment.MIDDLE) // Vertical centering for headers
+                .setTextAlignment(TextAlignment.CENTER)); // Ensure horizontal centering
 
-        table.addCell(new Cell().add(new Paragraph("Sno").setFontSize(15).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(5).setPaddingBottom(5)));
-        table.addCell(new Cell().add(new Paragraph("Item/Service").setFontSize(15).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(5).setPaddingBottom(5)));
-        table.addCell(new Cell().add(new Paragraph("Price").setFontSize(15).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(5).setPaddingBottom(5)));
-        table.addCell(new Cell().add(new Paragraph("Date").setFontSize(15).setBold().setTextAlignment(TextAlignment.CENTER).setPaddingTop(5).setPaddingBottom(5)));
-        int totalspent=0;
-       int pagenum=pdfDocument.getNumberOfPages();
+        table.addCell(new Cell()
+                .add(new Paragraph("Item/Service")
+                        .setFontSize(15)
+                        .setBold()
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setPaddingTop(5)
+                        .setPaddingBottom(5))
+                .setVerticalAlignment(VerticalAlignment.MIDDLE) // Vertical centering for headers
+                .setTextAlignment(TextAlignment.CENTER)); // Ensure horizontal centering
+
+        table.addCell(new Cell()
+                .add(new Paragraph("Price")
+                        .setFontSize(15)
+                        .setBold()
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setPaddingTop(5)
+                        .setPaddingBottom(5))
+                .setVerticalAlignment(VerticalAlignment.MIDDLE) // Vertical centering for headers
+                .setTextAlignment(TextAlignment.CENTER)); // Ensure horizontal centering
+
+        table.addCell(new Cell()
+                .add(new Paragraph("Date")
+                        .setFontSize(15)
+                        .setBold()
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setPaddingTop(5)
+                        .setPaddingBottom(5))
+                .setVerticalAlignment(VerticalAlignment.MIDDLE) // Vertical centering for headers
+                .setTextAlignment(TextAlignment.CENTER)); // Ensure horizontal centering
+
+// Initialize total spent
+        int totalspent = 0;
+
+// Add data rows
         for (String[] arrDatum : arrData) {
-            totalspent+=Integer.parseInt(arrDatum[2].substring(3));
-            table.addCell(new Cell().add(new Paragraph(arrDatum[0]).setFontSize(14).setTextAlignment(TextAlignment.CENTER)));
-            table.addCell(new Cell().add(new Paragraph(arrDatum[1]).setFontSize(14).setTextAlignment(TextAlignment.CENTER)));
-            table.addCell(new Cell().add(new Paragraph(arrDatum[2]).setFontSize(14).setTextAlignment(TextAlignment.CENTER)));
-            table.addCell(new Cell().add(new Paragraph(arrDatum[3]).setFontSize(14).setTextAlignment(TextAlignment.CENTER)));
+            totalspent += Integer.parseInt(arrDatum[2].substring(3));
 
+            // Cell for "Sno"
+            table.addCell(new Cell()
+                    .add(new Paragraph(arrDatum[0])
+                            .setFontSize(14)
+                            .setTextAlignment(TextAlignment.CENTER))
+                    .setVerticalAlignment(VerticalAlignment.MIDDLE) // Vertical centering
+                    .setTextAlignment(TextAlignment.CENTER)); // Ensure horizontal centering
+
+            // Cell for "Item/Service" with maximum width
+            Cell itemServiceCell = new Cell()
+                    .add(new Paragraph(arrDatum[1])
+                            .setFontSize(14)
+                            .setTextAlignment(TextAlignment.CENTER))
+                    .setVerticalAlignment(VerticalAlignment.MIDDLE) // Vertical centering
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setMaxWidth(60) // Set maximum width for the cell
+                    .setHorizontalAlignment(HorizontalAlignment.CENTER); // Center horizontally
+
+            table.addCell(itemServiceCell);
+
+            // Cell for "Price"
+            table.addCell(new Cell()
+                    .add(new Paragraph(arrDatum[2])
+                            .setFontSize(14)
+                            .setTextAlignment(TextAlignment.CENTER))
+                    .setVerticalAlignment(VerticalAlignment.MIDDLE) // Vertical centering
+                    .setTextAlignment(TextAlignment.CENTER)); // Ensure horizontal centering
+
+            // Cell for "Date"
+            table.addCell(new Cell()
+                    .add(new Paragraph(arrDatum[3])
+                            .setFontSize(14)
+                            .setTextAlignment(TextAlignment.CENTER))
+                    .setVerticalAlignment(VerticalAlignment.MIDDLE) // Vertical centering
+                    .setTextAlignment(TextAlignment.CENTER)); // Ensure horizontal centering
         }
 
-        Paragraph total = new Paragraph("Your total spent is : Rs."+totalspent)
-                .setFontSize(14).setMarginTop(30)
+// Add total spent paragraph
+        Paragraph total = new Paragraph("Your total spent is : Rs." + totalspent)
+                .setFontSize(14)
+                .setMarginTop(30)
                 .setBold()
-                .setTextAlignment(TextAlignment.LEFT).setMargins(30,0,25,53);
+                .setTextAlignment(TextAlignment.LEFT)
+                .setMargins(30, 0, 25, startmargin);
 
         document.add(title);
+        document.add(fullname);
         document.add(monthtitle);
         document.add(issuedate);
         document.add(table);
         document.add(total);
+
+// Add footer to each page
         for (int i = 1; i <= pdfDocument.getNumberOfPages(); i++) {
             // Create a footer paragraph
             Paragraph footer = new Paragraph("Powered by Hisaab Analyser - Your Trusted Expense Tracker app.\n")
                     .setFontSize(13)
                     .setTextAlignment(TextAlignment.CENTER);
 
-            // Add the footer to each page, positioned 10 units above the bottom edge
+            // Add the footer to each page, positioned 16 units above the bottom edge
             document.showTextAligned(footer,
                     PageSize.A4.getWidth() / 2,  // Center horizontally
                     16,                         // Position 20 units above the bottom
@@ -1097,24 +1222,49 @@ public class display extends AppCompatActivity {
 
     // Legacy method to create the PDF using WRITE_EXTERNAL_STORAGE for Android versions below 13
     private void createPdfFileLegacy() {
-        File pdfDir = getExternalFilesDir(Environment.DIRECTORY_MUSIC);
-
-        if (pdfDir != null && !pdfDir.exists()) {
-            boolean isDirCreated = pdfDir.mkdir();
-            if (!isDirCreated) {
-                Toast.makeText(this, "Failed to create directory!", Toast.LENGTH_SHORT).show();
-                return;
+        try {
+            File pdfDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "HisaabAnalyser");
+            if (!pdfDir.exists()) {
+                boolean isDirCreated = pdfDir.mkdirs(); // Use mkdirs() to create necessary directories in the path
+                if (!isDirCreated) {
+                    Toast.makeText(display.this, "Failed to create directory!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    createPdfFileUsingMediaStore();
+                }
             }
+            else{
+                createPdfFileUsingMediaStore();
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(display.this, e.toString(), Toast.LENGTH_LONG).show();
         }
 
-        File file = new File(pdfDir, pdfFileName);
+    }
 
-        try (OutputStream outputStream = new FileOutputStream(file)) {
-            createPdfDocument(outputStream);
-            Toast.makeText(this, "PDF created and saved to Music folder!", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+    private void checkOrientation() {
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            displaysize.setfixWidth(b1,50);
+            displaysize.setfixHeight(card,11);
+            displaysize.setfixHeight(b1,7);
+            displaysize.setfixWidth(totalspend,65);
+            displaysize.setfixWidth(card,65);
+            displaysize.setwidthTableColoumn(colhead1,LANDSCAPE_TABLE_WIDTH);
+            displaysize.setwidthTableColoumn(colhead2,LANDSCAPE_TABLE_WIDTH);
+            displaysize.setwidthTableColoumn(colhead3,LANDSCAPE_TABLE_WIDTH);
+
+        } else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+
+            displaysize.setwidthTableColoumn(colhead1,PORTRAIT_TABLE_WIDTH);
+            displaysize.setwidthTableColoumn(colhead2,PORTRAIT_TABLE_WIDTH);
+            displaysize.setwidthTableColoumn(colhead3,PORTRAIT_TABLE_WIDTH);
+            displaysize.setfixWidth(totalspend,PORTRAIT_TABLE_WIDTH);
+            displaysize.setfixWidth(card,PORTRAIT_TABLE_WIDTH);
+            displaysize.setfixWidth(b1,PORTRAIT_TABLE_WIDTH);
+
         }
     }
 
 }
+

@@ -130,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
                         if (isAuthenticate(user, pass)) {
                             Intent p1 = new Intent(this, first.class);
                             Toast.makeText(this, "Welcome " + name, Toast.LENGTH_LONG).show();
-                            SharedPreferences spitem = getSharedPreferences("item", MODE_PRIVATE);
                             spitem.edit().putString("user", user).apply();
                             spitem.edit().putString("name", name).apply();
                             sp.edit().putBoolean("islogged", true).apply();
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String txt;
                 while ((txt = br.readLine()) != null) {
-                    String[] arr = txt.split(" ");
+                    String[] arr = txt.split("_");
 
                     if (arr[0].equals(u)) {
                              v=1;
@@ -175,11 +174,8 @@ public class MainActivity extends AppCompatActivity {
 
                             y = 1;
                             name=arr[2];
-                            //dob=arr[3];
-
-                            /*for(int i=2;i<arr.length;i++)
-                            name=name+arr[i]+" ";
-*/
+                            sp.edit().putString("fullname",arr[4].trim()).apply();
+                            sp.edit().putString("userserial",arr[5].trim()).apply();
                         }
                     }
                 }

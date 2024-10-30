@@ -88,7 +88,7 @@
         android:textColor="@color/white"
         android:id="@+id/watchad"
         android:background="#4E4E4E"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="5dp"
         android:layout_gravity="center"
         />
 </LinearLayout>

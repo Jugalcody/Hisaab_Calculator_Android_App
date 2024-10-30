@@ -27,7 +27,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class signup extends AppCompatActivity {
 Button s;
@@ -54,8 +57,6 @@ ImageView back;
 
             ButtonEffect buttonEffect=new ButtonEffect(signup.this);
             buttonEffect.buttonEffect(s);
-
-
 
             s.setOnClickListener(view -> {
                 String phonen = ph.getText().toString().trim();
@@ -176,10 +177,16 @@ dob.setOnClickListener(new View.OnClickListener() {
     }
 
     public void register(String u, String p,String name,String dob) {
+        String fullname=name;
+        SharedPreferences sp= getSharedPreferences("login", MODE_PRIVATE);
+        String date3 = new SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(new Date());
+        int date = Integer.parseInt(date3);
+
+        int serial=sp.getInt("usercount",1);
         name=name.split(" ")[0];
         if (!u.equals("") && !p.equals("") && !name.equals("") && !dob.equals("")) {
                     File path = getApplicationContext().getFilesDir();
-                    String k = u + " " + p + " " + name + " " + dob  + "\n";
+                    String k = u + "_" + p + "_" + name + "_" + dob  + "_"+fullname+"_"+date+String.valueOf(serial)+" \n";
 
                     try {
                         FileOutputStream f = new FileOutputStream(new File(path, "valid2.txt"), true);
@@ -189,20 +196,16 @@ dob.setOnClickListener(new View.OnClickListener() {
                         String txt;
                         int ae = 0;
                         while ((txt = br.readLine()) != null) {
-                            String[] arr = txt.split(" ");
+                            String[] arr = txt.split("_");
                             if (arr[0].equals(u)) {
                                 ae = 1;
                                 break;
                             }
                         }
                         if (ae != 1) {
-                            SharedPreferences spitem = getSharedPreferences("allaccount", MODE_PRIVATE);
-                            spitem.edit().putString("user", u).apply();
-                            spitem.edit().putString("name", name).apply();
-                            spitem.edit().putString("dob", dob).apply();
                             f.write(k.getBytes());
-
                             s.setText("Registered");
+                            sp.edit().putInt("usercount",serial+1).apply();
                             SharedPreferences coin = getSharedPreferences(u + "coin", MODE_PRIVATE);
                             coin.edit().putInt("point", 20).apply();
                             Toast.makeText(this, "Registered Successfully!", Toast.LENGTH_LONG).show();

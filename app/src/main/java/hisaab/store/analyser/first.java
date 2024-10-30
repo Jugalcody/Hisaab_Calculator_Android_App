@@ -6,14 +6,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.Guideline;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.accessibilityservice.AccessibilityService;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -21,6 +19,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -79,18 +78,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.regex.Pattern;
 
 
 public class first extends AppCompatActivity {
-    TextView t1, t2, t3, t4, t5, user_text, yearly;
+    TextView t1, t2, t3, t4, delbut, user_text, yearly;
     Toolbar toolbar;
     CoordinatorLayout layout;
+    String currentVersion;
     String head = "";
     AdView adView;
     ShapeableImageView user_img;
-    boolean back=false;
+    boolean back = false;
     AlarmManager alarmManager;
+    AdjustSizeConfiguration displaysize;
+    Configuration config;
     AppBarLayout appBarLayout;
     ViewGroup root;
     LinearLayout innerlayout;
@@ -110,56 +111,46 @@ public class first extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-         if (item.getItemId() == R.id.rateapp) {
-             final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-             try {
-                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-             } catch (android.content.ActivityNotFoundException anfe) {
-                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-             }
-        }
-         else if (item.getItemId() == R.id.support) {
-             Intent i=new Intent(first.this, Contact.class);
-             startActivity(i);
-         }
-         else if(item.getItemId()==R.id.detectpayment) {
+        if (item.getItemId() == R.id.rateapp) {
+            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
+        } else if (item.getItemId() == R.id.support) {
+            Intent i = new Intent(first.this, Contact.class);
+            startActivity(i);
+        } else if (item.getItemId() == R.id.detectpayment) {
 
-                 showAccessibilityWindow();
-             }
-
-         else if (item.getItemId() == R.id.tellfriend) {
-             Intent sendIntent = new Intent();
-             sendIntent.setAction(Intent.ACTION_SEND);
-             sendIntent.putExtra(Intent.EXTRA_TEXT, "Try 'Hisaab Analyser : Daily Expense Tracker' app.\nIt helps you track your daily, monthly, and yearly expenses with a clear graphical view.\nIt shows how much you spent, where, and on what items or services very clearly.\n" +
-                     "You can store items with their prices ,add expenses for services like transportation,medical,etc and keep the record forever in your phone safely.\n\nThe app provides clear graph of your spending, available money, and money received. It is customizable and really useful!\n\n" +
-                     "Check it out here: https://play.google.com/store/apps/details?id=hisaab.store.analyser\n" +
-                             "\n\nNote : The app only stores records , no real money involves."
-                     );
-             sendIntent.setType("text/plain");
-             startActivity(sendIntent);
-         }
-
-
-         else if (item.getItemId() == R.id.reset_menu) {
+            showAccessibilityWindow();
+        } else if (item.getItemId() == R.id.tellfriend) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Try 'Hisaab Analyser : Daily Expense Tracker' app.\nIt helps you track your daily, monthly, and yearly expenses with a clear graphical view.\nIt shows how much you spent, where, and on what items or services very clearly.\n" +
+                    "You can store items with their prices ,add expenses for services like transportation,medical,etc and keep the record forever in your phone safely.\n\nThe app provides clear graph of your spending, available money, and money received. It is customizable and really useful!\n\n" +
+                    "Check it out here: https://play.google.com/store/apps/details?id=hisaab.store.analyser\n" +
+                    "\n\nNote : The app only stores records , no real money involves."
+            );
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+        } else if (item.getItemId() == R.id.reset_menu) {
             sp = getSharedPreferences("login", MODE_PRIVATE);
-            sp.edit().putInt("count",0).apply();
-            sp.edit().putBoolean("showwarn",true).apply();
+            sp.edit().putInt("count", 0).apply();
+            sp.edit().putBoolean("showwarn", true).apply();
             reset("all");
         } else if (item.getItemId() == R.id.reset_photo) {
             reset("photo");
         } else if (item.getItemId() == R.id.reset_name) {
             createWindowname();
-        }
-        else if (item.getItemId() == R.id.theme) {
+        } else if (item.getItemId() == R.id.theme) {
             createWindowTheme();
-        }
-        else if (item.getItemId() == R.id.reset_warn) {
-        WarnMessage warnMessage=new WarnMessage();
-        warnMessage.createWindow(first.this);
+        } else if (item.getItemId() == R.id.reset_warn) {
+            WarnMessage warnMessage = new WarnMessage();
+            warnMessage.createWindow(first.this);
 
 
-        }
-        else if (item.getItemId() == R.id.logout_menu) {
+        } else if (item.getItemId() == R.id.logout_menu) {
             open();
         }
         return super.onOptionsItemSelected(item);
@@ -170,25 +161,26 @@ public class first extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
         try {
+            displaysize = new AdjustSizeConfiguration(first.this);
+            config = getResources().getConfiguration();
             t1 = findViewById(R.id.fb1);
             t2 = findViewById(R.id.fb2);
-            appBarLayout=findViewById(R.id.first_appbar);
-
+            appBarLayout = findViewById(R.id.first_appbar);
 
             user_text = findViewById(R.id.first_toolbar_txt);
             user_img = findViewById(R.id.first_toolbar_img);
 
-            adView=findViewById(R.id.adViewfirst);
+            adView = findViewById(R.id.adViewfirst);
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
 
-
-                t3 = findViewById(R.id.fb3);
-            innerlayout=findViewById(R.id.innerlayout_first);
+            t3 = findViewById(R.id.fb3);
+            innerlayout = findViewById(R.id.innerlayout_first);
             t4 = findViewById(R.id.fb4);
 
 
             alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 
@@ -201,7 +193,7 @@ public class first extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(first.this, e.toString(), Toast.LENGTH_SHORT).show();
             }
-            t5 = findViewById(R.id.delete_but_home);
+            delbut = findViewById(R.id.delete_but_home);
             yearly = findViewById(R.id.fbyear);
             root = (ViewGroup) getWindow().getDecorView().getRootView();
 //ca-app-pub-1079506490540577/9563671110
@@ -219,8 +211,8 @@ public class first extends AppCompatActivity {
 
             //  changetheme();
 
-            if(!sp.getBoolean("islogged", false)) {
-                Intent i=new Intent(first.this,MainActivity.class);
+            if (!sp.getBoolean("islogged", false)) {
+                Intent i = new Intent(first.this, MainActivity.class);
                 startActivity(i);
                 finishAffinity();
             }
@@ -260,7 +252,7 @@ public class first extends AppCompatActivity {
         }
 
         changetheme();
-
+        checkOrientation();
         user_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -294,6 +286,7 @@ public class first extends AppCompatActivity {
             i3.putExtra("head", n);
             startActivity(i3);
         });
+
         ButtonEffect buttonEffect = new ButtonEffect(first.this);
         buttonEffect.buttonEffect(t1);
         buttonEffect.buttonEffect(t2);
@@ -301,14 +294,14 @@ public class first extends AppCompatActivity {
         buttonEffect.buttonEffect(t4);
 
         buttonEffect.buttonEffect(yearly);
-        buttonEffect.buttonEffect(t5);
+        buttonEffect.buttonEffect(delbut);
 
         t4.setOnClickListener(view -> {
             Intent i4 = new Intent(this, money.class);
             i4.putExtra("head", n);
             startActivity(i4);
         });
-        t5.setOnClickListener(new View.OnClickListener() {
+        delbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -322,6 +315,7 @@ public class first extends AppCompatActivity {
             }
         });
     }
+
 
     public static void buttonEffect(View button) {
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -378,16 +372,22 @@ public class first extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 String date3 = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
                 int year = Integer.parseInt(date3);
-                SharedPreferences sharedPreferences=getSharedPreferences(head+year,MODE_PRIVATE);
-                sharedPreferences.edit().putString("balance","0").apply();
+                SharedPreferences sharedPreferences = getSharedPreferences(head + year, MODE_PRIVATE);
+                sharedPreferences.edit().putString("balance", "0").apply();
                 Intent gi = new Intent(first.this, MainActivity.class);
                 sp.edit().putBoolean("islogged", false).apply();
                 spitem = getSharedPreferences("item", MODE_PRIVATE);
                 n = spitem.getString("user", "");
                 deleteUserFile(n);
                 deleteUserData(n);
-                sp.edit().putInt("count",0).apply();
-                sp.edit().putBoolean("showwarn",true).apply();
+                sp.edit().putInt("count", 0).apply();
+                sp.edit().putBoolean("showwarn", true).apply();
+
+                SharedPreferences spusercount = getSharedPreferences("login", MODE_PRIVATE);
+                int serial = spusercount.getInt("usercount", 2) - 1;
+                spusercount.edit().putInt("usercount", serial).apply();
+
+
                 for (int j = 0; j < 28; j++) {
                     SharedPreferences sp = getSharedPreferences(head + String.valueOf(Integer.parseInt(String.valueOf(2024 + j))), MODE_PRIVATE);
                     sp.edit().putString("balance", "0").apply();
@@ -395,7 +395,6 @@ public class first extends AppCompatActivity {
 
                 startActivity(gi);
                 finishAffinity();
-
 
 
             }
@@ -413,15 +412,13 @@ public class first extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(!back) {
-            back=true;
-            Toast.makeText(first.this,"Press back again to exit",Toast.LENGTH_SHORT).show();
-        }
-        else if(back) {
+        if (!back) {
+            back = true;
+            Toast.makeText(first.this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+        } else if (back) {
             finishAffinity();
 
-        }
-else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -451,7 +448,9 @@ else {
                 Toast.makeText(this, "Error loading image", Toast.LENGTH_SHORT).show();
             }
         }
+
     }
+
 
     private static String encodeBitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -480,7 +479,7 @@ else {
         if (files != null) {
             for (File file : files) {
                 // Check if the file name contains the phone number
-                if (file.getName().startsWith(head+"balance") || file.getName().startsWith(head+"monthlySpend") || file.getName().startsWith(head+"hisaab")|| file.getName().startsWith(head+"monthlyGet") || file.getName().startsWith(head+"yearlyGet") || file.getName().startsWith(head+"yearlySpend")) {
+                if (file.getName().startsWith(head + "balance") || file.getName().startsWith(head + "monthlySpend") || file.getName().startsWith(head + "hisaab") || file.getName().startsWith(head + "monthlyGet") || file.getName().startsWith(head + "yearlyGet") || file.getName().startsWith(head + "yearlySpend")) {
                     // Attempt to delete the file
                     if (file.delete()) {
                     }
@@ -517,7 +516,7 @@ else {
             boolean isDeleted = false;
 
             while ((line = br.readLine()) != null) {
-                String[] arr = line.split(" ");
+                String[] arr = line.split("_");
                 if (!arr[0].equals(phoneNumber)) {
                     bw.write(line);
                     bw.newLine();
@@ -617,8 +616,8 @@ else {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     String date3 = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
                     int year = Integer.parseInt(date3);
-                    SharedPreferences sharedPreferences=getSharedPreferences(head+year,MODE_PRIVATE);
-                    sharedPreferences.edit().putString("balance","0").apply();
+                    SharedPreferences sharedPreferences = getSharedPreferences(head + year, MODE_PRIVATE);
+                    sharedPreferences.edit().putString("balance", "0").apply();
                     spitem = getSharedPreferences("item", MODE_PRIVATE);
                     n = spitem.getString("user", "");
                     deleteUserFile(n);
@@ -672,16 +671,17 @@ else {
         alerts.show();
 
     }
+
     public void createWindowTheme() {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popup = inflater.inflate(R.layout.change_themelayoutdesign, null);
 
         ImageView close = popup.findViewById(R.id.changetheme_close);
-        TextView dark=popup.findViewById(R.id.changetheme_dark);
-        TextView pink=popup.findViewById(R.id.changetheme_pink);
+        TextView dark = popup.findViewById(R.id.changetheme_dark);
+        TextView pink = popup.findViewById(R.id.changetheme_pink);
 
         AdRequest adRequest = new AdRequest.Builder().build();
-        AdView adView=popup.findViewById(R.id.adViewchangetheme);
+        AdView adView = popup.findViewById(R.id.adViewchangetheme);
         adView.loadAd(adRequest);
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -698,7 +698,8 @@ else {
         popupWindow.setTouchInterceptor(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getY() < height || motionEvent.getY() >view.getBottom()) return true;
+                if (motionEvent.getY() < height || motionEvent.getY() > view.getBottom())
+                    return true;
                 return false;
             }
         });
@@ -710,24 +711,24 @@ else {
             }
         });
 
-         dark.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
+        dark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                 SharedPreferences sp=getSharedPreferences("theme",MODE_PRIVATE);
-                 sp.edit().putString("theme","dark").apply();
-                 changetheme();
+                SharedPreferences sp = getSharedPreferences("theme", MODE_PRIVATE);
+                sp.edit().putString("theme", "dark").apply();
+                changetheme();
 
-                 popupWindow.dismiss();
-             }
-         });
+                popupWindow.dismiss();
+            }
+        });
 
         pink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences sp=getSharedPreferences("theme",MODE_PRIVATE);
-                sp.edit().putString("theme","pink").apply();
+                SharedPreferences sp = getSharedPreferences("theme", MODE_PRIVATE);
+                sp.edit().putString("theme", "pink").apply();
                 changetheme();
 
                 popupWindow.dismiss();
@@ -760,7 +761,7 @@ else {
         EditText newname = popup.findViewById(R.id.changename_edit);
         ImageView close = popup.findViewById(R.id.changename_close);
         AdRequest adRequest = new AdRequest.Builder().build();
-        AdView adView=popup.findViewById(R.id.adViewchangename);
+        AdView adView = popup.findViewById(R.id.adViewchangename);
         adView.loadAd(adRequest);
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -777,7 +778,8 @@ else {
         popupWindow.setTouchInterceptor(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getY() < height || motionEvent.getY() >view.getBottom()) return true;
+                if (motionEvent.getY() < height || motionEvent.getY() > view.getBottom())
+                    return true;
                 return false;
             }
         });
@@ -829,7 +831,7 @@ else {
         overlay.clear();
     }
 
-    private void scheduleAlarm(int hour, int min,int rcode) {
+    private void scheduleAlarm(int hour, int min, int rcode) {
         // Get the current time
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -858,7 +860,6 @@ else {
                 pendingIntent
         );
     }
-
 
 
     private void createNotificationChannel(Context context) {
@@ -902,7 +903,7 @@ else {
                 try {
                     createNotificationChannel(first.this);
                     schedule();
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
                 Toast.makeText(this, "Notification Permission Granted", Toast.LENGTH_SHORT).show();
@@ -913,62 +914,63 @@ else {
         }
     }
 
-    public void schedule(){
-        scheduleAlarm(6, 0,1);
-        scheduleAlarm(7, 0,2);
-        scheduleAlarm(8, 0,3);
-       // scheduleAlarm(8, 30,26);
+    public void schedule() {
+        scheduleAlarm(6, 0, 1);
+        scheduleAlarm(7, 0, 2);
+        scheduleAlarm(8, 0, 3);
+        // scheduleAlarm(8, 30,26);
 
-        scheduleAlarm(9, 0,4);
-        scheduleAlarm(9, 30,27);
-        scheduleAlarm(10, 0,5);
+        scheduleAlarm(9, 0, 4);
+//        scheduleAlarm(9, 30,27);
+        scheduleAlarm(10, 0, 5);
 
-        scheduleAlarm(10, 30,22);
+        //  scheduleAlarm(10, 30,22);
 
-        scheduleAlarm(11, 0,6);
+        scheduleAlarm(11, 0, 6);
 
-        scheduleAlarm(12, 0,7);
-        scheduleAlarm(13, 2,28);
+        scheduleAlarm(12, 2, 19);
+        scheduleAlarm(12, 52, 7);
+        scheduleAlarm(13, 14, 28);
 
-        scheduleAlarm(14, 0,8);
-       // scheduleAlarm(7, 33,30);
+        scheduleAlarm(14, 0, 8);
+        // scheduleAlarm(7, 33,30);
 
-        scheduleAlarm(15, 0,9);
+        scheduleAlarm(15, 0, 9);
         //scheduleAlarm(15, 30,21);
-        scheduleAlarm(16, 31,31);
+        scheduleAlarm(16, 0, 31);
         //scheduleAlarm(17, 0,10);
-        scheduleAlarm(17, 30,24);
-        scheduleAlarm(18, 0,11);
+        scheduleAlarm(17, 0, 24);
+        scheduleAlarm(18, 0, 11);
         //scheduleAlarm(18, 30,19);
 
-        scheduleAlarm(19, 0,12);
-        scheduleAlarm(20, 0,20);
+        scheduleAlarm(19, 0, 12);
+        scheduleAlarm(20, 0, 20);
 
-        scheduleAlarm(20, 40,13);
-        scheduleAlarm(21, 40,14);
-        scheduleAlarm(3, 35,23);
+        // scheduleAlarm(20, 40,13);
+        scheduleAlarm(21, 0, 14);
+        scheduleAlarm(3, 35, 23);
 
-        scheduleAlarm(22, 27,15);
-        scheduleAlarm(23, 20,16);
+        scheduleAlarm(22, 27, 15);
+        scheduleAlarm(23, 20, 16);
 
-        scheduleAlarm(1, 8,17);
-        scheduleAlarm(0, 23,34);
-        scheduleAlarm(5, 0,18);
+        scheduleAlarm(1, 8, 17);
+        scheduleAlarm(0, 23, 34);
+        scheduleAlarm(5, 0, 18);
     }
 
 
-    private void changetheme(){
-        SharedPreferences sp=getSharedPreferences("theme",MODE_PRIVATE);
-        CollapsingToolbarLayout collapsingbar=findViewById(R.id.collapsing_first_page);
-        CoordinatorLayout layout1=findViewById(R.id.first_parent_layout);
-        LottieAnimationView bubble=findViewById(R.id.s2);
-        if(sp.getString("theme","dark").equals("pink")){
+    private void changetheme() {
+        SharedPreferences sp = getSharedPreferences("theme", MODE_PRIVATE);
+        CollapsingToolbarLayout collapsingbar = findViewById(R.id.collapsing_first_page);
+        CoordinatorLayout layout1 = findViewById(R.id.first_parent_layout);
+        LottieAnimationView bubble = findViewById(R.id.s2);
+        if (sp.getString("theme", "dark").equals("pink")) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getWindow().setStatusBarColor(getColor(R.color.primarypink));
             }
-        // background
-         //   innerlayout.setBackgroundColor(getColor(R.color.backgroundpink));
+            // background
+            //   innerlayout.setBackgroundColor(getColor(R.color.backgroundpink));
             layout1.setBackgroundResource(R.color.backgroundpink);
             appBarLayout.setBackgroundResource(R.drawable.collapsebackgroundpink);
             collapsingbar.setContentScrimColor(getColor(R.color.primarypink));
@@ -976,25 +978,20 @@ else {
             t2.setTextColor(getColor(R.color.white));
             t3.setTextColor(getColor(R.color.white));
             t4.setTextColor(getColor(R.color.white));
-            t5.setTextColor(getColor(R.color.white));
+            delbut.setTextColor(getColor(R.color.white));
             yearly.setTextColor(getColor(R.color.white));
             bubble.setVisibility(View.VISIBLE);
             t1.setBackgroundResource(R.drawable.border5);
             t2.setBackgroundResource(R.drawable.border5);
             t3.setBackgroundResource(R.drawable.border5);
             t4.setBackgroundResource(R.drawable.border5);
-            t5.setBackgroundResource(R.drawable.border5);
+            delbut.setBackgroundResource(R.drawable.border5);
             yearly.setBackgroundResource(R.drawable.border5);
 
             user_img.setStrokeColorResource(R.color.strokecolorpink);
 
 
-
-
-
-        }
-
-        else{
+        } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getWindow().setStatusBarColor(getColor(R.color.primarydark));
             }
@@ -1008,14 +1005,14 @@ else {
             t2.setTextColor(getColor(R.color.black));
             t3.setTextColor(getColor(R.color.black));
             t4.setTextColor(getColor(R.color.black));
-            t5.setTextColor(getColor(R.color.black));
+            delbut.setTextColor(getColor(R.color.black));
             yearly.setTextColor(getColor(R.color.black));
             user_img.setStrokeColorResource(R.color.strokecolordark);
             t1.setBackgroundResource(R.drawable.border2);
             t2.setBackgroundResource(R.drawable.border2);
             t3.setBackgroundResource(R.drawable.border2);
             t4.setBackgroundResource(R.drawable.border2);
-            t5.setBackgroundResource(R.drawable.border2);
+            delbut.setBackgroundResource(R.drawable.border2);
             yearly.setBackgroundResource(R.drawable.border2);
         }
 
@@ -1024,8 +1021,8 @@ else {
 
     // Method to prompt user to enable the Accessibility Service
     private void promptEnableAccessibilityService() {
-        if(!isAccessibilityServiceEnabled()){
-            sp.edit().putBoolean("accessibility_feature",true).apply();
+        if (!isAccessibilityServiceEnabled()) {
+            sp.edit().putBoolean("accessibility_feature", true).apply();
         }
         Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
         startActivity(intent); // This will open the Accessibility settings screen
@@ -1063,53 +1060,50 @@ else {
     }
 
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharedPreferences sharedPreferences=getSharedPreferences("hisaab",MODE_PRIVATE);
-        sharedPreferences.edit().putBoolean("incoming_fromAnotherApp",false).apply();
+        SharedPreferences sharedPreferences = getSharedPreferences("hisaab", MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean("incoming_fromAnotherApp", false).apply();
         SharedPreferences spitem = getSharedPreferences("item", MODE_PRIVATE);
-        String user = spitem.getString("user","");
-        sharedPreferences.edit().putBoolean(user+"allowapp",true).apply();
+        String user = spitem.getString("user", "");
+        sharedPreferences.edit().putBoolean(user + "allowapp", true).apply();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        SharedPreferences sharedPreferences=getSharedPreferences("hisaab",MODE_PRIVATE);
-        sharedPreferences.edit().putBoolean("incoming_fromAnotherApp",false).apply();
+        SharedPreferences sharedPreferences = getSharedPreferences("hisaab", MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean("incoming_fromAnotherApp", false).apply();
         SharedPreferences spitem = getSharedPreferences("item", MODE_PRIVATE);
-        String user = spitem.getString("user","");
-        sharedPreferences.edit().putBoolean(user+"allowapp",false).apply();
+        String user = spitem.getString("user", "");
+        sharedPreferences.edit().putBoolean(user + "allowapp", false).apply();
 
     }
 
 
-
     public void showAccessibilityWindow() {
 
-        ViewGroup root=(ViewGroup)getWindow().getDecorView().getRootView();
+        ViewGroup root = (ViewGroup) getWindow().getDecorView().getRootView();
 
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popup = inflater.inflate(R.layout.accessibility_permission_window, null);
 
-        ImageView pback=popup.findViewById(R.id.popup_accessibility_close);
-        CheckBox checkBox=popup.findViewById(R.id.popup_accessibility_check);
+        ImageView pback = popup.findViewById(R.id.popup_accessibility_close);
+        CheckBox checkBox = popup.findViewById(R.id.popup_accessibility_check);
         AdRequest adRequest = new AdRequest.Builder().build();
-        AdView adView=popup.findViewById(R.id.adView);
+        AdView adView = popup.findViewById(R.id.adView);
         adView.loadAd(adRequest);
-        AppCompatButton enable=popup.findViewById(R.id.popup_accessibility_enable);
-        AppCompatButton disable=popup.findViewById(R.id.popup_accessibility_disable);
-        AppCompatButton cancel=popup.findViewById(R.id.popup_accessibility_cancel);
-        SharedPreferences sp= getSharedPreferences("login",MODE_PRIVATE);
-        if(!isAccessibilityServiceEnabled()){
-            sp.edit().putBoolean("accessibility_feature",false).apply();
+        AppCompatButton enable = popup.findViewById(R.id.popup_accessibility_enable);
+        AppCompatButton disable = popup.findViewById(R.id.popup_accessibility_disable);
+        AppCompatButton cancel = popup.findViewById(R.id.popup_accessibility_cancel);
+        SharedPreferences sp = getSharedPreferences("login", MODE_PRIVATE);
+        if (!isAccessibilityServiceEnabled()) {
+            sp.edit().putBoolean("accessibility_feature", false).apply();
         }
-        if(sp.getBoolean("accessibility_feature",false)) {
+        if (sp.getBoolean("accessibility_feature", false)) {
             checkBox.setChecked(true);
-        }
-        else{
+        } else {
             checkBox.setChecked(false);
         }
         Display display = getWindowManager().getDefaultDisplay();
@@ -1128,7 +1122,8 @@ else {
         popupWindow.setTouchInterceptor(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getY() < height || motionEvent.getY() >view.getBottom()) return true;
+                if (motionEvent.getY() < height || motionEvent.getY() > view.getBottom())
+                    return true;
                 return false;
             }
         });
@@ -1138,17 +1133,15 @@ else {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    if(!isAccessibilityServiceEnabled()) {
-                                    sp.edit().putBoolean("accessibility_feature", true).apply();
-                                    Toast.makeText(first.this,"enable accessibility service!",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                if (isChecked) {
+                    if (!isAccessibilityServiceEnabled()) {
+                        sp.edit().putBoolean("accessibility_feature", true).apply();
+                        Toast.makeText(first.this, "enable accessibility service!", Toast.LENGTH_SHORT).show();
+                    } else {
                         sp.edit().putBoolean("accessibility_feature", true).apply();
                     }
-                }
-                else{
-                    if(isAccessibilityServiceEnabled()) {
+                } else {
+                    if (isAccessibilityServiceEnabled()) {
                         sp.edit().putBoolean("accessibility_feature", false).apply();
                     }
                 }
@@ -1158,7 +1151,7 @@ else {
         enable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkBox.isChecked()) {
+                if (checkBox.isChecked()) {
                     if (isAccessibilityServiceEnabled()) {
                         // If already enabled, show a toast
                         Toast.makeText(getApplicationContext(), "Accessibility Service is already enabled.", Toast.LENGTH_SHORT).show();
@@ -1167,8 +1160,7 @@ else {
                         promptEnableAccessibilityService();
                     }
 
-                }
-                else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Check to agree this feature", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -1177,7 +1169,7 @@ else {
         disable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!checkBox.isChecked()) {
+                if (!checkBox.isChecked()) {
                     if (!isAccessibilityServiceEnabled()) {
                         // If already enabled, show a toast
                         Toast.makeText(getApplicationContext(), "Accessibility Service is already disabled.", Toast.LENGTH_SHORT).show();
@@ -1185,7 +1177,7 @@ else {
 
                         promptEnableAccessibilityService();
                     }
-                }else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Uncheck to proceed", Toast.LENGTH_SHORT).show();
                 }
 
@@ -1201,9 +1193,9 @@ else {
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                if(checkBox.isChecked()){
-                    if(!isAccessibilityServiceEnabled()){
-                        Toast.makeText(first.this,"Feature not in use, enable accessibility service to use the feature",Toast.LENGTH_SHORT).show();
+                if (checkBox.isChecked()) {
+                    if (!isAccessibilityServiceEnabled()) {
+                        Toast.makeText(first.this, "Feature not in use, enable accessibility service to use the feature", Toast.LENGTH_SHORT).show();
                     }
                 }
                 clearDim(root);
@@ -1217,17 +1209,36 @@ else {
             }
         });
 
-            CoordinatorLayout layout=findViewById(R.id.first_parent_layout);
+        CoordinatorLayout layout = findViewById(R.id.first_parent_layout);
 
 
         popupWindow.setOutsideTouchable(false);
 
 
-        applyDim(root,0.5f);
-        popupWindow.showAtLocation(layout, Gravity.CENTER,0,0);
+        applyDim(root, 0.5f);
+        popupWindow.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
     }
+    private void checkOrientation() {
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            displaysize.setfixWidth(t1, 67);
+            displaysize.setfixWidth(t2, 67);
+            displaysize.setfixWidth(t3, 67);
+            displaysize.setfixWidth(t4, 67);
+            displaysize.setfixWidth(yearly, 67);
+            displaysize.setfixWidth(delbut, 67);
 
+        } else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            displaysize.setfixWidth(t1, 93);
+            displaysize.setfixWidth(t2, 93);
+            displaysize.setfixWidth(t3, 93);
+            displaysize.setfixWidth(t4, 93);
+            displaysize.setfixWidth(yearly, 93);
+            displaysize.setfixWidth(delbut, 93);
 
+//            displaysize.setfixWidth(totalspend, PORTRAIT_TABLE_WIDTH);
+
+        }
+    }
 
 }

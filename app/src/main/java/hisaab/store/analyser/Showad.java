@@ -185,7 +185,7 @@ public class Showad {
         AdRequest adRequest = new AdRequest.Builder().build();
         AdView adView=popup.findViewById(R.id.adView);
         adView.loadAd(adRequest);
-        String adtxt="Get 10+ points after watching ads >";
+        String adtxt="Get free 10+ points after watching ads >";
         SpannableString content = new SpannableString(adtxt);
         content.setSpan(new UnderlineSpan(), 0,adtxt.length(), 0);
         adbut.setText(content);
@@ -251,7 +251,7 @@ public class Showad {
                                                     showRewardedAd(itempoint);
                                                 }
                                             }
-                                        }, 6000);
+                                        }, 5000);
                                     } else {
                                         progressBar.setVisibility(View.GONE);
                                         showRewardedAd(itempoint);
@@ -330,7 +330,7 @@ public class Showad {
                                                     showRewardedAd(itempoint);
                                                 }
                                             }
-                                        }, 6000);
+                                        }, 5000);
                                     } else {
                                         progressBar.setVisibility(View.GONE);
                                         showRewardedAd(itempoint);

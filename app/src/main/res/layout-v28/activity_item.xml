@@ -101,10 +101,14 @@
                 />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_gravity="center"
                 android:id="@+id/item_enterlayout"
                 android:layout_margin="10dp"
                 >
@@ -231,9 +235,9 @@
 -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/sb1"
-                android:layout_width="match_parent"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"

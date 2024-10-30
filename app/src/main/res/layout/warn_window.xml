@@ -38,7 +38,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="All the hisaab data are saved locally to your device and exist until the application installed on your phone, Once you uninstall the application, your data and account will be erased as everything is saved in your local storage only. Other than this, the application has no issue.\n\nIf you uninstall the app for some reason, please be sure to download your expenses as the lost data is not recoverable."
+        android:text="All the hisaab data are saved locally to your device and exist until the application installed on your phone, Once you uninstall the application, your data and account will be erased as everything is saved in your local storage only. Other than this, the application has no issue.\n\nIf you need to uninstall the app for some reason, please be sure to download your expenses before you delete the app as the lost data are not recoverable."
         android:textColor="@color/black"
         android:layout_marginTop="15dp"
 />

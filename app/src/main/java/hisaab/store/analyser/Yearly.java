@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -81,20 +82,29 @@ public class Yearly extends AppCompatActivity {
     TextView spendmoney;
     AppCompatButton graph;
     ImageView downloadpdf;
+    AdjustSizeConfiguration displaysize;
+    Configuration config;
     ImageView back;
     boolean isclicked=false;
     AdView adView;
     AppCompatButton reset;
     Button b;
     String mon,year,head;
+    CardView cardtmoney,cardrecmoney,cardspendmoney;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yearly);
             try {
                 Bundle e = getIntent().getExtras();
+                cardtmoney=findViewById(R.id.monthly_cardtmoney);
+                cardrecmoney=findViewById(R.id.monthly_cardreceivedmoney);
+                cardspendmoney=findViewById(R.id.monthly_cardspendmoney);
                 b = findViewById(R.id.mondb);
                 t1 = findViewById(R.id.monrec);
+                displaysize = new AdjustSizeConfiguration(Yearly.this);
+                config = getResources().getConfiguration();
                 t2 = findViewById(R.id.mons);
                 t3 = findViewById(R.id.monav);
                 graph=findViewById(R.id.yearly_graph);
@@ -114,6 +124,8 @@ public class Yearly extends AppCompatActivity {
 
                 interstitialAd=new ShowInterstitialAd(Yearly.this);
                 interstitialAd.loadAd();
+
+                checkOrientation();
                 downloadpdf.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -439,14 +451,11 @@ catch (Exception e){
         SharedPreferences sp=getSharedPreferences("theme",MODE_PRIVATE);
         LinearLayout layout=findViewById(R.id.yearly_container);
         LinearLayout toolbar=findViewById(R.id.yearly_toolbar);
-        CardView cardtmoney,cardrecmoney,cardspendmoney;
+
         View v1,v2,v3;
         v1=findViewById(R.id.monthly_v1);
         v2=findViewById(R.id.monthly_v2);
         v3=findViewById(R.id.monthly_v3);
-        cardtmoney=findViewById(R.id.monthly_cardtmoney);
-        cardrecmoney=findViewById(R.id.monthly_cardreceivedmoney);
-        cardspendmoney=findViewById(R.id.monthly_cardspendmoney);
 
         if(sp.getString("theme","dark").equals("pink")){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -550,7 +559,6 @@ catch (Exception e){
         List<Entry> receivedEntries = new ArrayList<>();
         List<Entry> spentEntries = new ArrayList<>();
         List<Entry> availableEntries = new ArrayList<>(); // Correct spelling
-        createPdf();
 
         long leftmoney=0L,available=0L;
         for (int i = 0; i < 28; i++) {
@@ -779,27 +787,46 @@ catch (Exception e){
     // Create the PDF file using MediaStore (Android 13+)
     // Create the PDF file using MediaStore (Android 13+)
     private void createPdfFileUsingMediaStore() {
-        ContentValues values = new ContentValues();
-        pdfFileName ="yearlyExpenses";
-        values.put(MediaStore.MediaColumns.DISPLAY_NAME,pdfFileName);
-        values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
-        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS + "/HisaabAnalyser/YearlyAnalysis");
-
-        // Insert the file into the MediaStore
-        Uri externalUri = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
-        Uri fileUri = getContentResolver().insert(externalUri, values);
-
-        if (fileUri != null) {
-            try (OutputStream outputStream = getContentResolver().openOutputStream(fileUri)) {
-                if (outputStream != null) {
-                    createPdfDocument(outputStream);
-                    Toast.makeText(this, "PDF created and saved in Documents/HisaabAnalyser/YearlyAnalysis/"+pdfFileName+".pdf", Toast.LENGTH_LONG).show();
+        try{
+            File pdfDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "HisaabAnalyser");
+            if (!pdfDir.exists()) {
+                boolean isDirCreated = pdfDir.mkdirs(); // Use mkdirs() to create necessary directories in the path
+                if (!isDirCreated) {
+                    Toast.makeText(this, "Failed to create directory!", Toast.LENGTH_SHORT).show();
                 }
-            } catch (IOException e) {
-                Toast.makeText(this, "Error creating PDF!", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(this, "Error saving file!", Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e){
+            Toast.makeText(Yearly.this,e.toString(),Toast.LENGTH_LONG).show();
+        }
+
+        try {
+            ContentValues values = new ContentValues();
+            pdfFileName = "YearlyExpenses_" + spitem.getString("name", "");
+            String path = "/HisaabAnalyser/" + spitem.getString("name", "") + "_" + sp.getString("userserial", "").trim() + "/YearlyAnalysis/";
+            values.put(MediaStore.MediaColumns.DISPLAY_NAME, pdfFileName);
+            values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
+            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS + path);
+
+            // Insert the file into the MediaStore
+            Uri externalUri = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
+            Uri fileUri = getContentResolver().insert(externalUri, values);
+
+            if (fileUri != null) {
+                try (OutputStream outputStream = getContentResolver().openOutputStream(fileUri)) {
+                    if (outputStream != null) {
+                        createPdfDocument(outputStream);
+                        Toast.makeText(this, "PDF created and saved in /Documents" + path + pdfFileName + ".pdf", Toast.LENGTH_LONG).show();
+                        interstitialAd.setFlag(1, "PDF saved in /Documents" + path + pdfFileName + ".pdf");
+                    }
+                } catch (IOException e) {
+                    Toast.makeText(this, "Error creating PDF!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Error saving file!", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(Yearly.this,e.toString(),Toast.LENGTH_LONG).show();
         }
     }
 
@@ -811,15 +838,18 @@ catch (Exception e){
 
         pdfDocument.setDefaultPageSize(PageSize.A4);
         document.setMargins(30, 0, 50, 0);
-        Paragraph title = new Paragraph("Hisaab Analyser - Monthly Analysis Data")
+        Paragraph title = new Paragraph("Hisaab Analyser - Your Yearly Expenses")
                 .setBold()
                 .setFontSize(25)
                 .setTextAlignment(TextAlignment.CENTER);
         Date date=new Date();
         int startmargin=17;
+        Paragraph fullname = new Paragraph("Name : "+sp.getString("fullname",""))
+                .setBold()
+                .setTextAlignment(TextAlignment.LEFT).setMargins(30,0,2,startmargin).setFontSize(13);
         Paragraph issuedate = new Paragraph("Issue Date : "+date)
                 .setBold()
-                .setTextAlignment(TextAlignment.LEFT).setMargins(30,0,25,startmargin).setFontSize(13);
+                .setTextAlignment(TextAlignment.LEFT).setMargins(1,0,25,startmargin).setFontSize(13);
 
         float[] width = {100f, 100f, 120f,120f,120f};
         Table table = new Table(width).setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -834,13 +864,49 @@ catch (Exception e){
 
         for (int i=0;i<arrData.length;i++) {
             try {
-                table.addCell(new Cell().add(new Paragraph(String.valueOf(count)).setFontSize(14).setTextAlignment(TextAlignment.CENTER)));
-                table.addCell(new Cell().add(new Paragraph(arrData[i][0].toString()).setFontSize(14).setTextAlignment(TextAlignment.CENTER)));
-                table.addCell(new Cell().add(new Paragraph("Rs."+arrData[i][2]).setFontSize(14).setTextAlignment(TextAlignment.CENTER)));
-                table.addCell(new Cell().add(new Paragraph("Rs."+arrData[i][1]).setFontSize(14).setTextAlignment(TextAlignment.CENTER)));
-                table.addCell(new Cell().add(new Paragraph("Rs."+arrData[i][3]).setFontSize(14).setTextAlignment(TextAlignment.CENTER)));
+                table.addCell(new Cell()
+                        .add(new Paragraph(String.valueOf(count))
+                                .setFontSize(14)
+                                .setTextAlignment(TextAlignment.CENTER))
+                        .setMaxWidth(60)
+                        .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                        .setPadding(2)); // Center horizontally, vertically, and add padding for "Sno"
+
+                table.addCell(new Cell()
+                        .add(new Paragraph(arrData[i][0].toString())
+                                .setFontSize(14)
+                                .setTextAlignment(TextAlignment.CENTER))
+                        .setMaxWidth(60)
+                        .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                        .setPadding(2)); // Center horizontally, vertically, and add padding for "Year"
+
+                table.addCell(new Cell()
+                        .add(new Paragraph("Rs." + arrData[i][2])
+                                .setFontSize(14)
+                                .setTextAlignment(TextAlignment.CENTER))
+                        .setMaxWidth(60)
+                        .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                        .setPadding(2)); // Center horizontally, vertically, and add padding for "Total Received"
+
+                table.addCell(new Cell()
+                        .add(new Paragraph("Rs." + arrData[i][1])
+                                .setFontSize(14)
+                                .setTextAlignment(TextAlignment.CENTER))
+                        .setMaxWidth(60)
+                        .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                        .setPadding(2)); // Center horizontally, vertically, and add padding for "Total Spent"
+
+                table.addCell(new Cell()
+                        .add(new Paragraph("Rs." + arrData[i][3])
+                                .setFontSize(14)
+                                .setTextAlignment(TextAlignment.CENTER))
+                        .setMaxWidth(60)
+                        .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                        .setPadding(2)); // Center horizontally, vertically, and add padding for "Total Available"
+
                 count += 1;
             }
+
             catch (Exception e){
 Toast.makeText(Yearly.this,e.toString(),Toast.LENGTH_LONG).show();
             }
@@ -848,6 +914,7 @@ Toast.makeText(Yearly.this,e.toString(),Toast.LENGTH_LONG).show();
         }
 
         document.add(title);
+        document.add(fullname);
         document.add(issuedate);
         document.add(table);
         for (int i = 1; i <= pdfDocument.getNumberOfPages(); i++) {
@@ -870,25 +937,50 @@ Toast.makeText(Yearly.this,e.toString(),Toast.LENGTH_LONG).show();
 
     // Legacy method to create the PDF using WRITE_EXTERNAL_STORAGE for Android versions below 13
     private void createPdfFileLegacy() {
-        File pdfDir = getExternalFilesDir(Environment.DIRECTORY_MUSIC);
-
-        if (pdfDir != null && !pdfDir.exists()) {
-            boolean isDirCreated = pdfDir.mkdir();
-            if (!isDirCreated) {
-                Toast.makeText(this, "Failed to create directory!", Toast.LENGTH_SHORT).show();
-                return;
+        try {
+            File pdfDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "HisaabAnalyser");
+            if (!pdfDir.exists()) {
+                boolean isDirCreated = pdfDir.mkdirs(); // Use mkdirs() to create necessary directories in the path
+                if (!isDirCreated) {
+                    Toast.makeText(this, "Failed to create directory!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    createPdfFileUsingMediaStore();
+                }
             }
+            else{
+                createPdfFileUsingMediaStore();
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(Yearly.this, e.toString(), Toast.LENGTH_LONG).show();
         }
 
-        File file = new File(pdfDir, pdfFileName);
-
-        try (OutputStream outputStream = new FileOutputStream(file)) {
-            createPdfDocument(outputStream);
-            Toast.makeText(this, "PDF created and saved to Music folder!", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
-        }
     }
 
+    private void checkOrientation() {
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            displaysize.setfixWidth(cardtmoney, 60);
+            displaysize.setfixWidth(cardrecmoney, 60);
+            displaysize.setfixWidth(cardspendmoney, 60);
+            displaysize.setfixWidth(b,55);
+            displaysize.setfixHeight(cardtmoney,35);
+            displaysize.setfixHeight(cardrecmoney,35);
+            displaysize.setfixHeight(cardspendmoney,35);
+
+
+        } else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            displaysize.setfixWidth(cardtmoney, 90);
+            displaysize.setfixWidth(cardrecmoney, 90);
+            displaysize.setfixWidth(cardspendmoney, 90);
+            displaysize.setfixHeight(cardtmoney,14);
+            displaysize.setfixHeight(cardrecmoney,14);
+            displaysize.setfixHeight(cardspendmoney,14);
+            displaysize.setfixWidth(b,90);
+
+//            displaysize.setfixWidth(totalspend, PORTRAIT_TABLE_WIDTH);
+
+        }
+    }
 }
 

@@ -48,6 +48,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 >
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
@@ -57,13 +59,14 @@
                 android:id="@+id/yearly_graph"
                 android:textAllCaps="false"
                 android:textStyle="normal"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="10dp"
                 android:textSize="16sp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/loginbut2"
-                android:padding="10dp"
+                android:padding="13dp"
                 />
 
                 <ImageView
@@ -89,8 +92,9 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="13dp"
                     android:layout_marginBottom="5dp"
+                    android:layout_gravity="center"
                     ads:cardCornerRadius="4dp"
                     android:elevation="10dp"
                     android:id="@+id/monthly_cardtmoney"
@@ -140,6 +144,7 @@
                     android:id="@+id/monthly_cardreceivedmoney"
                     android:minHeight="100dp"
                     android:elevation="10dp"
+                    android:layout_gravity="center"
                     ads:cardBackgroundColor="#35284E"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
@@ -181,6 +186,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
+                    android:layout_gravity="center"
                     ads:cardCornerRadius="4dp"
                     android:id="@+id/monthly_cardspendmoney"
                     android:minHeight="100dp"
@@ -260,16 +266,17 @@
                 android:id="@+id/adViewyearly"
                 android:layout_gravity="bottom"
                 ads:adSize="BANNER"
+                android:layout_marginBottom="5dp"
                 ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
                 />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mondb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="18dp"
+                android:layout_gravity="center"
                 android:layout_marginBottom="64dp"
                 android:background="@drawable/loginbut"
                 android:padding="10dp"

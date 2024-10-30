@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,6 +42,8 @@ Button b;
 EditText e;
 ImageView back;
 AdView adView;
+    AdjustSizeConfiguration displaysize;
+    Configuration config;
 SharedPreferences sp,sp2;
 TextView t;
     @Override
@@ -56,6 +60,8 @@ TextView t;
         setContentView(R.layout.activity_money);
 
         try {
+            displaysize = new AdjustSizeConfiguration(money.this);
+            config = getResources().getConfiguration();
             Bundle bb = getIntent().getExtras();
             TextView itempoint=findViewById(R.id.money_point);
 
@@ -87,6 +93,8 @@ TextView t;
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
             changetheme();
+
+            checkOrientation();
             try {
                 File f = new File(path, n + "balance.txt");
                 if (!f.exists()) f.createNewFile();
@@ -370,6 +378,20 @@ if(!file.exists()) file.createNewFile();
 
         }
 
+    }
+
+
+    private void checkOrientation() {
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            displaysize.setfixWidth(e, 95);
+
+        } else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            displaysize.setfixWidth(e, 90);
+
+
+//            displaysize.setfixWidth(totalspend, PORTRAIT_TABLE_WIDTH);
+
+        }
     }
 
 

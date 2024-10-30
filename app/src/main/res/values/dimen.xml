@@ -8,6 +8,7 @@
     <dimen name="first_page_textsize_button">20sp</dimen>
     <dimen name="back_height">25dp</dimen>
 
+    <dimen name="commonwidth">325dp</dimen>
 
 
 </resources>

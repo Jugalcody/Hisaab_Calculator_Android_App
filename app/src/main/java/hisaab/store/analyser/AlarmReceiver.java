@@ -26,6 +26,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 int randomNumber=0;
 String month,year;
+    SharedPreferences spitem ;
+    String user="";
     @Override
     public void onReceive(Context context, Intent intent) {
         displayNotification(context);
@@ -36,6 +38,8 @@ String month,year;
         Calendar now = Calendar.getInstance();
         int hour = now.get(Calendar.HOUR_OF_DAY);
         int min=now.get(Calendar.MINUTE);
+        spitem= context.getSharedPreferences("item", context.MODE_PRIVATE);
+        user = spitem.getString("user", "");
         Random random = new Random();
         randomNumber = random.nextInt(3) + 1;
 
@@ -95,9 +99,6 @@ String month,year;
         }
 
 
-        else if (hour == 12) {
-            pendingIntent = PendingIntent.getActivity(context, 7, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        }
         else if (hour == 13) {
             pendingIntent = PendingIntent.getActivity(context, 28, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
@@ -108,8 +109,8 @@ String month,year;
         }
 
 
-        else if (hour==16) {
-            pendingIntent = PendingIntent.getActivity(context, 31, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        else if (hour==12) {
+            pendingIntent = PendingIntent.getActivity(context, 7, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
 
         else if (hour==17) {
@@ -130,12 +131,7 @@ String month,year;
 
 
 
-        else if (hour==11) {
-            pendingIntent = PendingIntent.getActivity(context, 6, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        }
-
-
-        else if (hour==20) {
+        else if (hour==16 || hour==11 || hour==20 || hour==23) {
 
             if(sp.getBoolean("islogged", false)) {
 
@@ -144,10 +140,17 @@ String month,year;
                 openAppIntent=new Intent(context, MainActivity.class);
             }
 
-            if(min==0) {
+            if(hour==11) {
+                pendingIntent = PendingIntent.getActivity(context, 6, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            }
+            else if(hour==16){
+                pendingIntent = PendingIntent.getActivity(context, 31, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            }
+            else if(hour==23){
+                pendingIntent = PendingIntent.getActivity(context, 16, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            }
+            else {
                 pendingIntent = PendingIntent.getActivity(context, 20, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-            }else{
-                pendingIntent = PendingIntent.getActivity(context, 13, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             }
         }
         else if (hour==21) {
@@ -167,9 +170,7 @@ String month,year;
         else if (hour==22) {
             pendingIntent = PendingIntent.getActivity(context, 15, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
-        else if (hour==23) {
-            pendingIntent = PendingIntent.getActivity(context, 16, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        }
+
 
 
 
@@ -195,15 +196,14 @@ else if(hour==0){
             pendingIntent = PendingIntent.getActivity(context, 18, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         }
 
+        builder = new NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(R.mipmap.icon2)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setCategory(NotificationCompat.CATEGORY_CALL)
+                .setAutoCancel(false);
 
         if(hour==19 || hour==15){
-            builder = new NotificationCompat.Builder(context, channelId)
-                    .setSmallIcon(R.mipmap.icon2)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_ALARM)
-                    .setCategory(NotificationCompat.CATEGORY_CALL)
-                    .setAutoCancel(false);
-
             if(randomNumber==1){
                 openAppIntent = new Intent(context,monthly.class);
                 if(hour==15) {
@@ -216,8 +216,8 @@ else if(hour==0){
                 else{
                     pendingIntent = PendingIntent.getActivity(context, 12, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 }
-                builder.setContentTitle("Check your total expenses in "+month+" "+year)
-                        .setContentText("Tap to view your monthly expenses in detail. Also go for graphical view")
+                builder.setContentText("Tap to view your total expenses in this month.")
+                        .setContentTitle("You spent Rs."+spitem.getString("monthlyspent"+user,"0")+" in this month.")
                         .setContentIntent(pendingIntent);
             }
             else if(randomNumber==2){
@@ -233,8 +233,10 @@ else if(hour==0){
                     pendingIntent = PendingIntent.getActivity(context, 12, openAppIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 }
 
-                builder.setContentTitle("Check your total expenses in "+year)
-                        .setContentText("Tap to view your yearly expenses in detail. Also go for graphical view")
+                SharedPreferences sharedPreferences=context.getSharedPreferences(user+year, Context.MODE_PRIVATE);
+                String balyear=sharedPreferences.getString("balance","0");
+                builder.setContentText("Tap to view your total expenses in "+year)
+                        .setContentTitle("Your total yearly spent is Rs."+balyear)
                         .setContentIntent(pendingIntent);
             }
             else {
@@ -254,34 +256,28 @@ else if(hour==0){
                         .setContentIntent(pendingIntent);
             }
         }
-       else if (hour >= 8 && hour < 11) {
-            builder = new NotificationCompat.Builder(context, channelId)
-                    .setSmallIcon(R.mipmap.icon2)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_ALARM)
-                    .setCategory(NotificationCompat.CATEGORY_CALL)
-                    .setAutoCancel(false);
-            if(randomNumber==1){
+       else if (hour >= 8 && hour <11) {
+            if (randomNumber == 1) {
                 builder.setContentTitle("Have you spent money on any services?")
                         .setContentText("If yes then add the amount to the list")
-                  .addAction(R.drawable.baseline_close_24, "Yes I spent", pendingIntent)
+                        .addAction(R.drawable.baseline_close_24, "Yes I spent", pendingIntent)
                         .addAction(R.drawable.baseline_close_24, "No", noPendingIntent);
 
-            }
-            else{
-                builder.setContentTitle("Have you bought any item today?")
-                        .setContentText("Add your expenses to maintain the hisaab!")
+            } else if (randomNumber == 2) {
+                builder.setContentTitle("You spent Rs." + spitem.getString("monthlyspent" + user, "0") + " in this month!");
+
+            } else {
+                builder.setContentTitle("Hisaab Analyser is here for you!")
+                        .setContentText("Please add daily expenses so that it can provide accurate hisaab to you.")
                         .addAction(R.drawable.baseline_close_24, "Yes I brought", pendingIntent)
                         .addAction(R.drawable.baseline_close_24, "No", noPendingIntent);
             }
-        } else if (hour >= 12 && hour < 20) {
-
-            builder = new NotificationCompat.Builder(context, channelId)
-                    .setSmallIcon(R.mipmap.icon2)
-                    .setCategory(NotificationCompat.CATEGORY_ALARM)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_CALL)
-                    .setAutoCancel(false);
+        }
+          else if (hour == 11 || hour==16 || hour==20 || hour==23) {
+              builder.setContentText("Tap to view your monthly expenses!")
+            .setContentTitle("You spent Rs."+spitem.getString("monthlyspent"+user,"0")+" in this month.");
+            }
+         else if ((hour >= 12 && hour < 16) || (hour>=17 && hour<20)) {
 
             if(randomNumber==0){
                 builder.setContentTitle("Have you bought any item today?")
@@ -290,10 +286,9 @@ else if(hour==0){
                         .addAction(R.drawable.baseline_close_24, "No", noPendingIntent);
             }
             else if(randomNumber==1){
-                builder.setContentTitle("View your today's expenses")
-                        .setContentText("Check and verify the list of items you bought today.")
-                        .addAction(R.drawable.baseline_close_24, "Yes", pendingIntent)
-                        .addAction(R.drawable.baseline_close_24, "No", noPendingIntent);
+                builder.setContentText("Tap to view your monthly expenses!")
+                        .setContentTitle("You spent Rs."+spitem.getString("monthlyspent"+user,"0")+" in this month.");
+
             }
             else if(randomNumber==2){
                 builder.setContentTitle("Update your daily expenses!")
@@ -308,15 +303,8 @@ else if(hour==0){
                         .addAction(R.drawable.baseline_close_24, "No", noPendingIntent);
             }
 
-        } else if (hour >= 20 && hour < 22 ) {
+        } else if (hour==21 ) {
             // Between 5 PM and 6 AM
-            builder = new NotificationCompat.Builder(context, channelId)
-                    .setSmallIcon(R.mipmap.icon2)
-                    .setContentIntent(pendingIntent)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_ALARM)
-                    .setCategory(NotificationCompat.CATEGORY_CALL)
-                    .setAutoCancel(false);
 
             if(randomNumber==0){
                 builder.setContentTitle("What items you bought today?")
@@ -341,13 +329,6 @@ else if(hour==0){
                 .setAutoCancel(false);
     }*/
         else{
-            builder = new NotificationCompat.Builder(context, channelId)
-                    .setSmallIcon(R.mipmap.icon2)
-                    .setContentIntent(pendingIntent)
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setCategory(NotificationCompat.CATEGORY_ALARM)
-                    .setCategory(NotificationCompat.CATEGORY_CALL)
-                    .setAutoCancel(true);
 
 
             if(randomNumber==0){
@@ -357,7 +338,7 @@ else if(hour==0){
             }
             else{
                 builder.setContentTitle("Check your total expenses!")
-                        .setContentText("View your daily, monthly and yearly expenses")
+                        .setContentText("Tap to view your daily, monthly and yearly expenses")
                         .setContentIntent(pendingIntent);
             }
         }

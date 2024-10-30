@@ -1,6 +1,7 @@
 package hisaab.store.analyser;
 
 import android.app.Activity;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -15,6 +16,8 @@ public class ShowInterstitialAd {
 
     private InterstitialAd mInterstitialAd;
      Activity context;
+     private int flag=0;
+     private String msg="";
     private final String adId = "ca-app-pub-1079506490540577/1788293269";
 
     public ShowInterstitialAd(Activity context) {
@@ -40,11 +43,16 @@ public class ShowInterstitialAd {
                     public void onAdDismissedFullScreenContent() {
                         // Set the ad reference to null so it can be reloaded
                         mInterstitialAd = null;
+                        if(flag==1){
+                            Toast.makeText(context,msg, Toast.LENGTH_SHORT).show();
+                            flag=0;
+                            msg="";
+                        }
+
                     }
 
                     @Override
                     public void onAdFailedToShowFullScreenContent(AdError adError) {
-                        mInterstitialAd = null;
                     }
 
                     @Override
@@ -73,5 +81,10 @@ public class ShowInterstitialAd {
         } else {
             // Optionally, you can log or notify that the ad wasn't loaded
         }
+    }
+
+    public void setFlag(int flag,String msg) {
+        this.flag = flag;
+        this.msg=msg;
     }
 }

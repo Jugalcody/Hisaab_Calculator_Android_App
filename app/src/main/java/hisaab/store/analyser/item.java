@@ -1,15 +1,13 @@
 package hisaab.store.analyser;
 
-import static com.example.hisaabcalculator.R.color.deletecardbackgrounddark;
-import static com.example.hisaabcalculator.R.color.deletecardbackgroundpink;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,16 +35,20 @@ import java.util.Date;
 import java.util.Locale;
 
 public class item extends AppCompatActivity {
-    Button b1;
+    Button buybutton;
     EditText e1,e2;
     private RewardedAd rewardedAd;
+
+    LinearLayout itemLayout;
+    AdjustSizeConfiguration displaysize;
+    Configuration config;
     ImageView back;
     private final String TAG = "item";
     LinearLayout parentlayout;
     RelativeLayout toolbar;
     String mon,year,head;
     AdView adView;
-    SharedPreferences coin;
+    SharedPreferences coin,spitem;
     TextView itempoint;
     int point=0;
     Showad ad;
@@ -60,7 +62,9 @@ public class item extends AppCompatActivity {
         }
 
         try {
-
+            displaysize = new AdjustSizeConfiguration(item.this);
+            itemLayout=findViewById(R.id.item_enterlayout);
+            config = getResources().getConfiguration();
             parentlayout=findViewById(R.id.item_container);
             ad=new Showad(item.this);
             ad.loadRewardad();
@@ -84,19 +88,35 @@ public class item extends AppCompatActivity {
             Bundle e = getIntent().getExtras();
             itempoint=findViewById(R.id.item_point);
             toolbar=findViewById(R.id.item_toolbar);
-            SharedPreferences spitem = getSharedPreferences("item", MODE_PRIVATE);
+            spitem = getSharedPreferences("item", MODE_PRIVATE);
             head = spitem.getString("user", "");
 
             t.setText("Available Balance : " + totalBalance());
-            b1 = findViewById(R.id.sb1);
+            buybutton = findViewById(R.id.sb1);
 
             ButtonEffect buttonEffect=new ButtonEffect(item.this);
-            buttonEffect.buttonEffect(b1);
+            buttonEffect.buttonEffect(buybutton);
             e1 = findViewById(R.id.se1);
             coin=getSharedPreferences(head+"coin",MODE_PRIVATE);
             point=coin.getInt("point",0);
             itempoint.setText(point+"P");
 
+            checkOrientation();
+try {
+    e1.setOnTouchListener(new View.OnTouchListener() {
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            try {
+                buybutton.setText("Proceed");
+            } catch (Exception e) {
+            }
+            return false;
+        }
+    });
+}catch (Exception ee){
+
+}
             changetheme();
 
             itempoint.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +164,7 @@ public class item extends AppCompatActivity {
 
                 }
             });*/
-            b1.setOnClickListener(view -> {
+            buybutton.setOnClickListener(view -> {
                 rewardedAd=ad.getRewardedAd();
                 point=coin.getInt("point",0);
                 if (point == 0) {
@@ -162,7 +182,9 @@ public class item extends AppCompatActivity {
                                 t.setText("Available Balance : " + deductMoney(Long.parseLong(price)));
                                 e1.setText("");
                                 e2.setText("");
-                                b1.setText("Committed");
+                                spitem.edit().putString("monthlyspent"+head,monthlySpend()).apply();
+
+                                buybutton.setText("Committed");
                                 if(point>0){
                                     int curpoint=coin.getInt("point",0)-1;
                                     coin.edit().putInt("point",curpoint).apply();
@@ -333,7 +355,7 @@ public class item extends AppCompatActivity {
                 if(!file.exists()) file.createNewFile();
                 FileOutputStream f =new FileOutputStream(file,true);
                 f.write(k.getBytes());
-                b1.setText("committed");
+                buybutton.setText("commit");
                 f.close();
             } catch(FileNotFoundException ee) {
                 ee.printStackTrace();
@@ -370,12 +392,11 @@ public class item extends AppCompatActivity {
     private void changetheme(){
         SharedPreferences sp=getSharedPreferences("theme",MODE_PRIVATE);
         LinearLayout layout=findViewById(R.id.item_container);
-        LinearLayout itemlayout=findViewById(R.id.item_enterlayout);
         if(sp.getString("theme","dark").equals("pink")){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getWindow().setStatusBarColor(getColor(R.color.toolbarpink));
             }
-            b1.setBackgroundResource(R.drawable.loginbutpink);
+            buybutton.setBackgroundResource(R.drawable.loginbutpink);
             t.setBackgroundResource(R.drawable.border_light);
             toolbar.setBackgroundColor(getColor(R.color.toolbarpink));
             layout.setBackgroundColor(getColor(R.color.backgroundpink));
@@ -420,5 +441,55 @@ public class item extends AppCompatActivity {
         String user = spitem.getString("user","");
         sharedPreferences.edit().putBoolean(user+"allowapp",false).apply();
 
+    }
+
+    public String monthlySpend() {
+        File path = getApplicationContext().getFilesDir();
+        String b4 = "0";
+        int m;
+        try {
+            m = month(mon);
+
+            FileInputStream f2 = new FileInputStream(new File(path, head+"monthlySpend" + m + year + ".txt"));
+            InputStreamReader r = new InputStreamReader(f2);
+            BufferedReader br = new BufferedReader(r);
+            b4 = br.readLine();
+            if (b4 == null) b4 = "0";
+            f2.close();
+        } catch (IOException e) {
+            Toast.makeText(this, "no data found", Toast.LENGTH_LONG).show();
+        }
+        return b4;
+    }
+    public int month(String m) {
+        if (m.equals("Jan")) return 1;
+        else if (m.equals("Feb")) return 2;
+        else if (m.equals("Mar")) return 3;
+        else if (m.equals("Apr")) return 4;
+        else if (m.equals("May")) return 5;
+        else if (m.equals("June")) return 6;
+        else if (m.equals("July")) return 7;
+        else if (m.equals("Aug")) return 8;
+        else if (m.equals("Sept")) return 9;
+        else if (m.equals("Oct")) return 10;
+        else if (m.equals("Nov")) return 11;
+        else return 12;
+    }
+
+
+
+    private void checkOrientation() {
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            displaysize.setfixWidth(itemLayout, 60);
+            displaysize.setfixWidth(buybutton, 59);
+
+
+        } else if (config.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            displaysize.setfixWidth(itemLayout, 90);
+            displaysize.setfixWidth(buybutton, 89);
+
+//            displaysize.setfixWidth(totalspend, PORTRAIT_TABLE_WIDTH);
+
+        }
     }
 }
