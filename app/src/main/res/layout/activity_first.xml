@@ -1,245 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/first_parent_layout"
+    android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/backgrounddark"
+    android:background="@color/primarylight"
     tools:context="hisaab.store.analyser.first">
-
-    <com.google.android.material.appbar.AppBarLayout
+    <FrameLayout
+        android:id="@+id/containerFrame_home"
         android:layout_width="match_parent"
-        android:background="@drawable/collapsebackground"
-        android:id="@+id/first_appbar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_height="wrap_content"
-        >
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            app:titleCollapseMode="scale"
-            app:title="@string/app_name"
-            android:id="@+id/collapsing_first_page"
-            app:contentScrim="@color/primarydark"
-            app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
-            app:expandedTitleMarginTop="64dp"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomNavigation_home" />
 
-            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            >
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:padding="15dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/first_toolbar_img"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="10dp"
-                   android:background="@drawable/baseline_person_24_white"
-                    android:scaleType="centerCrop"
-                    android:backgroundTint="@color/white"
-                    android:layout_marginBottom="0dp"
-                    android:minWidth="100dp"
-                    android:minHeight="100dp"
-                    app:shapeAppearanceOverlay="@style/roundedImageview"
-                    android:padding="1dp"
-                    app:strokeColor="#281F37"
-                    app:strokeWidth="1.8dp"
-                     />
-
-                <TextView
-                    android:id="@+id/first_toolbar_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/first_toolbar_img"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="58dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="user"
-                    android:fontFamily="@font/days_one"
-                    android:textColor="@color/white"
-                    android:textSize="29sp" />
-
-            </RelativeLayout>
-
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:id="@+id/first_toolbar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-                app:contentInsetStart="0dp"
-                app:menu="@menu/menu"
-                style="@style/MenuItemStyle"
-                app:contentInsetEnd="0dp"
-                app:title="Hisaab Pay"
-                app:titleTextColor="@color/white"
-                />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="390dp"
-        android:layout_height="390dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        app:lottie_rawRes="@raw/bubble"
-        app:lottie_colorFilter="@color/lottiepink"
-        android:id="@+id/s2"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/innerlayout_first"
-            android:orientation="vertical">
+        android:layout_height="1dp"
+        android:background="@color/first_view_bg_light"
+        android:id="@+id/first_view"
+        android:layout_above="@id/bottomNavigation_home" />
 
-            <TextView
-                android:id="@+id/fb1"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/border2"
-                android:clickable="true"
-                android:elevation="10dp"
-                android:focusable="true"
-                android:fontFamily="monospace"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="@string/buy_item"
-                android:textColor="@color/white"
-                android:textSize="@dimen/first_page_textsize_button" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation_home"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        ads:itemRippleColor="@color/primarylight"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@drawable/selector_item_background"
+        app:labelVisibilityMode="labeled"
+        android:layout_marginEnd="0dp"
+        android:layout_gravity="bottom"
+        app:itemShapeInsetStart="0dp"
+        app:itemShapeInsetTop="0dp"
+        app:itemShapeInsetBottom="0dp"
+        app:itemShapeInsetEnd="0dp"
+        app:itemHorizontalPadding="0dp"
+        app:itemPaddingBottom="12dp"
+        app:itemPaddingTop="8dp"
+        android:background="@color/backgroundlight"
+        ads:itemActiveIndicatorStyle="@color/primarylight"
+        ads:itemIconSize="30sp"
+        ads:itemTextAppearanceActive="@style/BottomNavTextActive_light"
+        ads:itemTextAppearanceInactive="@style/BottomNavTextInactive_light"
+        app:itemIconTint="@color/bottom_nav_selector_light"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemTextColor="@color/bottom_nav_selector_light"
+        app:menu="@menu/bottom_nav_menu" />
 
-
-            <TextView
-                android:id="@+id/fb2"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="90dp"
-                android:background="@drawable/border2"
-                android:clickable="true"
-                android:elevation="10dp"
-                android:focusable="true"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:fontFamily="monospace"
-                android:paddingBottom="10dp"
-                android:text="@string/display_information"
-                android:textColor="@color/black"
-                android:textSize="@dimen/first_page_textsize_button" />
-
-
-            <TextView
-                android:id="@+id/fb3"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="90dp"
-                android:background="@drawable/border2"
-                android:clickable="true"
-                android:elevation="10dp"
-                android:focusable="true"
-                android:gravity="center"
-                android:fontFamily="monospace"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Monthly Expenses"
-                android:textColor="@color/black"
-                android:textSize="@dimen/first_page_textsize_button"
-                />
-            <TextView
-                android:id="@+id/fbyear"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="90dp"
-                android:background="@drawable/border2"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:clickable="true"
-                android:text="Yearly Expenses"
-                android:fontFamily="monospace"
-                android:elevation="10dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/first_page_textsize_button"
-                android:focusable="true" />
-
-            <TextView
-                android:id="@+id/fb4"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="90dp"
-                android:layout_marginBottom="0dp"
-                android:background="@drawable/border2"
-                android:clickable="true"
-                android:elevation="10dp"
-                android:focusable="true"
-                android:fontFamily="monospace"
-                android:gravity="center"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Balance Enquiry"
-                android:textColor="@color/black"
-                android:textSize="@dimen/first_page_textsize_button" />
-            <TextView
-                android:id="@+id/delete_but_home"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="90dp"
-                android:layout_marginBottom="80dp"
-                android:background="@drawable/border2"
-                android:fontFamily="monospace"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:elevation="10dp"
-                android:text="Delete Account"
-                android:clickable="true"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:focusable="true" />
-
-            <com.google.android.gms.ads.AdView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/adViewfirst"
-                android:layout_gravity="bottom"
-                ads:adSize="BANNER"
-                android:visibility="gone"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="35dp"
-                ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
-                />
-        </LinearLayout>
 </RelativeLayout>
-    </androidx.core.widget.NestedScrollView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 

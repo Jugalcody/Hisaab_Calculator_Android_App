@@ -9,9 +9,26 @@
     <style name="MenuItemStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">0dp</item>
+        <item name="fontFamily">@font/days_one</item>
     </style>
 
     <style name="Theme.RemoveSplashScreenTheme" parent="Theme.AppCompat">
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+
+    <style name="BottomView_text_active">
+        <item name="android:textSize">14.5sp</item>
+    </style>
+    <style name="Setting_icon_style">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="month_year_card_text_style">
+
+    </style>
+
+    <style name="BottomView_text_inactive">
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

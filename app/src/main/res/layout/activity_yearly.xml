@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/yearly_container"
     android:background="@color/backgrounddark"
-    tools:context="hisaab.store.analyser.first">
+    tools:context="hisaab.store.analyser.Yearly">
+
+    <!-- Toolbar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarheight"
         android:background="@color/primarydark"
         android:id="@+id/yearly_toolbar"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:minWidth="30dp"
@@ -24,13 +26,14 @@
             android:layout_gravity="center"
             android:src="@drawable/back"
             />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="5dp"
             android:gravity="center"
-            android:textStyle="bold"
-            android:layout_gravity="center"
+            android:fontFamily="@font/days_one"
+            android:id="@+id/yearly_toolbar_txt"
             android:text="Yearly Analysis"
             android:textColor="@color/white"
             android:textSize="@dimen/toolbartextsize"/>
@@ -45,241 +48,243 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <!-- Graph Button & Download Icon -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View Graph Analysis"
-                android:layout_gravity="end"
-                android:id="@+id/yearly_graph"
-                android:textAllCaps="false"
-                android:textStyle="normal"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="10dp"
-                android:textSize="16sp"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/loginbut2"
-                android:padding="10dp"
-                />
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View Graph"
+                    android:id="@+id/yearly_graph"
+                    android:textAllCaps="false"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="16sp"
+                    android:background="@drawable/loginbut2"
+                    android:padding="13dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/download"
-                    android:background="@drawable/circlebut"
-                    android:layout_gravity="end"
                     android:id="@+id/yearlypdf"
                     android:layout_centerVertical="true"
                     android:clickable="true"
                     android:layout_marginStart="28dp"
-                    android:padding="13dp"
-                    />
+                    android:padding="14dp"/>
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/yearly_reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_toLeftOf="@id/yearly_graph"
+                    android:background="@drawable/loginbut"
+                    android:backgroundTint="#D85353"
+                    android:text="Reset"
+                    android:textSize="14sp" />
             </RelativeLayout>
+
+            <!-- Balance Section -->
             <LinearLayout
+                android:id="@+id/yearly_balance_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:layout_marginHorizontal="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="13dp"
+                android:padding="16dp"
+                android:background="@drawable/gradient_card"
+                android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
+                <TextView
+                    android:id="@+id/yearavtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="5dp"
-                    ads:cardCornerRadius="4dp"
-                    android:elevation="10dp"
-                    android:id="@+id/monthly_cardtmoney"
-                    android:minHeight="100dp"
-                    ads:cardBackgroundColor="#35284E"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="vertical"
-                        >
-                        <TextView
-                            android:id="@+id/yearavtitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/white"
-                            android:text="Total money available"
-                            />
-                        <View
-                            android:layout_width="match_parent"
-                            android:id="@+id/monthly_v1"
-                            android:layout_height="1dp"
-                            android:background="#675783"
-                            android:layout_marginTop="5dp"
-                            />
-                        <TextView
-                            android:id="@+id/monav"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="19sp"
-                            android:layout_marginTop="18dp"
-                            android:textColor="@color/white"
-                            android:text="---"
-                            />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
+                    android:textSize="@dimen/cardtitletextsize"
+                    style="@style/month_year_card_text_style"
+                    android:textColor="@color/white"
+                    android:text="Total Balance"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/viewhrcolor"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:id="@+id/monav"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="5dp"
-                    ads:cardCornerRadius="4dp"
-                    android:id="@+id/monthly_cardreceivedmoney"
-                    android:minHeight="100dp"
-                    android:elevation="10dp"
-                    ads:cardBackgroundColor="#35284E"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="vertical"
-                        >
-                        <TextView
-                            android:id="@+id/yearrectitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/white"
-                            android:text="Total money received"
-                            />
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="#675783"
-                            android:id="@+id/monthly_v2"
-                            android:layout_marginTop="5dp"
-                            />
-                        <TextView
-                            android:id="@+id/monrec"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:layout_marginTop="18dp"
-                            android:textColor="@color/green"
-                            android:text="----"
-                            />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="5dp"
-                    ads:cardCornerRadius="4dp"
-                    android:id="@+id/monthly_cardspendmoney"
-                    android:minHeight="100dp"
-                    android:elevation="10dp"
-                    ads:cardBackgroundColor="#35284E"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="vertical"
-                        >
-                        <TextView
-                            android:id="@+id/yearstitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/white"
-                            android:text="Total money spent"
-                            />
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="#675783"
-                            android:id="@+id/monthly_v3"
-                            android:layout_marginTop="5dp"
-                            />
-                        <TextView
-                            android:id="@+id/mons"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/white"
-                            android:layout_marginTop="18dp"
-                            android:text="----"
-                            />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                    android:textSize="19sp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/white"
+                    android:text="---"/>
             </LinearLayout>
 
+            <!-- Income Section -->
             <LinearLayout
+                android:id="@+id/yearly_income_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginTop="6dp"
-            >
+                android:layout_marginHorizontal="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:background="@drawable/gradient_card"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/yearrectitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/cardtitletextsize"
+                    style="@style/month_year_card_text_style"
+                    android:textColor="@color/white"
+                    android:text="Total Income"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/viewhrcolor"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:id="@+id/monrec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/green"
+                    android:text="----"/>
+            </LinearLayout>
+
+            <!-- Expenses Section -->
+            <LinearLayout
+                android:id="@+id/yearly_expense_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:background="@drawable/gradient_card"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/yearstitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/cardtitletextsize"
+                    style="@style/month_year_card_text_style"
+                    android:textColor="@color/white"
+                    android:text="Total Money Spent"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/viewhrcolor"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:id="@+id/mons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="15dp"
+                    android:text="----"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/display_selection_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="6dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/border6"
+                android:layout_gravity="center"
+                android:gravity="center|start"
+                android:weightSum="3"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Select Date"
+                    android:id="@+id/datetitle_yearly"
+                    android:textColor="@color/primarylight"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_medium"
+                    />
                 <Spinner
                     android:id="@+id/spinm3"
-                    android:layout_width="wrap_content"
-                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:popupBackground="@color/white"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:backgroundTint="#9E6ADD"
-                    android:background="@drawable/border3"
-                    />
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Reset"
-                    android:layout_margin="20dp"
-                    android:textSize="14sp"
-                    android:id="@+id/yearly_reset"
-                    android:elevation="9dp"
-                    android:backgroundTint="#D85353"
-                    android:background="@drawable/loginbut"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/border6"
                     />
 
+
             </LinearLayout>
+
+
+
+            <!-- Ad Banner -->
             <com.google.android.gms.ads.AdView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/adViewyearly"
                 android:layout_gravity="bottom"
                 ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
-                />
+                android:layout_marginBottom="5dp"
+                ads:adUnitId="@string/bannerid"/>
+
+            <!-- Display Button -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/mondb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_gravity="center"
                 android:layout_marginBottom="64dp"
                 android:background="@drawable/loginbut"
                 android:padding="10dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:text="@string/display"
                 android:textColor="@color/white"
-                android:textSize="17sp" />
-
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

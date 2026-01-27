@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/incomeanalytics_activity_parentlayout"
+    android:background="@color/primarylight"
+    android:orientation="vertical"
+    tools:context=".IncomeAnalytics">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutIncome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primarylight"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/CustomTabText"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabIndicatorHeight="3dp"
+        app:tabGravity="fill"
+        app:tabTextColor="#E6E5E5"
+        app:tabSelectedTextColor="@android:color/white" />
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerIncome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

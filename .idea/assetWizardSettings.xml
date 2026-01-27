@@ -330,7 +330,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/file_download/baseline_file_download_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/library_books/baseline_library_books_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -340,8 +340,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="download" />
+                            <entry key="color" value="2b2b2b" />
+                            <entry key="opacityPercent" value="90" />
+                            <entry key="outputName" value="baseline_library_books_24" />
                           </map>
                         </option>
                       </PersistentState>

@@ -2,15 +2,15 @@
     <!-- Base application theme. -->
     <style name="Theme.HisaabCalculator" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">@color/primarydark</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <item name="colorSecondary">@color/itemdark</item>
         <item name="colorSecondaryVariant">@color/itemdark</item>
         <item name="colorOnSecondary">@color/black</item>
-
-        <item name="android:statusBarColor" tools:targetApi="l">@color/backgrounddark</item>
-
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/primarydark</item>
     </style>
 
     <style name="ScanqrTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">

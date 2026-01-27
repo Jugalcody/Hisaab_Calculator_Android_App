@@ -3,7 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group
         >
-        <item android:title="Reset All"
+
+        <item android:title="Home"
+            app:showAsAction="never"
+            android:icon="@drawable/homeicon"
+            android:id="@+id/menu_home"/>
+
+        <item android:title="Settings"
+            app:showAsAction="never"
+            android:icon="@drawable/setting"
+            android:id="@+id/menu_settings"/>
+        <!--
+            <item android:title="Reset All"
             app:showAsAction="never"
             android:id="@+id/reset_menu"/>
 
@@ -24,9 +35,6 @@
             app:showAsAction="never"
             android:id="@+id/reset_warn"/>
 
-        <item android:title="Auto Detect Payment"
-            android:id="@+id/detectpayment"
-            />
         <item android:title="Change Theme"
             app:showAsAction="never"
             android:id="@+id/theme"/>
@@ -39,9 +47,10 @@
             app:showAsAction="never"
             android:id="@+id/rateapp"/>
 
-        <item android:title="@string/logout"
+
+        <item android:title="Delete Account"
             app:showAsAction="never"
-            android:id="@+id/logout_menu"/>
+            android:id="@+id/del_account"/>-->
 
     </group>
 </menu>

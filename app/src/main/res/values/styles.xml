@@ -3,9 +3,50 @@
 
     <style name="CollapsingToolbarLayoutExpandedTextStyle">
 
-        <item name="android:textSize">25sp</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:paddingBottom">5dp</item>
         <item name="android:layout_marginStart">10dp</item>
+    </style>
+
+
+    <style name="BottomNavTextActive_light" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>  <!-- Larger for selected -->
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:background">@color/backgroundlight</item>
+        <item name="android:textColor">@color/primarylight</item>
+    </style>
+
+    <style name="BottomNavTextInactive_light" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>  <!-- Larger for selected -->
+        <item name="android:textColor">@color/gray</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:background">@color/backgroundlight</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
+    <style name="BottomNavTextActive_dark" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>  <!-- Larger for selected -->
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:background">@color/backgrounddark</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="BottomNavTextInactive_dark" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>  <!-- Larger for selected -->
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:background">@color/backgrounddark</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
+    <style name="CustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 
@@ -17,6 +58,28 @@
     <!-- Dark mode style -->
     <style name="MenuItemTextColorDark" parent="TextAppearance.AppCompat">
         <item name="android:textColor">#FFFFFF</item> <!-- White color -->
+    </style>
+
+    <style name="CollapsingToolbarLayoutCollapsedTextStyle">
+        <item name="android:textSize">21sp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+
+
+    <style name="analyticscardtext">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="abouttextstyle_dark">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="abouttextstyle_white">
+        <item name="android:textColor">@color/black</item>
     </style>
 
 </resources>

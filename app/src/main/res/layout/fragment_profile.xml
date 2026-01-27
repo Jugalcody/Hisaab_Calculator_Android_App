@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/profileFragment_parentlayout"
+    android:background="@color/white"
+    tools:context=".ProfileFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:paddingBottom="20dp"
+                android:layout_marginBottom="24dp"
+                android:paddingStart="16dp"
+                android:id="@+id/profilecard_upperlayout"
+                android:background="@drawable/profilecardbackground"
+                android:paddingEnd="16dp">
+
+                <!-- Settings Icon (Top Right) -->
+                <ImageView
+                    android:id="@+id/imgSettings_profile"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+
+                    android:src="@drawable/baseline_settings_24"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="5dp"
+                    />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="60dp"
+                    android:src="@drawable/baseline_person_24"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerCrop"
+                    android:background="@color/white"
+                    app:shapeAppearanceOverlay="@style/roundedImageview"
+                    />
+
+                <!-- Floating Button on Profile Picture -->
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabChangeProfilePic"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignBottom="@id/imgProfile"
+                    android:layout_alignEnd="@id/imgProfile"
+                    android:foregroundGravity="center"
+                    android:layout_marginEnd="-16dp"
+                    android:src="@drawable/baseline_edit_24"
+                    app:fabCustomSize="48dp"
+                    app:backgroundTint="@color/white"
+                    app:tint="#535353"
+                     />
+
+
+                <!-- Name -->
+                <TextView
+                    android:id="@+id/txtProfileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="John Doe"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_below="@id/imgProfile"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp"/>
+
+                <!-- Detail Layout (DOB & Phone) -->
+
+            </RelativeLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/profile_cardlayout"
+                android:background="@drawable/border6"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="8dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="1dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <!-- Edit Profile Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="14dp"
+                    android:layout_weight="4"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/profilename_title"
+                        android:text="Name"
+                        android:textSize="16sp"
+                        android:textColor="#2E2E2E"
+                        android:fontFamily="@font/poppins_medium"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="2.7"
+                        android:layout_height="wrap_content"
+                        android:text="John Doe"
+                        android:layout_gravity="center_vertical|end"
+                        android:gravity="center_vertical|end"
+                        android:id="@+id/textprofilename2"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="3dp"
+                        android:textColor="#2E2E2E"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/poppins_medium"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.3"
+                        android:layout_height="18dp"
+                        android:id="@+id/profile_nameedit"
+                        android:src="@drawable/baseline_edit_24"
+                        app:tint="@color/black" />
+
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="#C6C6C6"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DOB"
+                        android:textSize="16sp"
+                        android:textColor="#2E2E2E"
+                        android:id="@+id/profiledob_title"
+                        android:fontFamily="@font/poppins_medium"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="XX-XX-XXXX"
+                        android:layout_gravity="end"
+                        android:gravity="end"
+                        android:textSize="16sp"
+                        android:id="@+id/profiledob"
+                        android:textColor="#2E2E2E"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/poppins_medium"/>
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="#C6C6C6"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:textSize="16sp"
+                        android:textColor="#2E2E2E"
+                        android:id="@+id/profilephone_title"
+                        android:fontFamily="@font/poppins_medium"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="XXXXXXXXXX"
+                        android:layout_gravity="end"
+                        android:gravity="end"
+                        android:id="@+id/profilephone"
+                        android:textSize="16sp"
+                        android:textColor="#2E2E2E"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/poppins_medium"/>
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="#C6C6C6"/>
+
+                <!-- Logout Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:id="@+id/logoutlayout"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/logout"
+                        app:tint="#E64A3A" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Logout"
+                        android:textSize="16sp"
+                        android:textColor="#E64A3A"
+                        android:layout_marginStart="12dp"
+                        android:fontFamily="@font/poppins_medium"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

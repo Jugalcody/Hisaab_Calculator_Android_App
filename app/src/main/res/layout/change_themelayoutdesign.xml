@@ -8,6 +8,7 @@
     android:layout_height="wrap_content">
   <RelativeLayout
       android:layout_width="match_parent"
+      android:layout_margin="2dp"
       android:layout_height="wrap_content"
       >
 <TextView
@@ -15,6 +16,10 @@
     android:layout_height="wrap_content"
     android:text="Change Theme"
     android:textSize="18sp"
+    android:paddingStart="10dp"
+    android:paddingEnd="0dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="0dp"
     android:textColor="@color/black"
     android:layout_centerVertical="true"
     android:textStyle="bold"
@@ -49,7 +54,7 @@
             android:layout_margin="10dp"
             android:layout_height="match_parent"
             android:textColor="@color/white"
-            android:text="Theme 1"
+            android:text="Dark"
             />
         <TextView
             android:layout_width="0dp"
@@ -59,9 +64,9 @@
             android:textSize="16sp"
             android:id="@+id/changetheme_pink"
             android:background="@drawable/loginbutpink"
-            android:backgroundTint="#EA3AB8"
+            android:backgroundTint="@color/primarypink2"
             android:layout_height="match_parent"
-            android:text="Theme 2"
+            android:text="Light"
             android:textColor="@color/white"
             />
     </LinearLayout>
@@ -75,6 +80,6 @@
         android:background="#F4F4F4"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
-        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+        ads:adUnitId="@string/bannerid"
         />
 </LinearLayout>

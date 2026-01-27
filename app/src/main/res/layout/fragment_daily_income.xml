@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:id="@+id/dailyincomeanalytics_fragment_parent"
+    android:background="@android:color/white"
+    tools:context=".DailyIncomeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/dailyincomeanalytics_fragment_scroll"
+        >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/dailyincomeanalytics_fragment_title"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_margin="16dp"
+        >
+
+        <ImageView
+            android:id="@+id/dailyincome_back"
+            android:layout_width="30dp"
+            android:layout_height="@dimen/back_height"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/back"
+            app:tint="@color/black" />
+    <TextView
+        android:id="@+id/tvDailyTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daily Income Analytics"
+        android:textStyle="bold"
+        android:fontFamily="@font/days_one"
+        android:textSize="18sp"
+        android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/dailyincome_selection_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/border6"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:weightSum="3"
+        android:orientation="horizontal"
+
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Select Date"
+            android:textColor="@color/primarylight"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/dailyincome_spinner_title"
+            android:layout_marginEnd="3dp"
+            android:layout_marginTop="2dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_medium"
+            />
+        <Spinner
+            android:id="@+id/dailyincomspinnermonth"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:popupBackground="@color/white"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/border6"
+            />
+
+
+
+        <Spinner
+            android:id="@+id/dailyincomspinneryear"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:popupBackground="@color/white"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border6"
+            />
+
+    </LinearLayout>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/nodata_dailyanalyticsincome"
+        android:layout_width="300dp"
+        android:layout_height="280dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:tint="@color/primarydark"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/nodata" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/linegraphlayout_income1"
+
+        android:clipToOutline="true"
+        android:radius="12dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="4"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="Full Graph Toggle"
+                android:textColor="@color/black"
+                android:id="@+id/dailyincomeanalytics_fragment_toggle_title"
+                android:textSize="17sp"
+                />
+            <Switch
+                android:id="@+id/switchfullgraphdailyincom"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:thumbTint="@color/switch_thumb_color"
+                android:trackTint="@color/switch_track_color"/>
+
+        </LinearLayout>
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartDailyIncome"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginStart="6dp"
+        android:layout_below="@id/tvDailyTitle"
+         />
+
+
+
+        <RelativeLayout
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/dailyincomeanalytics_fragment_datalayout"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/border2"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvTotalSpendDailyIncomeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Income"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTotalSpendDailyIncomeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹ 0"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,5 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/primarylight" android:state_checked="true"/> <!-- White color for checked item -->
+    <item android:color="#7C7C7C"/> <!-- Black color for unchecked items (default) -->
+</selector>
+

@@ -3,35 +3,132 @@
     <color name="purple_200">#AB4CDF</color>
     <color name="floatdark">#9E6ADD</color>
     <color name="floatpink">#D03CEA</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="purple_700">#E4E4E4</color>
     <color name="itemdark">#FF03DAC5</color>
     <color name="foreground">#20DDC7</color>
+    <color name="toolbarpink">#ffffff</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black2">#202020</color>
     <color name="white">#FFFFFFFF</color>
     <color name="orange">#F3830D</color>
-    <color name="transparent">#80000000</color>
-    <color name="backgrounddark">#373142</color>
-    <color name="backgroundpink">#FF88DE</color>
+    <color name="transparent">#66FFFFFF</color>
+    <color name="firstgrounddark">#E7E4EE</color>
+    <color name="statusbarcolordark">#373142</color>
+    <color name="backgrounddark"> #1E1E1F</color>
+
+
+    <color name="statusbarcolorpink">#ffffff</color>
+    <color name="itempointdark">#ffffff</color>
+    <color name="icontapeffect">#80745EB1</color>
+    <color name="itempointpink">#000000</color>
     <color name="lottiepink">#FF8BE5</color>
+    <color name="iconcolordark">#E6BBA9DD</color>
+    <color name="iconcolorlight">#5B669C</color>
+    <color name="firstlayout_textcolor">#000000</color>
+    <color name="notecolorpink">#000000</color>
+    <color name="notecolordark">#E4E4E4</color>
     <color name="graphpink">#BF45A4</color>
-    <color name="itempink">#E0D52DA5</color>
+    <color name="itempink">#3F305C</color>
     <color name="gray2">#7D768A</color>
-    <color name="strokecolordark">#281F37</color>
-    <color name="strokecolorpink">#C31F94</color>
-    <color name="primarydark">#342B45</color>
-    <color name="primarypink">#BD1A90</color>
+    <color name="strokecolordark">#2C2142</color>
+    <color name="strokecolorpink">#FD6FA4</color>
+    <color name="primarydark">#5A4780</color>
+    <color name="primarydark2">#66518F</color>
+
+    <color name="backgroundlight">#FFFFFF</color>
+    <color name="primarylight2">#4A396A</color>
+    <color name="primarylight">#5E368F</color>
+    <color name="primarylight3">#65518A</color>
+    <color name="primarylight4">#4CAF50</color>
+
+
+    <color name="lightbuttoncolor">#6F42A5</color>
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Primary colors -->
+        <color name="pp_primary">#3F305C</color>           <!-- Main purple -->
+        <color name="pp_primary_dark">#4A1D7A</color>      <!-- Darker shade for pressed / status bar -->
+        <color name="pp_accent">#4C82FB</color>            <!-- Blue accent, highlights -->
+
+        <!-- Background / Surface -->
+        <color name="pp_surface">#F7F3FB</color>           <!-- Card / section background -->
+        <color name="pp_surface_dark">#EDEAF8</color>      <!-- Alternate card shade -->
+        <color name="pp_white">#FFFFFF</color>
+
+    <color name="pp_card_bg">#F3F0FA</color> <!-- Light card background -->
+    <color name="pp_card_bg_light">#F7F5FB</color> <!-- Lighter card bg for secondary cards -->
+    <!-- White text / icons -->
+
+        <!-- Text -->
+        <color name="pp_text_primary">#0A2540</color>      <!-- Primary text -->
+        <color name="pp_text_secondary">#546E8A</color>    <!-- Subtitle / hint text -->
+
+        <!-- Divider / stroke -->
+        <color name="pp_divider">#D9D9DB</color>           <!-- Card borders / lines -->
+
+        <!-- Optional soft background -->
+        <color name="pp_background_light">#F4F4F4</color>  <!-- Light page background -->
+
+
+
+
+
+
+
+
+
+
+    <color name="primarypink2">#6373C5</color>
     <color name="secondary">#3F305C</color>
-    <color name="deletecardbackgrounddark">#3F305C</color>
-    <color name="deletecardbackgrounddark2">#D537A8</color>
-    <color name="deletecardbackgroundpink">#C92199</color>
+    <color name="cardbackgrounddark">#F0F0F0</color>
+    <color name="search_dark">#4C4C4C</color>
+    <color name="greenincome">#05F105</color>
+    <color name="search_dark2">#292929</color>
+    <color name="cardtextcolor">#000000</color>
+    <color name="cardtextcolorgray">#BDBDBD</color>
+    <color name="cardtextcolorgray3">#D6D6D6</color>
+    <color name="cardtextcolorgray2">#534470</color>
+    <color name="graphdark">#353434</color>
+
+    <color name="spinnerdarkcolor">#55427A</color>
+
+    <color name="bg2">#3A3A3A</color>
     <color name="secondary2">#452F6E</color>
     <color name="strokecolor">#281F37</color>
-    <color name="toolbardark">#342B45</color>
-    <color name="toolbarpink">#CC269D</color>
+    <color name="toolbardark">#373142</color>
+    <color name="lightspinnerbg">#C1CCBEE3</color>
+    <color name="lightviolet">#65518A</color>
+    <color name="lightsurface">#C1CCBEE3</color>
     <color name="viewhrcolor">#675783</color>
     <color name="gray">#939292</color>
     <color name="carddark">#35284E</color>
+    <color name="blue">#5D61B8</color>
     <color name="green">#31A135</color>
-    <color name="purple_500">#6200EE</color>
+    <color name="lgreen">#30A834</color>
+    <color name="purple_500">#FFFFFF</color>
+
+    <color name="settingiconbackgroundlight">#F3F3F3</color>
+    <color name="backgroundlight2">#F8F7F7</color>
+    <color name="settingiconbackgrounddark">#3F305C</color>
+
+    <color name="yellow">#D8AD13</color>
+    <color name="icongreen">#44BD46</color>
+    <color name="lred">#D8AD13</color>
+    <color name="lblue">#D8AD13</color>
+    <!--month and yearcard-->
+
+    <color name="monthyearcardtitlecolorlight">#342B45</color>
+    <color name="monthyearcardtitlecolordark">#ffffff</color>
+    <color name="first_view_bg_light">#F6F6F6</color>
+    <color name="first_view_bg_dark">#323233</color>
 </resources>

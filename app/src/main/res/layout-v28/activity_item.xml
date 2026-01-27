@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarheight"
-        android:background="@color/primarydark"
+        android:background="@color/backgrounddark"
         android:id="@+id/item_toolbar"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
@@ -32,7 +32,7 @@
             android:padding="5dp"
             android:gravity="start|center"
             android:layout_toRightOf="@id/item_back"
-            android:textStyle="bold"
+            android:fontFamily="@font/days_one"
             android:layout_gravity="center"
             android:text="Add Item"
             android:id="@+id/item_buytitle"
@@ -41,13 +41,13 @@
             android:textSize="@dimen/toolbartextsize"/>
 
         <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             ads:lottie_rawRes="@raw/coin"
             android:gravity="end"
             android:id="@+id/item_coinanim"
             android:layout_gravity="end|center"
-            ads:lottie_loop="true"
+            ads:lottie_loop="false"
             android:layout_marginEnd="12dp"
             android:layout_centerVertical="true"
             ads:lottie_autoPlay="true"
@@ -60,7 +60,7 @@
             android:id="@+id/item_point"
             android:layout_toLeftOf="@id/item_coinanim"
             android:layout_centerVertical="true"
-            android:textSize="20dp"
+            android:textSize="19sp"
             android:textColor="@color/white"
             android:maxLines="1"
             android:textStyle="bold"
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/available_bal"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:padding="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="4dp"
@@ -101,10 +101,11 @@
                 />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"
+                android:padding="5dp"
+                android:layout_gravity="center"
                 android:id="@+id/item_enterlayout"
                 android:layout_margin="10dp"
                 >
@@ -117,24 +118,28 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="@string/enter_item"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
+                        android:id="@+id/item_name"
                         android:textColor="@color/white"
                         android:layout_marginEnd="20dp"
-
                         />
                     <EditText
                         android:id="@+id/se1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:backgroundTint="@color/white"
                         android:inputType="text"
-                        android:padding="6dp"
+                        android:gravity="center_vertical"
+                        android:fontFamily="@font/poppins_medium"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="7dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
                         android:background="@drawable/border4"
                         android:textColor="@color/black"
                         android:hint="@string/item"
                         android:textColorHint="@color/gray"
-                        android:textSize="20sp"
+                        android:textSize="19sp"
                         android:importantForAutofill="no" />
                 </LinearLayout>
 
@@ -152,7 +157,8 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="@string/enter_price"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
+                        android:id="@+id/item_price"
                         android:textColor="@color/white"
                         android:layout_marginEnd="20dp"
                         />
@@ -161,16 +167,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/price"
-                        android:padding="6dp"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="7dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="6dp"
+                        android:gravity="center_vertical"
                         android:maxLength="17"
+                        android:fontFamily="@font/poppins_medium"
                         android:textColor="@color/black"
-                        android:backgroundTint="@color/white"
                         android:background="@drawable/border4"
                         android:textColorHint="@color/gray"
                         android:layout_marginStart="20dp"
                         android:inputType="number"
-                        android:textSize="20sp"
-                        android:autofillHints="" />
+                        android:textSize="19sp"
+                        android:importantForAutofill="no"  />
                 </LinearLayout>
             </LinearLayout>
             <!--<LinearLayout
@@ -231,9 +241,9 @@
 -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/sb1"
-                android:layout_width="match_parent"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="20dp"
@@ -252,7 +262,7 @@
                 android:id="@+id/adView"
                 android:layout_gravity="bottom"
                 ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+                ads:adUnitId="@string/bannerid"
                 />
         </LinearLayout>
     </ScrollView>

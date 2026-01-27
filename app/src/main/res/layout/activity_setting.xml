@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/settingfragment_layout"
+    android:background="@color/backgrounddark"
+    tools:context=".SettingActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarheight"
+        android:id="@+id/setting_toolbar"
+        android:background="@color/primarydark"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:minWidth="30dp"
+            android:layout_height="@dimen/back_height"
+            android:layout_margin="8dp"
+            android:id="@+id/setting_back"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:id="@+id/settings_toolbar_txt"
+            android:gravity="center"
+            android:fontFamily="@font/days_one"
+            android:text="Settings"
+            android:textColor="@color/white"
+            android:textSize="@dimen/toolbartextsize"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:elevation="1dp"
+        android:id="@+id/first_progress_"
+        android:visibility="gone"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@id/setting_toolbar"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/setting_about"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border6"
+                android:focusable="true"
+                style="@style/Setting_icon_style"
+                android:clickable="true"
+                android:layout_margin="@dimen/settingtextmargin"
+                android:padding="@dimen/settingtextpadding"
+                android:gravity="start|center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settingtextsize"
+                android:text="About"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_margin="@dimen/settingtextmargin"
+                android:background="@drawable/border6"
+                android:padding="@dimen/settingtextpadding"
+                style="@style/Setting_icon_style"
+                android:gravity="start|center"
+                android:id="@+id/setting_resetall"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/settingtextsize"
+                android:text="Reset All"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/settingtextmargin"
+                android:padding="@dimen/settingtextpadding"
+                android:background="@drawable/border6"
+                android:focusable="true"
+                style="@style/Setting_icon_style"
+                android:clickable="true"
+                android:gravity="start|center"
+                android:id="@+id/seting_removephoto"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settingtextsize"
+                android:text="Remove Photo"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border6"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_margin="@dimen/settingtextmargin"
+                android:padding="@dimen/settingtextpadding"
+                style="@style/Setting_icon_style"
+                android:visibility="gone"
+                android:id="@+id/setting_cautionmsg"
+                android:gravity="start|center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settingtextsize"
+                android:text="Caution Message"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/setting_changename"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border6"
+                android:focusable="true"
+                style="@style/Setting_icon_style"
+                android:clickable="true"
+                android:layout_margin="@dimen/settingtextmargin"
+                android:padding="@dimen/settingtextpadding"
+                android:gravity="start|center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settingtextsize"
+                android:text="Change Name"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/setting_tell_your_friends"
+                android:background="@drawable/border6"
+                android:focusable="true"
+                style="@style/Setting_icon_style"
+                android:clickable="true"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/settingtextmargin"
+                android:padding="@dimen/settingtextpadding"
+                android:gravity="start|center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settingtextsize"
+                android:text="Tell Your Friends"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/setting_rateapp"
+                android:background="@drawable/border6"
+                android:focusable="true"
+                style="@style/Setting_icon_style"
+                android:clickable="true"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/settingtextmargin"
+                android:padding="@dimen/settingtextpadding"
+                android:gravity="start|center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settingtextsize"
+                android:text="Rate App"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/setting_deleteaccount"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border6"
+                android:focusable="true"
+                style="@style/Setting_icon_style"
+                android:clickable="true"
+                android:layout_margin="@dimen/settingtextmargin"
+                android:padding="@dimen/settingtextpadding"
+                android:gravity="start|center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/settingtextsize"
+                android:text="Delete Account"/>
+            <TextView
+                android:id="@+id/setting_reminder_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Expense Reminder"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+
+                android:paddingBottom="10dp"
+                android:fontFamily="@font/days_one" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3"
+                android:background="@drawable/border6"
+                android:orientation="horizontal"
+                android:id="@+id/settingremainderlayout"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="6dp"
+                android:paddingTop="8dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="start|center"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:text="Daily Expense Reminder"
+                    android:textColor="@color/black"
+                    style="@style/Setting_icon_style"
+                    android:id="@+id/setting_remaindertitle"
+                    android:textSize="16sp"
+
+                    />
+                <Switch
+                    android:id="@+id/settingremaindercheckbox"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:thumbTint="@color/switch_thumb_color"
+                    android:trackTint="@color/switch_track_color"/>
+
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/setting_theme_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Default Theme"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:fontFamily="@font/days_one" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:background="@drawable/border6"
+                android:focusable="true"
+                style="@style/Setting_icon_style"
+                android:clickable="true"
+                android:id="@+id/setting_changetheme"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="6dp"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:text="Change Theme"/>
+
+            <TextView
+                android:id="@+id/setting_customtheme_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customize Theme"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:paddingStart="10dp"
+                android:visibility="gone"
+                android:paddingTop="20dp"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="10dp"
+                android:fontFamily="@font/days_one" />
+            <TextView
+                android:id="@+id/btnPickColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Background Color"
+                android:background="@drawable/background_selector"
+                android:focusable="true"
+                android:visibility="gone"
+                android:clickable="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:padding="15dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:fontFamily="@font/days_one" />
+
+
+        </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

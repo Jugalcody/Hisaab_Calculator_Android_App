@@ -1,66 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.hisaabcalculator">
+    package="hisaab.store.analyser">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"
-        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/icon2"
+        android:icon="@mipmap/icon4"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/icon2"
+        android:roundIcon="@mipmap/icon4"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.HisaabCalculator">
+        <activity
+            android:name=".IncomeAnalytics"
+            android:exported="false" />
+        <activity
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AboutPage"
+            android:exported="false" />
+        <activity
+            android:name=".ZoomVideo"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPage"
+            android:exported="false" />
 
 
-        <activity
-            android:name="hisaab.store.analyser.ForgotPage"
-            android:exported="false" />
-        <receiver android:name="hisaab.store.analyser.AlarmReceiver" />
-        <service
-            android:name="hisaab.store.analyser.AppMonitorService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="true">
+        <receiver
+            android:name=".AlarmReceiver"
+            android:exported="true" />
 
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
 
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_service_config" />
-        </service>
+
         <activity
-            android:name="hisaab.store.analyser.Yearly"
+            android:name=".Yearly"
+            android:exported="false" />
+
+        <activity
+            android:name=".VideoTutorialPage"
             android:exported="false" />
         <activity
-            android:name="hisaab.store.analyser.Contact"
+            android:name=".monthly"
             android:exported="false" />
         <activity
-            android:name="hisaab.store.analyser.guide"
+            android:name=".money"
             android:exported="false" />
         <activity
-            android:name="hisaab.store.analyser.monthly"
+            android:name=".display"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
-            android:name="hisaab.store.analyser.money"
-            android:exported="false" />
-        <activity
-            android:name="hisaab.store.analyser.display"
-            android:exported="false" />
-        <activity
-            android:name="hisaab.store.analyser.SplashScreen"
+            android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,16 +73,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="hisaab.store.analyser.item"
+            android:name=".item"
             android:exported="false" />
         <activity
-            android:name="hisaab.store.analyser.first"
+            android:name=".first"
             android:exported="false" />
         <activity
-            android:name="hisaab.store.analyser.signup"
+            android:name=".signup"
             android:exported="false" />
         <activity
-            android:name="hisaab.store.analyser.MainActivity"
+            android:name=".MainActivity"
             android:exported="false" />
 
         <meta-data
@@ -86,7 +90,7 @@
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1079506490540577~9727322648" />
+            android:value="ca-app-pub-6363323342247820~3346562102" />
     </application>
 
 </manifest>

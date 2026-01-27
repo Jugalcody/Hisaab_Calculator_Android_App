@@ -33,8 +33,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
-import com.example.hisaabcalculator.R;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -63,15 +61,9 @@ public class Showad {
 
     public void load(){
         Random random = new Random();
-        int randomNumber = random.nextInt(2);
+       // int randomNumber = random.nextInt(2);
         AdRequest adRequest = new AdRequest.Builder().build();
-        String adunit="";
-        if(randomNumber==0){
-            adunit="ca-app-pub-1079506490540577/9563671110";
-        }
-        else{
-            adunit="ca-app-pub-1079506490540577/9051232858";
-        }
+        String adunit="ca-app-pub-6363323342247820/2420223740";
         RewardedAd.load(context, adunit,
                 adRequest, new RewardedAdLoadCallback() {
                     @Override
@@ -118,12 +110,12 @@ public class Showad {
                 SharedPreferences spitem = context.getSharedPreferences("item", context.MODE_PRIVATE);
                 String head = spitem.getString("user", "");
                 SharedPreferences coin=context.getSharedPreferences(head+"coin",context.MODE_PRIVATE);
-                int curpoint=coin.getInt("point",0)+10;
+                int curpoint=coin.getInt("point",0)+20;
 
                 coin.edit().putInt("point",curpoint).apply();
                 point=coin.getInt("point",0);
 
-                Toast.makeText(context,"You got 10+ rewards",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"You got 20+ rewards",Toast.LENGTH_LONG).show();
                 itempoint.setText(point+"P");
 
             }
@@ -158,7 +150,7 @@ public class Showad {
             @Override
             public void onAdShowedFullScreenContent() {
                 // Called when ad is shown.
-                Toast.makeText(context,"Wait for 30 sec to earn reward!",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Wait for 30 sec to earn rewards!",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -185,7 +177,7 @@ public class Showad {
         AdRequest adRequest = new AdRequest.Builder().build();
         AdView adView=popup.findViewById(R.id.adView);
         adView.loadAd(adRequest);
-        String adtxt="Get 10+ points after watching ads >";
+        String adtxt="Get free 10+ points after watching ads >";
         SpannableString content = new SpannableString(adtxt);
         content.setSpan(new UnderlineSpan(), 0,adtxt.length(), 0);
         adbut.setText(content);
@@ -251,7 +243,7 @@ public class Showad {
                                                     showRewardedAd(itempoint);
                                                 }
                                             }
-                                        }, 6000);
+                                        }, 5000);
                                     } else {
                                         progressBar.setVisibility(View.GONE);
                                         showRewardedAd(itempoint);
@@ -330,7 +322,7 @@ public class Showad {
                                                     showRewardedAd(itempoint);
                                                 }
                                             }
-                                        }, 6000);
+                                        }, 5000);
                                     } else {
                                         progressBar.setVisibility(View.GONE);
                                         showRewardedAd(itempoint);

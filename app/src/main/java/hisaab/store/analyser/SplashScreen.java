@@ -6,8 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-
-import com.example.hisaabcalculator.R;
+import android.view.View;
 
 public class SplashScreen extends AppCompatActivity {
 SharedPreferences sp;
@@ -15,12 +14,15 @@ SharedPreferences sp;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        try{
+            getWindow().setStatusBarColor(getColor(R.color.statusbarcolorpink));
+            getWindow().getDecorView().setSystemUiVisibility(getWindow().getDecorView().getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+        catch (Exception e){}
             try {
                 sp = getSharedPreferences("login", MODE_PRIVATE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    getWindow().setStatusBarColor(getColor(R.color.primarydark));
-                }
+
+
                 boolean islooged = sp.getBoolean("islogged", false);
                 if (!islooged) {
                     new Handler().postDelayed(new Runnable() {

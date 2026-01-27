@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarheight"
         android:layout_alignParentTop="true"
-        android:background="@color/primarydark"
+        android:background="@color/white"
         android:id="@+id/forgot_toolbarlayout"
         android:orientation="horizontal">
         <ImageView
@@ -22,7 +22,8 @@
             android:id="@+id/back_forgot_"
             android:contentDescription="Back button to move back"
             android:layout_gravity="center"
-            android:src="@drawable/back" />
+            android:src="@drawable/back"
+            app:tint="@color/black" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -30,7 +31,8 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:text="Forgot Password"
-            android:textColor="@color/white"
+            android:fontFamily="@font/days_one"
+            android:textColor="@color/black"
             android:textSize="@dimen/toolbartextsize" />
     </LinearLayout>
     <LinearLayout
@@ -49,11 +51,13 @@
             android:maxLines="1"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:drawableTint="#535353"
             android:background="@drawable/border"
-            android:hint="PIN Number"
-            android:maxLength="15"
+            android:hint="Phone Number"
+            android:maxLength="10"
             android:minHeight="48dp"
             android:textSize="17sp"
+            android:inputType="number"
             android:padding="10dp"
             android:drawableLeft="@drawable/baseline_person_24"
             android:drawablePadding="9dp"

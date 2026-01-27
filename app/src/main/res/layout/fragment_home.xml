@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/homelayout"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backgrounddark"
+    tools:context=".HomeFragment">
+
+    <RelativeLayout
+        android:id="@+id/fragmenthome_profile_layout"
+        android:layout_width="match_parent"
+        android:layout_height="77.6dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@drawable/profilecardbackground"
+        android:elevation="6dp"
+        android:clipToPadding="false">
+
+        <!-- Profile image -->
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/home_user_img"
+            android:layout_width="56.7dp"
+            android:layout_height="56.7dp"
+            android:src="@drawable/baseline_person_24"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:background="@color/white"
+            app:shapeAppearanceOverlay="@style/roundedImageview"
+            />
+        <!-- Username -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/home_user_img"
+            android:orientation="vertical"
+            >
+        <TextView
+            android:id="@+id/home_user_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/home_user_img"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="0.8dp"
+            android:text="Hello, Jugal"
+            android:textColor="@color/white"
+            android:textSize="18.4sp"
+            android:fontFamily="@font/days_one" />
+
+        <TextView
+            android:id="@+id/home_user_subtxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/home_user_img"
+            android:fontFamily="@font/aldrich"
+            android:layout_below="@id/home_user_txt"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="3dp"
+            android:text="Analyse your expenses"
+            android:textSize="12.9sp"
+            android:textColor="@color/white"
+             />
+        </LinearLayout>
+        <!-- Notification Icon -->
+        <ImageView
+            android:id="@+id/about_home"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/about"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:id="@+id/homescrolllayout"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/innerhomelayout"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="40dp"
+            android:layout_marginTop="8dp">
+
+            <!-- Hidden title preserved -->
+
+            <TextView
+                android:id="@+id/home_expensetitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manage Expenses"
+                android:textSize="17sp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="11.4dp"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
+
+            <!-- Primary actions card (two tiles) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="6dp"
+
+                android:clipToPadding="false"
+                android:layout_marginBottom="6dp"
+                android:gravity="center"
+                >
+
+                <!-- Add Item -->
+                <LinearLayout
+                    android:id="@+id/home_additem_layout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:elevation="@dimen/itemelevation"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:background="@drawable/itemlayoutbg_dark">
+
+                    <ImageView
+                        android:layout_width="@dimen/imagesize"
+                        android:layout_height="@dimen/imagesize"
+                        android:id="@+id/additemicon_home"
+                        android:src="@drawable/additem"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Add Item"
+                        android:id="@+id/additemtitle_home"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_medium" />
+
+                </LinearLayout>
+
+                <!-- View Hisaab -->
+                <LinearLayout
+                    android:id="@+id/home_viewhisaab_layout"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
+                    android:elevation="@dimen/itemelevation"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:background="@drawable/itemlayoutbg_dark">
+
+                    <ImageView
+                        android:layout_width="@dimen/imagesize"
+                        android:layout_height="@dimen/imagesize"
+                        android:id="@+id/viewhisaab_icon_home"
+                        android:src="@drawable/viewhisaab"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="View Hisaab"
+                        android:id="@+id/viewhisaab_title"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_medium" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Analytics Card — spacing & blue icons -->
+
+                <RelativeLayout
+                    android:id="@+id/analyticsCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/itemlayoutbg_dark"
+                    android:paddingTop="12dp"
+                    android:elevation="@dimen/itemelevation"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="12dp"
+
+                    android:paddingBottom="18dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/home_expenseanalyticstitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="4dp"
+                        android:text="Spending Insights"
+                        android:textColor="@color/white"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginStart="13dp"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        />
+
+                    <!-- two circular action items -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/home_expenseanalyticstitle"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <LinearLayout
+                                android:layout_width="@dimen/imagelayout"
+                                android:layout_height="@dimen/imagelayout"
+                                android:gravity="center"
+                                android:id="@+id/home_monthly_layout"
+                                android:background="@drawable/itemlayoutbgcircle">
+
+                                <ImageView
+                                    android:layout_width="@dimen/imagesize"
+                                    android:layout_height="@dimen/imagesize"
+                                    android:id="@+id/monthlyicon_home"
+                                    android:src="@drawable/monthlyanalysis"
+                                    app:tint="#FFFFFF" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Monthly"
+                                android:id="@+id/monthlytitle_home"
+                                android:textSize="14sp"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <LinearLayout
+                                android:layout_width="@dimen/imagelayout"
+                                android:layout_height="@dimen/imagelayout"
+                                android:gravity="center"
+                                android:id="@+id/home_yearly_layout"
+                                android:background="@drawable/itemlayoutbgcircle">
+
+                                <ImageView
+                                    android:layout_width="@dimen/imagesize"
+                                    android:layout_height="@dimen/imagesize"
+                                    android:id="@+id/yearlyicon_home"
+                                    android:src="@drawable/baseline_analytics_24"
+                                     />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Yearly"
+                                android:id="@+id/yearlytitle_home"
+                                android:textSize="14sp"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/fragmmemt_home_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/bannerid" />
+
+            <LinearLayout
+                android:id="@+id/balanceCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/itemelevation"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/itemlayoutbg_dark"
+                android:paddingTop="12dp"
+                android:paddingBottom="18dp"
+                >
+
+                <TextView
+                    android:id="@+id/txtTotalBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Balance Enquiry"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:layout_marginStart="13dp"
+                    android:textColor="@color/white"
+                     />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:paddingTop="6dp"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginEnd="13dp"
+                        android:paddingBottom="6dp"
+
+                        >
+
+                        <!-- Income history -->
+                        <LinearLayout
+                            android:id="@+id/home_incomehistory_layout"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="19dp"
+                            android:backgroundTint="@color/backgrounddark"
+                            android:gravity="center"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="12dp"
+                            android:background="@drawable/cardbackground">
+
+                            <ImageView
+                                android:layout_width="@dimen/imagesize"
+                                android:layout_height="@dimen/imagesize"
+                                android:src="@drawable/moneey"
+                                android:padding="3dp"
+                                android:id="@+id/incomehistory_icon_home"
+                                app:tint="@color/white" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Income history"
+                                android:id="@+id/incomehistory_title_home"
+                                android:textSize="14sp"
+                                android:textColor="@color/white"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
+
+                        <!-- Income Analytics -->
+                        <LinearLayout
+                            android:id="@+id/home_incomeanalytics_layout"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:backgroundTint="@color/backgrounddark"
+                            android:padding="12dp"
+                            android:background="@drawable/cardbackground">
+
+                            <ImageView
+                                android:layout_width="@dimen/imagesize"
+                                android:layout_height="@dimen/imagesize"
+                                android:id="@+id/incomeanalytics_icon_home"
+                                android:src="@drawable/baseline_analytics_24"
+                                android:scaleType="centerCrop"
+                                app:tint="@color/white" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Income Analytics"
+                                android:textSize="14sp"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center_horizontal"
+                                android:id="@+id/incomeanalytics_home"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Add Balance big call-to-action -->
+                    <LinearLayout
+                        android:id="@+id/home_addbalance"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="19dp"
+                        android:paddingHorizontal="14dp"
+                        android:elevation="2dp"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginEnd="13dp"
+                        android:background="@drawable/roundbutton2"
+                        android:backgroundTint="@color/primarydark">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/addbalance"
+                            app:tint="#FFFFFF" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Add Balance"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/poppins_medium" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- (Unused limit section retained, unchanged) -->
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

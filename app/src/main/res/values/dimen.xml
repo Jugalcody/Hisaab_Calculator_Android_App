@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="toolbarheight">67dp</dimen>
-    <dimen name="toolbartextsize">20.6sp</dimen>
+    <dimen name="toolbarheight">58dp</dimen>
+    <dimen name="toolbartextsize">17sp</dimen>
 
     <!--first page text size-->
     <dimen name="first_page_textsize_button">20sp</dimen>
     <dimen name="back_height">25dp</dimen>
 
+    <dimen name="commonwidth">325dp</dimen>
 
+    <dimen name="cardtitletextsize">18sp</dimen>
+    <dimen name="cardimagemargin">3dp</dimen>
+    <dimen name="dashboard_cardmargin">3.5dp</dimen>
+    <dimen name="dashboard_imageheight">55dp</dimen>
+    <dimen name="dashboard_cardtextSize">14sp</dimen>
+    <dimen name="cardradius">33dp</dimen>
+    <dimen name="cardelevation">0dp</dimen>
 
+    <!--first activity-->
+    <dimen name="cardelevationfirst">0dp</dimen>
+    <dimen name="margintopfirst">80dp</dimen>
+    <dimen name="marginbottomfirst">8dp</dimen>
+    <dimen name="imagesize">46dp</dimen>
+    <dimen name="imagelayout">58dp</dimen>
+    <dimen name="itemelevation">0dp</dimen>
+    <!--setting fragment-->
+
+    <dimen name="settingtextmargin">7dp</dimen>
+    <dimen name="settingtextpadding">12dp</dimen>
+    <dimen name="settingtextsize">16sp</dimen>
 </resources>

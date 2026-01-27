@@ -1,6 +1,7 @@
 package hisaab.store.analyser;
 
 import android.app.Activity;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -14,8 +15,10 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 public class ShowInterstitialAd {
 
     private InterstitialAd mInterstitialAd;
-     Activity context;
-    private final String adId = "ca-app-pub-1079506490540577/1788293269";
+    Activity context;
+    private int flag = 0;
+    private String msg = "";
+    private final String adId = "ca-app-pub-6363323342247820/5269748362";
 
     public ShowInterstitialAd(Activity context) {
         this.context = context;
@@ -29,7 +32,6 @@ public class ShowInterstitialAd {
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 mInterstitialAd = interstitialAd;
 
-                // Set FullScreenContentCallback to handle ad events
                 mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                     @Override
                     public void onAdClicked() {
@@ -38,30 +40,34 @@ public class ShowInterstitialAd {
 
                     @Override
                     public void onAdDismissedFullScreenContent() {
-                        // Set the ad reference to null so it can be reloaded
                         mInterstitialAd = null;
+                        if (flag == 1) {
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                            flag = 0;
+                            msg = "";
+                        }
                     }
 
                     @Override
                     public void onAdFailedToShowFullScreenContent(AdError adError) {
-                        mInterstitialAd = null;
                     }
 
                     @Override
                     public void onAdImpression() {
-                        // Called when an impression is recorded for an ad
                     }
 
                     @Override
                     public void onAdShowedFullScreenContent() {
-                        // Called when ad is shown
+                        context.getSharedPreferences("item", Activity.MODE_PRIVATE)
+                                .edit()
+                                .putInt("adcount", 0)
+                                .apply();
                     }
                 });
             }
 
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                // Handle the error
                 mInterstitialAd = null;
             }
         });
@@ -71,7 +77,12 @@ public class ShowInterstitialAd {
         if (mInterstitialAd != null) {
             mInterstitialAd.show(context);
         } else {
-            // Optionally, you can log or notify that the ad wasn't loaded
+            // Ad not loaded
         }
+    }
+
+    public void setFlag(int flag, String msg) {
+        this.flag = flag;
+        this.msg = msg;
     }
 }

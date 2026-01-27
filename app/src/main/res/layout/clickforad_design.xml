@@ -4,7 +4,8 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/itemlayoutbg_dark"
+    android:backgroundTint="@color/white"
     android:padding="10dp"
     android:layout_height="wrap_content">
 
@@ -12,6 +13,8 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/popup_back"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:src="@drawable/baseline_close_24"
         android:layout_gravity="end"
         app:tint="@color/black" />
@@ -19,6 +22,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
     android:orientation="horizontal"
     >
     <TextView
@@ -60,15 +65,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Require 1 point to add an individual item to hisaab."
+        android:text="Require 1 point to add an item to hisaab."
         android:layout_marginTop="15dp"
         android:textSize="14sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:textColor="@color/black"
         />
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
     android:layout_marginTop="15dp"
     android:orientation="horizontal"
     >
@@ -83,12 +92,15 @@
 />
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="Watch ad"
+        android:layout_height="wrap_content"
+        android:text="Get points"
         android:textColor="@color/white"
+        android:background="@drawable/loginbut"
+        android:padding="10dp"
         android:id="@+id/watchad"
-        android:background="#4E4E4E"
-        android:layout_marginStart="18dp"
+        android:textSize="13sp"
+        android:backgroundTint="#4E4E4E"
+        android:layout_marginStart="5dp"
         android:layout_gravity="center"
         />
 </LinearLayout>
@@ -110,7 +122,7 @@
         ads:adSize="BANNER"
         android:background="#F8F8F8"
         android:layout_marginTop="18dp"
-        ads:adUnitId="ca-app-pub-1079506490540577/7402312139"
+        ads:adUnitId="@string/bannerid"
         />
     <RelativeLayout
         android:layout_width="match_parent"
@@ -125,7 +137,11 @@
             android:id="@+id/popup_warn_gotit"
             android:backgroundTint="@color/primarydark"
             android:background="@drawable/loginbut"
-            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             />

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="hisaab.store.analyser.VideoTutorialPage">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarheight"
+        android:id="@+id/about_toolbar"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:minWidth="30dp"
+            android:layout_height="@dimen/back_height"
+            android:layout_margin="8dp"
+            android:id="@+id/about_back"
+            android:layout_gravity="center"
+            android:src="@drawable/back"
+            app:tint="@color/black" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:gravity="center"
+            android:id="@+id/video_title"
+            android:fontFamily="@font/days_one"
+            android:layout_gravity="center"
+            android:text="Tutorial Videos"
+            android:textColor="@color/black"
+            android:textSize="@dimen/toolbartextsize"/>
+    </LinearLayout>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Hisaab Analyser : An Expense Tracker App"
+    android:textSize="18sp"
+    android:layout_below="@id/about_toolbar"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:textColor="@color/black"
+    android:textStyle="bold"
+    android:id="@+id/title_about"
+    android:layout_marginTop="15dp"
+    />
+
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/title_about"
+    android:layout_margin="10dp"
+    android:id="@+id/aboutrec"
+    />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progress_about"
+        />
+
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/nodata_videotutorial"
+        android:layout_width="300dp"
+        android:layout_height="280dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:tint="@color/primarydark"
+        app:lottie_autoPlay="true"
+        android:visibility="gone"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/nodata" />
+
+    </RelativeLayout>
+
