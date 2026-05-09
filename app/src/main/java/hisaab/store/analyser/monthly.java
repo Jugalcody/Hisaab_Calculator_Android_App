@@ -79,6 +79,7 @@ public class monthly extends AppCompatActivity {
     TextView spentmoneytitle;
     ViewGroup root;
     boolean isclicked = false;
+    View hr1,hr2,hr3;
     AdView adView;
     AppCompatButton reset, graph;
 
@@ -105,6 +106,9 @@ public class monthly extends AppCompatActivity {
             b = findViewById(R.id.mondb);
             root = (ViewGroup) getWindow().getDecorView().getRootView();
             t1 = findViewById(R.id.monrec);
+            hr1=findViewById(R.id.monthlyhr1);
+            hr2=findViewById(R.id.monthlyhr2);
+            hr3=findViewById(R.id.monthlyhr3);
             rectitle = findViewById(R.id.monrectitle);
             spentmoneytitle = findViewById(R.id.monstitle);
             totalbalancetitle=findViewById(R.id.monavtitle);
@@ -356,16 +360,16 @@ Toast.makeText(monthly.this,e.toString(),Toast.LENGTH_SHORT).show();
     }
 
     public void open2() {
-        String monthlyget = utils.monthlyGet(mon, this, year);
-        String monthlySpend = utils.monthlySpend(mon, this, year);
         Activity activity = this;
+        String monthlyGet = utils.monthlyGet(mon, activity, year);
+        String monthlySpend = utils.monthlySpend(mon, activity, year);
 
         AlertDialog.Builder a = new AlertDialog.Builder(this);
         a.setTitle("Reset Monthly Data");
         a.setMessage(
                 "Warning!\n\n" +
-                        "All the expenses for " + mon + " " + year + " will be deleted.\n" +
-                        "The total expenses of this month (" + "Rs." + monthlySpend + ") " +
+                        "All expenses for " + mon + " " + year + " will be deleted.\n" +
+                        "The total expenses of this month (Rs." + monthlySpend + ") " +
                         "will be added back to your overall balance.\n\n" +
                         "Do you want to proceed?"
         );
@@ -374,111 +378,99 @@ Toast.makeText(monthly.this,e.toString(),Toast.LENGTH_SHORT).show();
         a.setPositiveButton("Yes", (dialogInterface, i) -> {
             File path = getApplicationContext().getFilesDir();
 
-            // Define all files
+            // Define all related files
             File yearlyGetFile = new File(path, head + "yearlyGet" + year + ".txt");
-            File dailyIncomeFile = new File(path, head+mon+year+"money_history.txt");
             File yearlySpendFile = new File(path, head + "yearlySpend" + year + ".txt");
-            File hisaabDataFile = new File(path, head + "hisaab" + mon + year + "data.txt");
             File monthlySpendFile = new File(path, head + "monthlySpend" + mon + year + ".txt");
             File monthlyGetFile = new File(path, head + "monthlyGet" + mon + year + ".txt");
             File monthlyHisaabFile = new File(path, head + "hisaab" + mon + year + "data.txt");
+            File dailyIncomeFile = new File(path, head + mon + year + "money_history.txt");
 
             try {
-                // Ensure files exist
-                if (!yearlyGetFile.exists()) yearlyGetFile.createNewFile();
-                if (!dailyIncomeFile.exists()) dailyIncomeFile.createNewFile();
-                if (!yearlySpendFile.exists()) yearlySpendFile.createNewFile();
-                if (!hisaabDataFile.exists()) hisaabDataFile.createNewFile();
-                if (!monthlySpendFile.exists()) monthlySpendFile.createNewFile();
-                if (!monthlyGetFile.exists()) monthlyGetFile.createNewFile();
-                if (!monthlyHisaabFile.exists()) monthlyHisaabFile.createNewFile();
+                // Ensure all files exist
+                createFileIfNotExist(yearlyGetFile);
+                createFileIfNotExist(yearlySpendFile);
+                createFileIfNotExist(monthlySpendFile);
+                createFileIfNotExist(monthlyGetFile);
+                createFileIfNotExist(monthlyHisaabFile);
+                createFileIfNotExist(dailyIncomeFile);
 
-                // Read yearly get
-                FileInputStream f2 = new FileInputStream(yearlyGetFile);
-                BufferedReader br = new BufferedReader(new InputStreamReader(f2));
-                String initalamt = br.readLine();
-                if (initalamt == null) initalamt = "0";
-                f2.close();
-
-                // Clear monthly hisaab data
-                FileOutputStream f3 = new FileOutputStream(hisaabDataFile);
-                f3.write("".getBytes());
-                f3.close();
-
-                // Add back monthly received to total balance
-                long updatedYearlyGet = Long.parseLong(initalamt) - Long.parseLong(monthlyget);
-                FileOutputStream f4 = new FileOutputStream(yearlyGetFile);
-                f4.write(String.valueOf(updatedYearlyGet).getBytes());
-                f4.close();
-
-                SharedPreferences sharedPreferences = getSharedPreferences(head + year, MODE_PRIVATE);
-                sharedPreferences.edit().putString("balance", String.valueOf(updatedYearlyGet)).apply();
+                // Update yearly get
+                long yearlyGetVal = readLongFromFile(yearlyGetFile) - parseLongSafe(monthlyGet);
+                writeLongToFile(yearlyGetFile, yearlyGetVal);
 
                 // Update yearly spend
-                FileInputStream f5 = new FileInputStream(yearlySpendFile);
-                br = new BufferedReader(new InputStreamReader(f5));
-                String initalspend = br.readLine();
-                if (initalspend == null) initalspend = "0";
-                f5.close();
+                long yearlySpendVal = readLongFromFile(yearlySpendFile) - parseLongSafe(monthlySpend);
+                writeLongToFile(yearlySpendFile, yearlySpendVal);
 
-                FileOutputStream f6 = new FileOutputStream(yearlySpendFile);
-                f6.write(String.valueOf(Long.parseLong(initalspend) - Long.parseLong(monthlySpend)).getBytes());
-                f6.close();
+                // Reset monthly files
+                writeLongToFile(monthlySpendFile, 0);
+                writeLongToFile(monthlyGetFile, 0);
+                writeStringToFile(monthlyHisaabFile, "");
+                writeStringToFile(dailyIncomeFile, "");
 
-            } catch (IOException e) {
+                // Update shared preferences
+                SharedPreferences sharedPreferences = getSharedPreferences(head + year, MODE_PRIVATE);
+                sharedPreferences.edit().putString("balance", String.valueOf(yearlyGetVal)).apply();
+                spitem.edit().putString("monthlyspent" + head, "0").apply();
+
+                // Update UI
+                rectitle.setText("Total money received in " + mon + " " + year);
+                spentmoneytitle.setText("Total money spent in " + mon + " " + year);
+                t1.setText("Rs.0");
+                t2.setText("Rs.0");
+                long remain = parseLongSafe(monthlyGet) - parseLongSafe(monthlySpend);
+                t3.setText("Rs." + utils.deductMoney(remain, activity));
+
+            } catch (Exception e) {
                 e.printStackTrace();
+                Toast.makeText(activity, "Error resetting monthly data: " + e, Toast.LENGTH_SHORT).show();
             }
-
-            // Reset monthly files
-            try {
-                FileOutputStream f7 = new FileOutputStream(monthlySpendFile);
-                f7.write("0".getBytes());
-                f7.close();
-
-                f7 = new FileOutputStream(monthlyGetFile);
-                f7.write("0".getBytes());
-                f7.close();
-
-                f7 = new FileOutputStream(monthlyHisaabFile);
-                f7.write("".getBytes());
-                f7.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            try{
-                FileOutputStream f8 = new FileOutputStream(dailyIncomeFile);
-                f8.write("".getBytes());
-                f8.close();
-            }
-            catch (Exception e){}
-
-            // Update UI titles and amounts
-            rectitle.setText("Total money received in " + mon + " " + year);
-            spentmoneytitle.setText("Total money spent in " + mon + " " + year);
-
-            // Update remaining balance for display
-            long remain = Long.parseLong(monthlyget) - Long.parseLong(monthlySpend);
-            t3.setText("Rs." + String.valueOf(utils.deductMoney(remain, activity)));
-            t1.setText("Rs.0");
-            t2.setText("Rs.0");
-            spitem.edit().putString("monthlyspent"+head,"0").apply();
         });
 
         a.setNegativeButton("No", (dialogInterface, i) -> {});
-
         AlertDialog alerts = a.create();
         alerts.show();
-
-        // Optional: Dark mode button color handling
         int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            // Change button text colors only in Dark Mode
             alerts.getButton(DialogInterface.BUTTON_POSITIVE)
                     .setTextColor(ContextCompat.getColor(monthly.this, android.R.color.white));
             alerts.getButton(DialogInterface.BUTTON_NEGATIVE)
                     .setTextColor(ContextCompat.getColor(monthly.this, android.R.color.white));
         }
     }
+
+    // --- Helper methods ---
+    private void createFileIfNotExist(File file) throws IOException {
+        if (!file.exists()) file.createNewFile();
+    }
+
+    private long readLongFromFile(File file) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+            String line = br.readLine();
+            return (line == null || line.isEmpty()) ? 0 : Long.parseLong(line);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    private void writeLongToFile(File file, long value) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(String.valueOf(value).getBytes());
+        }
+    }
+
+    private void writeStringToFile(File file, String value) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(value.getBytes());
+        }
+    }
+
+    private long parseLongSafe(String val) {
+        try { return Long.parseLong(val); } catch (Exception e) { return 0; }
+    }
+
 
 
     private void changetheme() {
@@ -505,7 +497,9 @@ Toast.makeText(monthly.this,e.toString(),Toast.LENGTH_SHORT).show();
                 toolbar.setBackgroundColor(getColor(R.color.backgroundlight));
             }
 
-
+            hr1.setBackgroundColor(getResources().getColor(R.color.hrdark));
+            hr2.setBackgroundColor(getResources().getColor(R.color.hrdark));
+            hr3.setBackgroundColor(getResources().getColor(R.color.hrdark));
             t1.setTextColor(getColor(R.color.white));
             graph.setBackgroundResource(R.drawable.loginbutpink);
             downloadpdf.setBackgroundResource(R.drawable.circlebutpink);
@@ -547,6 +541,10 @@ Toast.makeText(monthly.this,e.toString(),Toast.LENGTH_SHORT).show();
             t3.setTextColor(getColor(R.color.monthyearcardtitlecolordark));
             t1.setTextColor(getColor(R.color.green));
             datetitle.setTextColor(getResources().getColor(R.color.white));
+
+            hr1.setBackgroundColor(getResources().getColor(R.color.hrlight));
+            hr2.setBackgroundColor(getResources().getColor(R.color.hrlight));
+            hr3.setBackgroundColor(getResources().getColor(R.color.hrlight));
 
         }
 

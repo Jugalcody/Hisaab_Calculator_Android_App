@@ -122,6 +122,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:id="@+id/yearlyhr1"
                     android:background="@color/viewhrcolor"
                     android:layout_marginTop="5dp"/>
 
@@ -160,6 +161,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:id="@+id/yearlyhr2"
                     android:background="@color/viewhrcolor"
                     android:layout_marginTop="5dp"/>
 
@@ -198,6 +200,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:id="@+id/yearlyhr3"
                     android:background="@color/viewhrcolor"
                     android:layout_marginTop="5dp"/>
 

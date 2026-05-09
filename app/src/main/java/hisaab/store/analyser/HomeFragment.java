@@ -11,13 +11,16 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,22 +45,25 @@ public class HomeFragment extends Fragment {
 
     LinearLayout additemlayout,viewhisaablayout,monthlylayout,yearlylayout,addbalance,incomeHistoryLayout,incomeAnalyticsLayout;
 
-    LinearLayout homelayout,balanceCard;
-
+    LinearLayout balanceCard,analyticslayout;
+    CoordinatorLayout homelayout;
     ImageView about;
     ShowInterstitialAd interstitialAd;
+    TextView additemsubtitle,viewsubtitle,monthlysubtitle,yearlysubtitle,historysubtitle,analysticssubtitle;
+    View vr1,vr2;
 
     AdView adView;
 
     TextView expensetitle,spendingTitle,balanceTitle,additemtitle,viewhisaabtitle,monthlytitle,yearlytitle,incomehistorytitle,incomeanalyticstitle;
-    RelativeLayout profileLayout,analyticslayout;
+    RelativeLayout profileLayout;
+    FrameLayout monthlyframe,historyframe,analyticsframe,yearlyframe,additemframe,viewframe;
 
 
     ImageView user_img,additemicon,viewhisaabicon,monthlyicon,yearlyicon,incomeanalyticsicon,incomehistoryicon;
     TextView username;
     ViewGroup root;
     SharedPreferences spitem,splogin,sptheme;
-    ScrollView homescroll;
+    NestedScrollView homescroll;
     View view;
     public static UserViewModel viewModel;
     String head="";
@@ -71,10 +77,18 @@ public class HomeFragment extends Fragment {
         try {
             root = (ViewGroup) requireActivity().getWindow().getDecorView().getRootView();
             incomeHistoryLayout=view.findViewById(R.id.home_incomehistory_layout);
+            yearlyframe= view.findViewById(R.id.home_yearly_layout_frame);
+            monthlyframe= view.findViewById(R.id.home_monthly_layout_frame);
+            viewframe= view.findViewById(R.id.viewframe);
+            additemframe= view.findViewById(R.id.additemframe);
+            historyframe= view.findViewById(R.id.home_incomehistory_layout_frame);
+            analyticsframe= view.findViewById(R.id.home_incomeanalytics_layout_frame);
             incomeAnalyticsLayout=view.findViewById(R.id.home_incomeanalytics_layout);
             username = view.findViewById(R.id.home_user_txt);
             homescroll=view.findViewById(R.id.homescrolllayout);
             adView=view.findViewById(R.id.fragmmemt_home_add);
+            vr1=view.findViewById(R.id.vr1);
+            vr2=view.findViewById(R.id.vr2);
             expensetitle=view.findViewById(R.id.home_expensetitle);
             spendingTitle=view.findViewById(R.id.home_expenseanalyticstitle);
             balanceTitle=view.findViewById(R.id.txtTotalBalance);
@@ -90,6 +104,14 @@ public class HomeFragment extends Fragment {
             incomehistoryicon=view.findViewById(R.id.incomehistory_icon_home);
          //   displaysize = new AdjustSizeConfiguration(getActivity());
            // config = getResources().getConfiguration();
+
+            //subtitle ids
+            additemsubtitle=view.findViewById(R.id.additem_subtitle);
+            viewsubtitle=view.findViewById(R.id.viewhisaab_subtitle);
+            yearlysubtitle=view.findViewById(R.id.yearly_subtitle);
+            monthlysubtitle=view.findViewById(R.id.monthly_subtitle);
+            historysubtitle=view.findViewById(R.id.incomehistory_subtitle);
+            analysticssubtitle=view.findViewById(R.id.incomeanalytics_subtitle);
 
             utils = new Utils();
             viewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
@@ -207,16 +229,11 @@ public class HomeFragment extends Fragment {
                     openDisplay(getContext(),Yearly.class);
                 }
             });
-
-
+/*
             ButtonEffect buttonEffect = new ButtonEffect(requireContext());
             buttonEffect.buttonEffect(addbalance);
             buttonEffect.buttonEffect(viewhisaablayout);
-            buttonEffect.buttonEffect(monthlylayout);
-            buttonEffect.buttonEffect(yearlylayout);
-            buttonEffect.buttonEffect(additemlayout);
-            buttonEffect.buttonEffect(incomeHistoryLayout);
-            buttonEffect.buttonEffect(incomeAnalyticsLayout);
+            */
 
             viewModel.getProfileImage().observe(getViewLifecycleOwner(), newImageBase64 -> {
                 if (newImageBase64 != null && !newImageBase64.isEmpty()) {
@@ -284,59 +301,85 @@ public class HomeFragment extends Fragment {
 
             //icons
 
-            viewhisaabicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.primarylight), PorterDuff.Mode.SRC_IN);
-            additemicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.primarylight), PorterDuff.Mode.SRC_IN);
-            incomehistoryicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.primarylight), PorterDuff.Mode.SRC_IN);
+           // viewhisaabicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.primarylight), PorterDuff.Mode.SRC_IN);
+          //  additemicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.primarylight), PorterDuff.Mode.SRC_IN);
+           // incomehistoryicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.primarylight), PorterDuff.Mode.SRC_IN);
 
-            monthlyicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
+          //  monthlyicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
 
-            yearlyicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
+          //  yearlyicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
 
-            incomeanalyticsicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.primarylight), PorterDuff.Mode.SRC_IN);
+          //  incomeanalyticsicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.primarylight), PorterDuff.Mode.SRC_IN);
 
-            incomeanalyticsicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.primarylight), PorterDuff.Mode.SRC_IN);
+          //  incomeanalyticsicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.primarylight), PorterDuff.Mode.SRC_IN);
 
+            additemsubtitle.setTextColor(getResources().getColor(R.color.subtitlecolorlightbg));
+            viewsubtitle.setTextColor(getResources().getColor(R.color.subtitlecolorlightbg));
+            yearlysubtitle.setTextColor(getResources().getColor(R.color.subtitlecolorlightbg));
+            monthlysubtitle.setTextColor(getResources().getColor(R.color.subtitlecolorlightbg));
+            historysubtitle.setTextColor(getResources().getColor(R.color.subtitlecolorlightbg));
+            analysticssubtitle.setTextColor(getResources().getColor(R.color.subtitlecolorlightbg));
 
-            monthlylayout.setBackgroundTintList(
-                    ContextCompat.getColorStateList(requireContext(), R.color.primarylight)
+            monthlyframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.framegreen)
             );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                monthlylayout.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+                monthlyframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
             } else {
-                monthlylayout.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+                monthlyframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             }
 
-            yearlylayout.setBackgroundTintList(
-                    ContextCompat.getColorStateList(requireContext(), R.color.primarylight)
+            yearlyframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.frameblue)
             );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                yearlylayout.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+                yearlyframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
             } else {
-                yearlylayout.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+                yearlyframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             }
 
 
-
-            incomeHistoryLayout.setBackgroundTintList(
-                    ContextCompat.getColorStateList(requireContext(), androidx.cardview.R.color.cardview_light_background)
+            additemframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.framegreen)
             );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                incomeHistoryLayout.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+                additemframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
             } else {
-                incomeHistoryLayout.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+                additemframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             }
 
-            incomeAnalyticsLayout.setBackgroundTintList(
-                    ContextCompat.getColorStateList(requireContext(), androidx.cardview.R.color.cardview_light_background)
+            viewframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.frameblue)
             );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                incomeAnalyticsLayout.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+                viewframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
             } else {
-                incomeAnalyticsLayout.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+                viewframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            }
+
+
+            historyframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.framegreen)
+            );
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                historyframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+            } else {
+                historyframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            }
+
+            analyticsframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.frameorange)
+            );
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                analyticsframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+            } else {
+                analyticsframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             }
 
             addbalance.setBackgroundTintList(
@@ -349,9 +392,12 @@ public class HomeFragment extends Fragment {
                 addbalance.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             }
 
-
+            vr1.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.subtitlecolorlightbg));
+            vr2.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.subtitlecolorlightbg));
         }
   else{
+            vr1.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.subtitlecolordarkbg));
+            vr2.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.subtitlecolordarkbg));
             additemtitle.setTextColor(getResources().getColor(R.color.white));
             viewhisaabtitle.setTextColor(getResources().getColor(R.color.white));
             viewhisaabtitle.setTextColor(getResources().getColor(R.color.white));
@@ -366,68 +412,73 @@ public class HomeFragment extends Fragment {
             viewhisaablayout.setBackground(getResources().getDrawable(R.drawable.itemlayoutbg_dark));
             additemlayout.setBackground(getResources().getDrawable(R.drawable.itemlayoutbg_dark));
             profileLayout.setBackground(getResources().getDrawable(R.drawable.homeprofilecardbackground_dark));
-            homelayout.setBackgroundColor(getResources().getColor(R.color.backgrounddark));
-            homescroll.setBackgroundColor(getResources().getColor(R.color.backgrounddark));
+            homelayout.setBackgroundColor(getResources().getColor(R.color.backgrounddark33));
+            homescroll.setBackgroundColor(getResources().getColor(R.color.backgrounddark33));
             expensetitle.setTextColor(getResources().getColor(R.color.white));
             balanceTitle.setTextColor(getResources().getColor(R.color.white));
             spendingTitle.setTextColor(getResources().getColor(R.color.white));
 
-
+            additemsubtitle.setTextColor(getResources().getColor(R.color.subtitlecolordarkbg));
+            viewsubtitle.setTextColor(getResources().getColor(R.color.subtitlecolordarkbg));
+            yearlysubtitle.setTextColor(getResources().getColor(R.color.subtitlecolordarkbg));
+            monthlysubtitle.setTextColor(getResources().getColor(R.color.subtitlecolordarkbg));
+            historysubtitle.setTextColor(getResources().getColor(R.color.subtitlecolordarkbg));
+            analysticssubtitle.setTextColor(getResources().getColor(R.color.subtitlecolordarkbg));
            //icon
 
-            viewhisaabicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
-            additemicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
-            incomehistoryicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
+          //  viewhisaabicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
+        //    additemicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
+            //incomehistoryicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
 
-            monthlyicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
+        //    monthlyicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
 
-            yearlyicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
+          //  yearlyicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
 
-            incomeanalyticsicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
+          //  incomeanalyticsicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
 
-            incomeanalyticsicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
+          //  incomeanalyticsicon.setColorFilter(ContextCompat.getColor(getContext(),R.color.white), PorterDuff.Mode.SRC_IN);
 
 
-            monthlylayout.setBackgroundTintList(
-                    ContextCompat.getColorStateList(requireContext(), R.color.primarydark)
+            monthlyframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.backgrounddark33)
             );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                monthlylayout.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+                monthlyframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
             } else {
-                monthlylayout.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+                monthlyframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             }
 
-            yearlylayout.setBackgroundTintList(
-                    ContextCompat.getColorStateList(requireContext(), R.color.primarydark)
+            yearlyframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.backgrounddark33)
             );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                yearlylayout.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+                yearlyframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
             } else {
-                yearlylayout.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+                yearlyframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             }
 
 
 
-            incomeHistoryLayout.setBackgroundTintList(
-                    ContextCompat.getColorStateList(requireContext(), R.color.backgrounddark)
+            historyframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.backgrounddark33)
             );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                incomeHistoryLayout.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+                historyframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
             } else {
-                incomeHistoryLayout.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+                historyframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             }
 
-            incomeAnalyticsLayout.setBackgroundTintList(
-                    ContextCompat.getColorStateList(requireContext(), R.color.backgrounddark)
+            analyticsframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.backgrounddark33)
             );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                incomeAnalyticsLayout.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+                analyticsframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
             } else {
-                incomeAnalyticsLayout.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+                analyticsframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             }
             addbalance.setBackgroundTintList(
                     ContextCompat.getColorStateList(requireContext(), R.color.primarydark)
@@ -438,6 +489,73 @@ public class HomeFragment extends Fragment {
             } else {
                 addbalance.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
             }
+
+
+            additemframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.framegreendark)
+            );
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                additemframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+            } else {
+                additemframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            }
+
+            viewframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.framebluedark)
+            );
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                viewframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+            } else {
+                viewframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            }
+
+
+            monthlyframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.framegreendark)
+            );
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                monthlyframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+            } else {
+                monthlyframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            }
+
+            yearlyframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.framebluedark)
+            );
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                yearlyframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+            } else {
+                yearlyframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            }
+
+
+
+            historyframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.frametealdark)
+            );
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                historyframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+            } else {
+                historyframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            }
+
+            analyticsframe.setBackgroundTintList(
+                    ContextCompat.getColorStateList(requireContext(), R.color.frameorangedark)
+            );
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                analyticsframe.setBackgroundTintBlendMode(BlendMode.SRC_ATOP);
+            } else {
+                analyticsframe.setBackgroundTintMode(PorterDuff.Mode.SRC_ATOP);
+            }
+
+
+
         }
     }
 
@@ -501,23 +619,10 @@ public class HomeFragment extends Fragment {
     public void randomMsg(View view){
         // 1. Define the array of subtitles
         String[] subtitles = {
-                "Spend wisely save more",
-                "Make every rupee count",
-                "Analyse your expenses daily",
-                "Track where your money goes",
-                "Control your cash flow",
-                "Save more from every income",
-                "Understand your spending patterns",
-                "Plan today for a better tomorrow",
-                "Regularly check your expenses graph",
-                "Update your expenses regularly",
-                "Never miss adding record",
-                "Do analyse your expenses",
-                "Track to plan profit",
-                "Know your profit and loss",
-                "Every spend matters keep track"
+                "Accurate analysis",
+                "Track expenses",
+                "Manage your expenses"
         };
-
 
 // 2. Generate a random index from 0 to 9
         Random random = new Random();

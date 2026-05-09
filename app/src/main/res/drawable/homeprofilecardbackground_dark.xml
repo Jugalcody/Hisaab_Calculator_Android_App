@@ -5,7 +5,6 @@
 <!--  <corners android:bottomRightRadius="10dp"
       android:bottomLeftRadius="10dp"/>-->
 
-
   <solid android:color="@color/primarydark"/>
 
 </shape>

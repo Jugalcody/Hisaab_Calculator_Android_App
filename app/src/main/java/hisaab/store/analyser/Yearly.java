@@ -75,6 +75,7 @@ public class Yearly extends AppCompatActivity {
     TextView rectitle;
     ShowInterstitialAd interstitialAd;
     TextView spentmoneytitle;
+    View hr1,hr2,hr3;
     AppCompatButton graph;
     ImageView downloadpdf;
     AdjustSizeConfiguration displaysize;
@@ -100,6 +101,9 @@ public class Yearly extends AppCompatActivity {
             cardspendmoney = findViewById(R.id.yearly_expense_layout);
             b = findViewById(R.id.mondb);
             t1 = findViewById(R.id.monrec);
+            hr1=findViewById(R.id.yearlyhr1);
+            hr2=findViewById(R.id.yearlyhr2);
+            hr3=findViewById(R.id.yearlyhr3);
             displaysize = new AdjustSizeConfiguration(Yearly.this);
             config = getResources().getConfiguration();
             t2 = findViewById(R.id.mons);
@@ -431,7 +435,9 @@ catch (Exception e){
             }
 
 
-
+            hr1.setBackgroundColor(getResources().getColor(R.color.hrdark));
+            hr2.setBackgroundColor(getResources().getColor(R.color.hrdark));
+            hr3.setBackgroundColor(getResources().getColor(R.color.hrdark));
             t1.setTextColor(getColor(R.color.white));
             downloadpdf.setBackgroundResource(R.drawable.circlebutpink);
             graph.setBackgroundResource(R.drawable.loginbutpink);
@@ -472,7 +478,9 @@ catch (Exception e){
             t3.setTextColor(getColor(R.color.monthyearcardtitlecolordark));
             cardrecmoney.setBackgroundResource(R.drawable.gradient_card);
             cardspendmoney.setBackgroundResource(R.drawable.gradient_card);
-
+            hr1.setBackgroundColor(getResources().getColor(R.color.hrlight));
+            hr2.setBackgroundColor(getResources().getColor(R.color.hrlight));
+            hr3.setBackgroundColor(getResources().getColor(R.color.hrlight));
             t1.setTextColor(getColor(R.color.green));
 
         }

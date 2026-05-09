@@ -1,4 +1,4 @@
-plugins {
+ plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
 }
@@ -11,8 +11,8 @@ android {
         applicationId = "hisaab.store.analyser"
         minSdk = 24
         targetSdk = 35
-        versionCode = 121
-        versionName = "2.1.8"
+        versionCode = 131
+        versionName = "2.2.8"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -42,6 +42,7 @@ dependencies {
     implementation("com.github.skydoves:colorpickerview:2.2.4")
     implementation("com.google.android.play:review:2.0.1")
     implementation("com.google.android.play:review-ktx:2.0.1")
+    implementation("com.google.android.material:material:1.13.0")
 
     testImplementation("junit:junit:4.+")
     implementation(platform("com.google.firebase:firebase-bom:33.8.0"))

@@ -30,4 +30,6 @@
     <dimen name="settingtextmargin">7dp</dimen>
     <dimen name="settingtextpadding">12dp</dimen>
     <dimen name="settingtextsize">16sp</dimen>
+
+    <dimen name="elevation_homefragment">0.5dp</dimen>
 </resources>

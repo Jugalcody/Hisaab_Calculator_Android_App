@@ -1,4 +1,6 @@
 package hisaab.store.analyser;
+import static android.content.Context.MODE_PRIVATE;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -94,6 +97,7 @@ public class display extends AppCompatActivity {
     boolean isrow=false;
     Utils utils;
     TextView toolbartxt;
+    String user="";
     String[] montharr = {"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"};
     String[] arr2 = {"2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2034", "2035", "2036", "2037", "2038", "2039", "2040", "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050"};
     String[] deletetypearr={"Select","Delete data of whole day","Delete a single row data"};
@@ -148,6 +152,9 @@ public class display extends AppCompatActivity {
             totalspend = findViewById(R.id.display_total);
             toolbar = findViewById(R.id.display_toolbar);
             b1 = findViewById(R.id.db);
+            SharedPreferences splogin = getSharedPreferences("login", Context.MODE_PRIVATE);
+            user=splogin.getString("fullname", "N U L").strip().split(" ")[0];
+            if(user.equals("N")) user="";
             deletetypelayout=findViewById(R.id.delete_typelayout_display);
             delete_date_layout = findViewById(R.id.delete_datelayout_display);
             pdfdownloadbut=findViewById(R.id.displayPdfdownload);
@@ -373,7 +380,8 @@ public class display extends AppCompatActivity {
                             totalspend.setVisibility(View.GONE);
                             carddelete.setVisibility(View.GONE);
                             searchview.setVisibility(View.GONE);
-                            Toast.makeText(this, "No data found!", Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(this, user + ", you have no record!", Toast.LENGTH_LONG).show();
                         }
 
                         handleButtonClick();
@@ -610,6 +618,7 @@ public class display extends AppCompatActivity {
 
 
 
+
     public int show_data() {
         int y = 0;
         try {
@@ -627,7 +636,8 @@ public class display extends AppCompatActivity {
                 File file;
                 sno.setText("Sno");
 
-                if(Objects.equals(getIntent().getStringExtra("key"), "hisaab")) {
+                String key = getIntent().getStringExtra("key");
+                if(Objects.equals(key, "hisaab")) {
                     file= new File(path, head + "hisaab" + mon + year + "data.txt");
                     item.setText("Item");
                     price.setText("Price");
@@ -703,7 +713,6 @@ public class display extends AppCompatActivity {
                 if(flag==0){
                     nodata.setVisibility(View.VISIBLE);
                     carddelete.setVisibility(View.GONE);
-                    searchview.setVisibility(View.GONE);
                     hview.setVisibility(View.GONE);
                     totalspend.setVisibility(View.GONE);
 
@@ -711,13 +720,13 @@ public class display extends AppCompatActivity {
                 else{
                     nodata.setVisibility(View.GONE);
                     Calendar now = Calendar.getInstance();
-                    if(getIntent().getStringExtra("key").equals("hisaab")) {
+                    String keyStr = getIntent().getStringExtra("key");
+                    if(Objects.equals(keyStr, "hisaab")) {
                         if (year.equals(arr2[now.get(Calendar.YEAR) - 2024]) && mon.equals(montharr[now.get(Calendar.MONTH)])) {
                             carddelete.setVisibility(View.VISIBLE);
                             searchview.setVisibility(View.VISIBLE);
                         } else {
                             carddelete.setVisibility(View.GONE);
-                            searchview.setVisibility(View.GONE);
                         }
                     }
 
@@ -730,27 +739,13 @@ public class display extends AppCompatActivity {
                     y = 1;
                 } else {
 
-                   hisaabdata = convertToArray(meddata);
-
-
-                    SharedPreferences sptheme = getSharedPreferences("theme", MODE_PRIVATE);
-                    if (sptheme.getString("theme", "dark").equals("pink")) {
-                        colhead0.setBackgroundResource(R.drawable.rectangle_box_black);
-                        colhead1.setBackgroundResource(R.drawable.rectangle_box_black);
-                        colhead2.setBackgroundResource(R.drawable.rectangle_box_black);
-                        colhead3.setBackgroundResource(R.drawable.rectangle_box_black);
-                    } else {
-                        colhead0.setBackgroundResource(R.drawable.rectangle_box);
-                        colhead1.setBackgroundResource(R.drawable.rectangle_box);
-                        colhead2.setBackgroundResource(R.drawable.rectangle_box);
-                        colhead3.setBackgroundResource(R.drawable.rectangle_box);
-                    }
+                    hisaabdata = convertToArray(meddata);
 
 
 
-               if (hisaabdata!=null && hisaabdata.length > 0 ) {
-                   System.out.println("kky"+Arrays.deepToString(hisaabdata));
-                   searchview.setVisibility(View.VISIBLE);
+                    if (hisaabdata!=null && hisaabdata.length > 0 ) {
+                        System.out.println("kky"+Arrays.deepToString(hisaabdata));
+                        searchview.setVisibility(View.VISIBLE);
                    /*
                         for (String[] row : hisaabdata) {
                             addRow(tableContent, row);
@@ -758,7 +753,8 @@ public class display extends AppCompatActivity {
                         }*/
                         String previousDate = "";
                         countnew=0;
-                        if(getIntent().getStringExtra("key").equals("hisaab")) {
+                        String typeKey = getIntent().getStringExtra("key");
+                        if(Objects.equals(typeKey, "hisaab")) {
                             String[] headerRow = {"Sno", "Item", "Price", "Date"};
                             addRow(tableContent, headerRow);
                         }
@@ -1281,7 +1277,7 @@ public class display extends AppCompatActivity {
             searchText.setTextColor(Color.BLACK);
             snotitle.setTextColor(getResources().getColor(R.color.primarylight));
             searchText.setHintTextColor(Color.GRAY);
-            searchText.setHint("Search Item");
+            searchText.setHint("Search here");
 
 
             datetitle.setTextColor(getResources().getColor(R.color.primarylight));
@@ -1376,7 +1372,7 @@ public class display extends AppCompatActivity {
 
             searchText.setTextColor(Color.WHITE);
             searchText.setHintTextColor(Color.GRAY);
-            searchText.setHint("Search Item");
+            searchText.setHint("Search here");
 
             searchview.setBackground(getResources().getDrawable(R.drawable.searchbar));
 

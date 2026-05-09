@@ -67,8 +67,9 @@
                 android:layout_width="125dp"
                 android:layout_height="125dp"
                 android:layout_margin="10dp"
+                android:background="@color/white"
                 android:layout_gravity="center_horizontal"
-                android:src="@mipmap/icon4"
+                android:src="@mipmap/icon2"
                 />
 
             <TextView

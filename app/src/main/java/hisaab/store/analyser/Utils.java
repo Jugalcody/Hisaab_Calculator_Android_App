@@ -77,7 +77,6 @@ public class Utils {
             String year = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
             File file = new File(path, head+"monthlySpend" + arr[Integer.parseInt(mon)-1]+year+ ".txt");
             if(!file.exists()) file.createNewFile();
-
             FileInputStream f3 = new FileInputStream(file);
 
             InputStreamReader rr = new InputStreamReader(f3);

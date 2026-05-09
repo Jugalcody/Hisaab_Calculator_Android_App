@@ -43,7 +43,7 @@
         app:itemPaddingTop="8dp"
         android:background="@color/backgroundlight"
         ads:itemActiveIndicatorStyle="@color/primarylight"
-        ads:itemIconSize="30sp"
+        ads:itemIconSize="25sp"
         ads:itemTextAppearanceActive="@style/BottomNavTextActive_light"
         ads:itemTextAppearanceInactive="@style/BottomNavTextInactive_light"
         app:itemIconTint="@color/bottom_nav_selector_light"

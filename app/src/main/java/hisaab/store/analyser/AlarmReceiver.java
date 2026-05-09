@@ -213,7 +213,7 @@ else if(hour==0){
         }
 
         builder = new NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.mipmap.icon4)
+                .setSmallIcon(R.mipmap.icon2)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setAutoCancel(false);

@@ -3,6 +3,7 @@ package hisaab.store.analyser;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -40,6 +41,7 @@ public class item extends AppCompatActivity {
 
     LinearLayout itemLayout;
     AdjustSizeConfiguration displaysize;
+    String user="";
     Utils utils;
     Configuration config;
     ImageView back;
@@ -62,6 +64,9 @@ public class item extends AppCompatActivity {
         }
 
         try {
+            SharedPreferences splogin = getSharedPreferences("login", Context.MODE_PRIVATE);
+            user=splogin.getString("fullname", "N U L").strip().split(" ")[0];
+            if(user.equals("N")) user="";
             displaysize = new AdjustSizeConfiguration(item.this);
             itemLayout=findViewById(R.id.item_enterlayout);
             utils=new Utils();
@@ -76,7 +81,7 @@ public class item extends AppCompatActivity {
             if(mon.equals("Jun")) mon="June";
             else if(mon.equals("Jul")) mon="July";
             else if(mon.equals("Sep")) mon="Sept";
-
+            mon="Jan";
             back=findViewById(R.id.item_back);
             back.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -131,7 +136,7 @@ try {
             });
             try {
                 File path = getApplicationContext().getFilesDir();
-                File f3 = new File(path, (head+"yearlySpend" + year+ ".txt"));
+                File f3 = new File(path, (head+"yearlySpend" +year+ ".txt"));
                 if (!f3.exists()) f3.createNewFile();
             }catch(Exception ex){}
 
@@ -199,7 +204,7 @@ try {
                                 Toast.makeText(item.this,"invalid price",Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                Toast.makeText(this, "insufficient balance", Toast.LENGTH_LONG).show();
+                                Toast.makeText(this, user+", you have insufficient balance!", Toast.LENGTH_LONG).show();
                             }
                         } else if (item.equals("")) {
                             Toast.makeText(this, "Empty Item", Toast.LENGTH_LONG).show();

@@ -11,12 +11,12 @@
     <color name="black">#FF000000</color>
     <color name="black2">#202020</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="orange">#F3830D</color>
+    <color name="orange">#E88D2B</color>
     <color name="transparent">#66FFFFFF</color>
     <color name="firstgrounddark">#E7E4EE</color>
     <color name="statusbarcolordark">#373142</color>
     <color name="backgrounddark"> #1E1E1F</color>
-
+    <color name="backgrounddark33">#1D1D1D</color>
 
     <color name="statusbarcolorpink">#ffffff</color>
     <color name="itempointdark">#ffffff</color>
@@ -36,11 +36,11 @@
     <color name="primarydark">#5A4780</color>
     <color name="primarydark2">#66518F</color>
 
-    <color name="backgroundlight">#FFFFFF</color>
+    <color name="backgroundlight">#FBFBFB</color>
     <color name="primarylight2">#4A396A</color>
     <color name="primarylight">#5E368F</color>
     <color name="primarylight3">#65518A</color>
-    <color name="primarylight4">#4CAF50</color>
+    <color name="primarylight4">#5CB660</color>
 
 
     <color name="lightbuttoncolor">#6F42A5</color>
@@ -131,4 +131,23 @@
     <color name="monthyearcardtitlecolordark">#ffffff</color>
     <color name="first_view_bg_light">#F6F6F6</color>
     <color name="first_view_bg_dark">#323233</color>
+
+
+    <color name="frameorange">#FFF8EE</color>
+    <color name="framegreen">#F1FBF6</color>
+    <color name="frameteal"> #F0F9F8</color>
+    <color name="frameblue">#F1F7FB</color>
+
+
+    <color name="frameorangedark">#241D12</color>
+    <color name="framegreendark">#12241C</color>
+    <color name="frametealdark">#122424</color>
+    <color name="framebluedark">#121C2B</color>
+    <color name="surface">#343435</color>
+    <color name="surfacelight">#484849</color>
+    <color name="surfacedark">#2B2A2A</color>
+    <color name="hrlight">#6B6B6B</color>
+    <color name="hrdark">#A8A7A7</color>
+    <color name="subtitlecolorlightbg">#FA606060</color>
+    <color name="subtitlecolordarkbg">#FACDCDCD</color>
 </resources>

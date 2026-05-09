@@ -815,11 +815,11 @@ public class SettingActivity extends AppCompatActivity {
             themetitle.setTextColor(getColor(R.color.white));
 
             allowremainderswitch.setTrackTintList(
-                    ContextCompat.getColorStateList(this, R.color.pp_card_bg_light)
+                    ContextCompat.getColorStateList(this, R.color.switch_track_color_dark)
             );
 
             allowremainderswitch.setThumbTintList(
-                    ContextCompat.getColorStateList(this, R.color.bg2)
+                    ContextCompat.getColorStateList(this, R.color.switch_thumb_color_dark)
             );
 
 
